@@ -37,6 +37,7 @@
 				android:cropToPadding="true"
 				android:layout_weight="1"
 				android:background="@drawable/border"
+				android:src="@drawable/ic_contactlist"
 				/>
 			    
 

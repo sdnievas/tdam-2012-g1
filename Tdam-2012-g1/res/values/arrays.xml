@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="settingsorder">
-        <item >1</item>
-        <item >2</item>
+    <string-array name="OrdenUsuarios2">
+        <item >Nombre</item>
+        <item >Apellido</item>
+    </string-array>
+    <string-array name="ordenusuarios">
+        <item >Asendente</item>
+        <item >Desendente</item>
+    </string-array>
+    <string-array name="filtrousuarios">
+        <item >Contien Telefono</item>
+        <item >Contiene Email</item>
+        <item >Contiene Mensajes</item>
+    </string-array>
+    <string-array name="orderHistorial">
+        <item >Fecha</item>
+        <item >Fecha y Tipo de Accion</item>
+    </string-array>
+    <string-array name="filtroHistorial">
+        <item >Tipo de Accion</item>
+        <item >Usuario</item>
     </string-array>
     
 </resources>

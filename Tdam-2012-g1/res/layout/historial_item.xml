@@ -4,22 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+    <LinearLayout android:orientation="horizontal"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:background="@android:color/transparent">
 
         <ImageView
-            android:id="@+id/imageVItem"
+            android:id="@+id/imagehistorialItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_recent_history" />
-
+            android:src="@android:drawable/ic_menu_call" />
+
         <TextView
-            android:id="@+id/textVItem"
+            android:id="@+id/textNombreHistorialItem"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.17"
-            android:text="@string/txtVItem" />
+            android:textColor="#FFFFFF"/>
+        
+        <TextView
+            android:id="@+id/textHoraHistorialItem"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.05"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
