@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="right"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/background_main" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,28 +14,31 @@
             android:id="@+id/textVServicioWeb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txtServicioWeb" />
+            android:text="Servicio Mensajes"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="30dp" >
 
         <TextView
             android:id="@+id/textVNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txtVNombre" />
+            android:text="Nombre Usuario"
+            android:textColor="#FFFFFF" />
 
-        <EditText
+        <TextView
             android:id="@+id/txtNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
             android:layout_weight="1"
-            android:ems="10" >
-
-            <requestFocus />
-        </EditText>
+            android:ems="10"
+            android:text="Usuario Ejemplo"
+            android:textColor="#FFFFFF" />
+        
     </LinearLayout>
 
     <LinearLayout
@@ -45,7 +49,8 @@
             android:id="@+id/textVDestinatario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txtVDestinatario" />
+            android:text="Destinatario" 
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/txtDestinatario"
@@ -67,7 +72,8 @@
             android:id="@+id/textVMensaje"
             android:layout_width="314dp"
             android:layout_height="wrap_content"
-            android:text="@string/txtVMensaje" />
+            android:text="Mensaje" 
+            android:textColor="#FFFFFF"/>
 
         <EditText
             android:id="@+id/txtMensaje"
@@ -76,12 +82,28 @@
             android:layout_weight="0.40"
             android:ems="10"
             android:inputType="textMultiLine" />
-
+<LinearLayout 
+     android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.31"
+        android:gravity="right"
+        android:orientation="horizontal">
+            
+   		<EditText
+            android:id="@+id/txtMensaje"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0.40"
+            android:singleLine="true"
+            android:inputType="text" />
+   		
         <Button
             android:id="@+id/btnEnviar"
-            android:layout_width="161dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/txtEnviar" />
+            android:text="Enviar" />
+
+ </LinearLayout>
 
     </LinearLayout>
 

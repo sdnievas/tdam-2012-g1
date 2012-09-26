@@ -14,7 +14,7 @@ public class Settings_activity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.contacts_preference);
+		addPreferencesFromResource(R.xml.preference_main);
 	}
 
 

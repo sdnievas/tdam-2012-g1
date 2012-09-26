@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:layout="@layout/preferences_layout">
-    <ListPreference android:defaultValue="1" android:summary="lista" android:title="lista" android:key="lista" android:entries="@array/settingsorder" android:entryValues="@array/settingsorder"/>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference android:defaultValue="1" android:summary="Ordenamiento" android:title="Ordenamiento" android:key="Ordenamiento" android:entries="@array/OrdenUsuarios2" android:entryValues="@array/OrdenUsuarios2"/>
+    <ListPreference android:title="Forma de Ordenamiento" android:key="Forma de Ordenamiento" android:entryValues="@array/ordenusuarios" android:entries="@array/ordenusuarios" android:summary="Forma de Ordenamiento" /><ListPreference android:entryValues="@array/filtrousuarios" android:key="Filtros de Usuario" android:entries="@array/filtrousuarios" android:summary="Filtro de Usuario" android:title="Filtros de Usuario"/>
+    <CheckBoxPreference android:key="Ver Fotos" android:title="Ver Fotos" android:summary="Ver Fotos"/>
+    
     
 
 </PreferenceScreen>

@@ -1,182 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background_main"
-    android:gravity="center_horizontal"
     android:orientation="vertical" >
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/registrarUsuarioScroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="20dp" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:padding="5dp" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
+        
+<LinearLayout 
+	    android:id="@+id/linervmain3"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="50dp"
+	    android:orientation="vertical">
+	    		<LinearLayout 
+		    android:id="@+id/linervmain1"
+		    android:layout_width="match_parent"
+		    android:layout_height="150dp"
+		    android:orientation="horizontal">
+		    
+		    <LinearLayout 
+			    android:id="@+id/linervmain7"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="vertical"
+			    android:layout_weight="1">
+                    
                     <ImageButton
                         android:id="@+id/imgbtn_contactos"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:layout_marginRight="30dp"
-                        android:src="@drawable/contacts_main" />
+                        android:src="@drawable/ic_contacts" 
+                        android:layout_gravity="center"
+                        android:background="@drawable/border_icons"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="left"
                         android:text="Contactos"
+                        android:layout_gravity="center"
                         android:textColor="#000000"
                         android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
+                    
+               </LinearLayout>
+               
+		     <LinearLayout 
+			    android:id="@+id/linervmain5"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="vertical"
+			    android:layout_weight="1">
 
                     <ImageButton
-                        android:id="@+id/imgbtn_msgweb"
+                        android:id="@+id/imgbtn_historial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:src="@drawable/contacts_main" />
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_historial" 
+                        android:background="@drawable/border_icons"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="web"
+                        android:text="Historial"
+                        android:layout_gravity="center"
                         android:textColor="#000000"
                         android:textSize="18dp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:padding="5dp" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <ImageButton
-                        android:id="@+id/imgbtn_mail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:layout_marginRight="30dp"
-                        android:src="@drawable/contacts_main" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="Mail"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <ImageButton
-                        android:id="@+id/imgbtn_logs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:src="@drawable/contacts_main" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="hola"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:padding="5dp" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
-                    <ImageButton
-                        android:id="@+id/imgbtn_conectividad_log"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="left"
-                        android:layout_marginRight="30dp"
-                        android:src="@drawable/contacts_main" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:text="log"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical" >
-
+                    </LinearLayout>
+                    
+               </LinearLayout>
+               
+	
+               <LinearLayout 
+                android:id="@+id/linervmain10"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal">
+		     
+                    <LinearLayout 
+					    android:id="@+id/linervmain7"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:orientation="vertical"
+					    android:layout_weight="1">
+                    
+                   
                     <ImageButton
                         android:id="@+id/imgbtn_perfil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:src="@drawable/contacts_main" />
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_perfil" 
+                        android:background="@drawable/border_icons"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="perfil"
+                        android:text="Mi Perfil"
+                        android:layout_gravity="center"
                         android:textColor="#000000"
                         android:textSize="18dp" />
                 </LinearLayout>
+                
+                     <LinearLayout 
+					    android:id="@+id/linervmain11"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:orientation="vertical"
+					    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/imgbtn_conectividad"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_conectivity"
+                        android:background="@drawable/border_icons" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Conectividad"
+                        android:layout_gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="18dp" />
+                
+            	</LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+         </LinearLayout>
+         
+
 
 </LinearLayout>

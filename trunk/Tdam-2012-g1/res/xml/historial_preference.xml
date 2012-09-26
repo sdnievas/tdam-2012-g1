@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference android:entryValues="@array/filtroHistorial" android:entries="@array/filtroHistorial" android:key="Filtro Historial" android:summary="Filtro Historial" android:title="Filtro Historial"/>
+    <ListPreference android:entryValues="@array/orderHistorial" android:key="Orden Historial" android:entries="@array/orderHistorial" android:summary="Orden Historial" android:title="Orden Historial"/>
+    
+
+</PreferenceScreen>
