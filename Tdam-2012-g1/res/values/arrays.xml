@@ -9,7 +9,7 @@
         <item >Desendente</item>
     </string-array>
     <string-array name="filtrousuarios">
-        <item >Contien Telefono</item>
+        <item >Contiene Telefono</item>
         <item >Contiene Email</item>
         <item >Contiene Mensajes</item>
     </string-array>
