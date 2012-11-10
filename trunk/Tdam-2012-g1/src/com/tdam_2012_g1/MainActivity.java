@@ -1,7 +1,8 @@
 package com.tdam_2012_g1;
 
 
-
+import com.tdam_2012_g1.database.DatabaseHelper;
+import android.content.Context;
 
 import android.view.View.OnClickListener;
 
