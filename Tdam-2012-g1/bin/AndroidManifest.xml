@@ -1,0 +1,81 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tdam_2012_g1"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    
+    <application
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="Inicio" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name=".Conectivity"
+            android:label="Conectividad" >
+        </activity>
+        <activity
+            android:name=".Contacts"
+            android:label="@string/title_activity_contacts" >
+        </activity>
+        <activity
+            android:name=".User_Profile"
+            android:label="Perfil del Usuario" >
+        </activity>
+        <activity
+            android:name=".Servicio_Web"
+            android:label="Servicio Web" >
+        </activity>
+        <activity
+            android:name=".DetalleContacto"
+            android:label="Detalle Contacto" >
+        </activity>
+         <activity
+            android:name=".Historial"
+            android:label="Historial" >
+        </activity>
+        <activity
+            android:name=".Settings_activity"
+            android:label="@string/title_activity_settings_activity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.preference.PreferenceActivity" />
+        </activity>
+                <activity
+            android:name=".Preference_historial"
+            android:label="Prefernce Historial" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.preference.PreferenceActivity" />
+        </activity>
+        <activity
+            android:name=".Preference_user"
+            android:label="Preferencias Usuario" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.preference.PreferenceActivity" />
+        </activity>
+    </application>
+
+</manifest>
