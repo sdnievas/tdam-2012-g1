@@ -79,6 +79,11 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		this.setListAdapter(null);
+		adapter = new ContactsAdapter();
+		getListView().setAdapter(adapter);
+		getListView().setOnItemClickListener(this);
+		loadListData();
 	}
 
 	@Override
@@ -98,19 +103,22 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 				.getDefaultSharedPreferences(this);
 		
 		String ordenarForma = myPreference.getString(
-		getString(R.string.preference_Contactos_Ordenamiento), "0");
+		getString(R.string.preference_Contactos_Ordenamiento), "Acendente");
 		
+		String forma = "ASC";
 		
 		
 		ContentResolver cr = getContentResolver();
 		
+		if (!ordenarForma.equals("Acendente"))
+			forma = "DESC";
 		
-		
-		
+		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME
+							+ " COLLATE LOCALIZED " + forma;
 		
 		
 		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
-				null, null, null);
+				null, null, sortOrder);
 
 		Contacto contact = null;
 
@@ -192,7 +200,7 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 			}
 
 			Contacto contact = (Contacto) getItem(position);
-			holder.txtName.setText(contact.toString());
+			holder.txtName.setText(contact.getName());
 
 			return convertView;
 		}
@@ -249,95 +257,7 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 		
 	}
 	
-	/*
-	
-	private Cursor getContacts() {
 
-		SharedPreferences myPreference = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		boolean filtrarTel = myPreference.getBoolean(
-				getString(R.string.preferenceContactosFTel), false);
-		
-		boolean filtrarMail = myPreference.getBoolean(
-				getString(R.string.preferenceContactosFM), false);
-
-		String ordenarForma = myPreference.getString(
-				getString(R.string.preferenceContactosOForma), "0");
-
-		Uri uri = ContactsContract.Contacts.CONTENT_URI;
-		String[] projection = new String[] { ContactsContract.Contacts._ID,
-				ContactsContract.Contacts.DISPLAY_NAME };
-		StringBuilder selection = new StringBuilder();
-		String[] selectionArgs = null;
-		String forma = "ASC";
-
-		String AND = "";
-		int selectionSize = selection.length();
-
-		if (!ordenarForma.equals("0"))
-			forma = "DESC";
-		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME
-				+ " COLLATE LOCALIZED " + forma;
-
-		if (consulta != null) {
-			selection
-					.append(ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?");
-			selectionArgs = new String[] { "%" + consulta + "%" };
-		}
-		if (filtrarTel) {
-			selection.append(AND + ContactsContract.Contacts.HAS_PHONE_NUMBER
-					+ " = 1");
-			AND = " AND ";
-		}
-		if (filtrarMail)
-			filtrarMail(selection, AND, selectionSize);
-
-		if (!filtrarTipo.equals("0")) {
-			if (filtrarTipo.equals("1"))
-				filtrarTipoTelefono(selection, AND, selectionSize);
-			else
-				filtrarTipoCuenta(selection, AND, selectionSize, filtrarTipo);
-		}
-
-		cursor = null;
-		cursor = getContentResolver().query(uri, projection,
-				selection.toString(), selectionArgs, sortOrder);
-		startManagingCursor(cursor);
-
-		consulta = null;
-		return cursor;
-	}
-
-	private void filtrarMail(StringBuilder selection, String AND,
-			int selectionSize) {
-		Cursor emailCur = getContentResolver().query(
-				ContactsContract.CommonDataKinds.Email.CONTENT_URI,
-				new String[] { ContactsContract.CommonDataKinds.Email._ID,
-						ContactsContract.CommonDataKinds.Email.CONTACT_ID },
-				null, null, null);
-
-		ArrayList<String> id = new ArrayList<String>();
-		emailCur.moveToFirst();
-		String contactId;
-		while (emailCur.moveToNext()) {
-			contactId = emailCur
-					.getString(emailCur
-							.getColumnIndex(ContactsContract.CommonDataKinds.Email.CONTACT_ID));
-			if (contactId != null)
-				id.add(contactId);
-		}
-
-		selection.append(AND + ContactsContract.Contacts._ID + " IN (");
-		for (String contactIdItem : id) {
-			selection.append(contactIdItem + ",");
-		}
-		selectionSize = selection.length();
-		selection.replace(selectionSize - 1, selectionSize, ")");
-		AND = " AND ";
-	}
-
-	*/
 
 }
     

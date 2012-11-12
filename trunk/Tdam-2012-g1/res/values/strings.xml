@@ -9,5 +9,11 @@
     <string name="dc_llamar">Llamar</string>
     <string name="dc_enviar_mensaje">Enviar Mensaje</string>
     <string name="dc_eleccion">Elegir</string>
+    <string name="preference_Contactos_Asc">Acendente</string>
+    <string name="preference_Contactos_Desc">Desendente</string>
+    <string name="preference_Contactos_Nombre">Nombre</string>
+    <string name="preference_Contactos_Apellido"/>
+    <string name="preference_contacto_osummary">ordenar contactos </string>
+    <string name="preference_Contactos_Ordenamiento">Ordenamiento</string>
 
 </resources>
