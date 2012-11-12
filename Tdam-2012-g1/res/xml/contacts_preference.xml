@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <ListPreference android:defaultValue="1" android:summary="Ordenamiento" android:title="Ordenamiento" android:key="Ordenamiento" android:entries="@array/OrdenUsuarios2" android:entryValues="@array/OrdenUsuarios2"/>
-    <ListPreference android:title="Forma de Ordenamiento" android:key="Forma de Ordenamiento" android:entryValues="@array/ordenusuarios" android:entries="@array/ordenusuarios" android:summary="Forma de Ordenamiento" /><ListPreference android:entryValues="@array/filtrousuarios" android:key="Filtros de Usuario" android:entries="@array/filtrousuarios" android:summary="Filtro de Usuario" android:title="Filtros de Usuario"/>
+    <ListPreference android:defaultValue="0" android:summary="Ordenamiento" android:title="Ordenamiento" android:key="Ordenamiento" android:entries="@array/OrdenUsuariosNomOApe" android:entryValues="@array/OrdenUsuariosAscoDesc"/>
+    <ListPreference android:title="Forma de Ordenamiento" android:key="@string/preference_Contactos_Ordenamiento" android:entryValues="@array/OrdenUsuariosAscoDesc" android:entries="@array/OrdenUsuariosAscoDesc" android:summary="@string/preference_contacto_osummary" android:defaultValue="0"/>
+    <ListPreference android:entryValues="@array/filtrousuarios" android:key="Filtros de Usuario" android:entries="@array/filtrousuarios" android:summary="Filtro de Usuario" android:title="Filtros de Usuario"/>
     <CheckBoxPreference android:key="Ver Fotos" android:title="Ver Fotos" android:summary="Ver Fotos"/>
     
     

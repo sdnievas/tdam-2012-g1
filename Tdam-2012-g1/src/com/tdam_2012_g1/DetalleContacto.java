@@ -148,6 +148,7 @@ public class DetalleContacto extends Activity implements OnClickListener{
     //Intent del boton Historial que llama al historial del contacto en particular
     public void onClick(View v) {
     	intent = new Intent().setClass(this, Historial.class);
+    	intent.putExtra("contacto",contact);
 		startActivity(intent);
 	}
     

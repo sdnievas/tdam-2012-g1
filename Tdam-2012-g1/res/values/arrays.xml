@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="OrdenUsuarios2">
-        <item >Nombre</item>
-        <item >Apellido</item>
+    <string-array name="OrdenUsuariosNomOApe">
+        <item >@string/preference_Contactos_Nombre</item>
+        <item >@string/preference_Contactos_Apellido</item>
     </string-array>
-    <string-array name="ordenusuarios">
-        <item >Asendente</item>
-        <item >Desendente</item>
+    <string-array name="OrdenUsuariosAscoDesc">
+        <item >@string/preference_Contactos_Asc</item>
+        <item >@string/preference_Contactos_Desc</item>
     </string-array>
     <string-array name="filtrousuarios">
         <item >Contiene Telefono</item>
