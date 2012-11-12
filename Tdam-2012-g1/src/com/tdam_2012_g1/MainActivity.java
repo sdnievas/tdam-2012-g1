@@ -33,6 +33,8 @@ public class MainActivity extends Activity implements OnClickListener{
         historial.setOnClickListener(this);
         perfil.setOnClickListener(this);
         conectividad.setOnClickListener(this);
+//        Context context = null;
+//        DatabaseHelper db = new DatabaseHelper(context);
                 
     }
     
