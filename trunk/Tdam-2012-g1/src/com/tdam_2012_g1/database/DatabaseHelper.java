@@ -1,7 +1,11 @@
 package com.tdam_2012_g1.database;
 
-import com.tdam_2012_g1.entidadesDAO.Contacto;
-import com.tdam_2012_g1.entidadesDAO.Registro;
+import com.tdam_2012_g1.entidades.Conectividad;
+import com.tdam_2012_g1.entidades.Contacto;
+import com.tdam_2012_g1.entidades.Mail;
+import com.tdam_2012_g1.entidades.MensajeWeb;
+import com.tdam_2012_g1.entidades.Registro;
+import com.tdam_2012_g1.entidades.Usuario;
 
 import android.content.Context;
 import android.content.ContentValues;
@@ -166,37 +170,118 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
-	void AddContacto(Contacto cont)
-	{		 
-		SQLiteDatabase db= this.getWritableDatabase();		 
-		
-		ContentValues cv=new ContentValues();
-		
+	public void addContacto(Contacto cont) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
 		cv.put(colIdContact, cont.get_id());
 		cv.put(colNombreWeb, cont.get_nombreWeb());
-		
+
 		db.insert(contactosAplicacionTable, colIdContact, cv);
-		db.close();		
+		db.close();
 	}
-	
-	 int getContactoCount()
-	 {
-		SQLiteDatabase db=this.getWritableDatabase();
-		Cursor cur= db.rawQuery("Select * from "+contactosAplicacionTable, null);
-		int x= cur.getCount();
+
+	public int getContactoCount() {
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cur = db.rawQuery("Select * from " + contactosAplicacionTable,
+				null);
+		int x = cur.getCount();
 		cur.close();
 		return x;
-	 }
-	 
-	 Cursor getAllEmployees()
-	 {
-		 SQLiteDatabase db=this.getWritableDatabase();//		 
-		 
-		 //Cursor cur= db.rawQuery("Select "+colID+" as _id , "+colName+", "+colAge+" from "+employeeTable, new String [] {});
-		 Cursor cur= db.rawQuery("SELECT * FROM "+contactosAplicacionTable,null);
-		 return cur;
-		 
-	 }
+	}
+
+	public Cursor getAllContactos() {
+		SQLiteDatabase db = this.getWritableDatabase();//
+
+		// Cursor cur=
+		// db.rawQuery("Select "+colID+" as _id , "+colName+", "+colAge+" from "+employeeTable,
+		// new String [] {});
+		Cursor cur = db.rawQuery("SELECT * FROM " + contactosAplicacionTable,
+				null);
+		return cur;
+	}
+
+	public void addMail(Mail mail) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
+		cv.put(colIdUsuarioRemitente, mail.get_idUsuarioRemitente());
+		cv.put(colDestinatario, mail.get_mailDestinatario());
+		cv.put(colFechaEnvio, mail.get_fechaEnvio());
+
+		db.insert(mailsTable, colIdUsuarioRemitente, cv);
+		db.close();
+	}
+
+	public Cursor getAllMails() {
+		SQLiteDatabase db = this.getWritableDatabase();//
+
+		Cursor cur = db.rawQuery("SELECT * FROM " + mailsTable, null);
+		return cur;
+	}
+
+	public void addConectividad(Conectividad conect) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
+		cv.put(colConexion, conect.get_conexion());
+		cv.put(colEstado, conect.get_estado());
+		cv.put(colFechaConexion, conect.get_fecha());
+
+		db.insert(conectividadesTable, colConexion, cv);
+		db.close();
+	}
+
+	public Cursor getAllConectividades() {
+		SQLiteDatabase db = this.getWritableDatabase();//
+
+		Cursor cur = db.rawQuery("SELECT * FROM " + conectividadesTable, null);
+		return cur;
+	}
+
+	public void addUsuario(Usuario usu) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
+		cv.put(colNombre, usu.get_nombre());
+		cv.put(colContraseña, usu.get_contraseña());
+		cv.put(colMail, usu.get_mail());
+
+		db.insert(usuariosTable, colNombre, cv);
+		db.close();
+	}
+
+	public Cursor getAllUsuarios() {
+		SQLiteDatabase db = this.getWritableDatabase();//
+
+		Cursor cur = db.rawQuery("SELECT * FROM " + usuariosTable, null);
+		return cur;
+	}
+
+	public void addMensaje(MensajeWeb msj) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
+		cv.put(colIdContactoRemitente, msj.get_idContactoRemitente());
+		cv.put(colIdContactoDestinatario, msj.get_idContactoDestinatario());
+		cv.put(colFechaEnvioMsj, msj.get_fechaEnvio());
+		cv.put(colDetalle, msj.get_detalle());
+
+		db.insert(mensajesWebTable, colIdContactoRemitente, cv);
+		db.close();
+	}
+
+	public Cursor getAllMensajes() {
+		SQLiteDatabase db = this.getWritableDatabase();//
+
+		Cursor cur = db.rawQuery("SELECT * FROM " + mensajesWebTable, null);
+		return cur;
+	}
 	 
 //		void AddRegistro(Registro reg)
 //		{		 
