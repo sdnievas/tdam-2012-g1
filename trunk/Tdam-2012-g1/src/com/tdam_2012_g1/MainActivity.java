@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,8 @@ public class MainActivity extends Activity implements OnClickListener{
         perfil.setOnClickListener(this);
         conectividad.setOnClickListener(this);
 //        Context context = null;
-//        DatabaseHelper db = new DatabaseHelper(context);
+        DatabaseHelper dbhelper = new DatabaseHelper(this);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
                 
     }
     
