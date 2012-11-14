@@ -2,13 +2,12 @@ package com.tdam_2012_g1.entidades;
 
 public class MensajeWeb {
 	int _id;
-	int _idContactoRemitente;
-	int _idContactoDestinatario;
+	String _remitente;
+	String _destinatario;
 	String _fechaEnvio;
 	String _detalle;
-	
-	public MensajeWeb(){
-		
+
+	public MensajeWeb() {
 	}
 
 	public int get_id() {
@@ -19,20 +18,20 @@ public class MensajeWeb {
 		this._id = _id;
 	}
 
-	public int get_idContactoRemitente() {
-		return _idContactoRemitente;
+	public String get_remitente() {
+		return _remitente;
 	}
 
-	public void set_idContactoRemitente(int _idContactoRemitente) {
-		this._idContactoRemitente = _idContactoRemitente;
+	public void set_remitente(String _remitente) {
+		this._remitente = _remitente;
 	}
 
-	public int get_idContactoDestinatario() {
-		return _idContactoDestinatario;
+	public String get_destinatario() {
+		return _destinatario;
 	}
 
-	public void set_idContactoDestinatario(int _idContactoDestinatario) {
-		this._idContactoDestinatario = _idContactoDestinatario;
+	public void set_destinatario(String _destinatario) {
+		this._destinatario = _destinatario;
 	}
 
 	public String get_fechaEnvio() {
@@ -50,8 +49,4 @@ public class MensajeWeb {
 	public void set_detalle(String _detalle) {
 		this._detalle = _detalle;
 	}
-	
-	
-	
-
 }

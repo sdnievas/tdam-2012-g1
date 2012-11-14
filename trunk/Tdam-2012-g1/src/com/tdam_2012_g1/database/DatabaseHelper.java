@@ -1,15 +1,10 @@
 package com.tdam_2012_g1.database;
 
-import com.tdam2011.grupo02.connectivity.Connectivity;
-import com.tdam2011.grupo02.domain.Usuario;
 import com.tdam_2012_g1.entidades.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
-
 import com.tdam_2012_g1.dom.HistorialMail;
-
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -22,16 +17,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * Nombre de la Base de Datos
 	 */
 	static final String dbName = "TdamDB";
-	
+
 	/**
-	 *  Tabla contactosAplicacion y sus columnas
+	 * Tabla contactosAplicacion y sus columnas
 	 */
 	static final String contactosAplicacionTable = "contactosAplicacion";
 	static final String colIdContact = "idContact";
 	static final String colNombreWeb = "nombreWeb";
 
 	/**
-	 *  Tabla usuarios y sus columnas
+	 * Tabla usuarios y sus columnas
 	 */
 	static final String usuariosTable = "usuarios";
 	static final String colIdUsuario = "idUsuario";
@@ -40,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colMail = "mailUsuario";
 
 	/**
-	 *  Tabla conectividades y sus columnas
+	 * Tabla conectividades y sus columnas
 	 */
 	static final String conectividadesTable = "conectividades";
 	static final String colIdConectividad = "idConectividad";
@@ -49,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colFechaConexion = "fechaConexion";
 
 	/**
-	 *  Tabla mails y sus columnas
+	 * Tabla mails y sus columnas
 	 */
 	static final String mailsTable = "mails";
 	static final String colIdMail = "idMail";
@@ -58,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colFechaEnvio = "fechaEnvio";
 
 	/**
-	 *  Tabla mensajesWeb y sus columnas
+	 * Tabla mensajesWeb y sus columnas
 	 */
 	static final String mensajesWebTable = "mensajesWeb";
 	static final String colIdMensajeWeb = "id";
@@ -68,7 +63,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colDetalle = "detalle";
 
 	/**
-	 *  Constructor
+	 * Constructor
+	 * 
 	 * @param context
 	 */
 	public DatabaseHelper(Context context) {
@@ -77,27 +73,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	/**
-	 *  Método para la creación de la BD
+	 * Método para la creación de la BD
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
 		/**
-		 *  Tabla Contactos
+		 * Tabla Contactos
 		 */
 		db.execSQL("CREATE TABLE " + contactosAplicacionTable + " ("
 				+ colIdContact + " INTEGER PRIMARY KEY , " + colNombreWeb
 				+ " TEXT)");
 
 		/**
-		 *  Tabla Usuarios
+		 * Tabla Usuarios
 		 */
 		db.execSQL("CREATE TABLE " + usuariosTable + "( " + colIdUsuario
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + colNombre
 				+ " TEXT, " + colContraseña + "TEXT, " + colMail + " TEXT )");
 
 		/**
-		 *  Tabla Conectividad
+		 * Tabla Conectividad
 		 */
 		db.execSQL("CREATE TABLE " + conectividadesTable + "( "
 				+ colIdConectividad + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -105,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ colFechaConexion + " DATETIME )");
 
 		/**
-		 *  Tabla mail
+		 * Tabla mail
 		 */
 		db.execSQL("CREATE TABLE " + mailsTable + "( " + colIdMail
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -113,15 +109,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ " TEXT, " + colFechaEnvio + " TEXT)");
 
 		/**
-		 *  Tabla MensajeWeb
+		 * Tabla MensajeWeb
 		 */
 		db.execSQL("CREATE TABLE " + mensajesWebTable + " (" + colIdMensajeWeb
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ colIdContactoRemitente + " INTEGER NOT NULL, "
-				+ colIdContactoDestinatario + " INTEGER NOT NULL, "
+				+ colIdContactoRemitente + " TEXT NOT NULL, "
+				+ colIdContactoDestinatario + " TEXT NOT NULL, "
 				+ colFechaEnvioMsj + " DATETIME, " + colDetalle
 				+ " TEXT NOT NULL);");
-
 
 		/*
 		 * db.execSQL("CREATE TRIGGER fk_msj_contactoremitente " +
@@ -153,12 +148,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		 * " THEN RAISE (ABORT,'Foreign Key Violation') END;"+ "  END;");
 		 */
 
-
-
 	}
 
 	/**
-	 *  Método para la actualización de la BD
+	 * Método para la actualización de la BD
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -178,8 +171,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	/**
-	 *  Agregar un nuevo contacto a la BD
-	 * @param Contacto a agregar
+	 * Agregar un nuevo contacto a la BD
+	 * 
+	 * @param Contacto
+	 *            a agregar
 	 */
 	public void addContacto(com.tdam_2012_g1.entidades.Contacto cont) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -194,7 +189,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	/**
-	 *  Obtener la cantidad de contactos de la BD
+	 * Obtener la cantidad de contactos de la BD
+	 * 
 	 * @return cantidad de contactos
 	 */
 	public int getContactoCount() {
@@ -206,7 +202,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return x;
 	}
 
-	/** Obtener todos los contactos de la BD
+	/**
+	 * Obtener todos los contactos de la BD
 	 */
 	public Cursor getAllContactos() {
 		SQLiteDatabase db = this.getWritableDatabase();//
@@ -219,7 +216,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return cur;
 	}
 
-	/** Agregar un nuevo mail a la BD
+	/**
+	 * Agregar un nuevo mail a la BD
 	 */
 	public void addMail(Mail mail) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -233,8 +231,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.insert(mailsTable, colIdMail, cv);
 		db.close();
 	}
-	
-	/** Obtener todos los mails de la BD
+
+	/**
+	 * Obtener todos los mails de la BD
 	 */
 	public Cursor getAllMails() {
 		SQLiteDatabase db = this.getWritableDatabase();//
@@ -242,8 +241,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Cursor cur = db.rawQuery("SELECT * FROM " + mailsTable, null);
 		return cur;
 	}
-	
-	/** Agregar una nueva conectividad a la BD
+
+	/**
+	 * Agregar una nueva conectividad a la BD
 	 */
 	public void addConectividad(Conectividad conect) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -258,7 +258,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	/** Obtener todas las conectividades de la BD
+	/**
+	 * Obtener todas las conectividades de la BD
 	 */
 	public Cursor getAllConectividades() {
 		SQLiteDatabase db = this.getWritableDatabase();//
@@ -266,8 +267,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Cursor cur = db.rawQuery("SELECT * FROM " + conectividadesTable, null);
 		return cur;
 	}
-	
-	/** Agregar un nuevo contacto a la BD
+
+	/**
+	 * Agregar un nuevo contacto a la BD
 	 */
 	public void addUsuario(Usuario usu) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -282,7 +284,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	/** Obtener todos los usuarios de la BD
+	/**
+	 * Obtener todos los usuarios de la BD
 	 */
 	public Cursor getAllUsuarios() {
 		SQLiteDatabase db = this.getWritableDatabase();//
@@ -291,8 +294,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return cur;
 	}
 
-	/**Agregar un nuevo mensaje a la base de datos
-	 *
+	/**
+	 * Agregar un nuevo mensaje a la base de datos
+	 * 
 	 * @param msj
 	 */
 	public void addMensaje(MensajeWeb msj) {
@@ -300,8 +304,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		ContentValues cv = new ContentValues();
 
-		cv.put(colIdContactoRemitente, msj.get_idContactoRemitente());
-		cv.put(colIdContactoDestinatario, msj.get_idContactoDestinatario());
+		cv.put(colIdContactoRemitente, msj.get_remitente());
+		cv.put(colIdContactoDestinatario, msj.get_destinatario());
 		cv.put(colFechaEnvioMsj, msj.get_fechaEnvio());
 		cv.put(colDetalle, msj.get_detalle());
 
@@ -309,7 +313,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	/** Obtener todos los mensajes de la base de datos
+	/**
+	 * Obtener todos los mensajes de la base de datos
 	 * 
 	 * @return Cursor
 	 */
@@ -319,7 +324,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Cursor cur = db.rawQuery("SELECT * FROM " + mensajesWebTable, null);
 		return cur;
 	}
-
 
 	/**
 	 * 
@@ -372,8 +376,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			aux = new MensajeWeb();
 			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
 
-			aux.set_idContactoDestinatario(cursor.getInt(cursor
-					.getColumnIndex(colIdContactoDestinatario)));
+			aux.set_destinatario((cursor.getString((cursor
+					.getColumnIndex(colIdContactoDestinatario)))));
 
 			// aux.set_idContactoRemitente(cursor.getInt(cursor.getColumnIndex(colIdUsuarioRemitente)));
 
@@ -391,16 +395,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return mails;
 
 	}
-	
+
 	/**
 	 * 
 	 * @return ArrayList de conectividades de la BD
-	 */	
+	 */
 	public LinkedList<Conectividad> getConectividades() {
 		LinkedList<Conectividad> conn = new LinkedList<Conectividad>();
 		Conectividad aux = null;
 		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT * FROM " + conectividadesTable, null);
+		Cursor cursor = db.rawQuery("SELECT * FROM " + conectividadesTable,
+				null);
 
 		while (cursor.moveToNext()) {
 			aux = new Conectividad();
@@ -418,18 +423,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		return conn;
 	}
-	
+
 	/**
 	 * 
-	 * @param user, Usuario a validar
-	 * @return TRUE si el usuario existe en la base de datos y FALSE en caso contrario
+	 * @param user
+	 *            , Usuario a validar
+	 * @return TRUE si el usuario existe en la base de datos y FALSE en caso
+	 *         contrario
 	 */
 	public boolean existsUser(Usuario user) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cur = db.rawQuery("SELECT " + colIdUsuario + " from "
 				+ usuariosTable + " WHERE ( " + colNombre + " =? AND "
-				+ colContraseña + " =? )",
-				new String[] { user.get_nombre(), user.get_contraseña() });
+				+ colContraseña + " =? )", new String[] { user.get_nombre(),
+				user.get_contraseña() });
 		boolean result;
 
 		if (cur.moveToFirst())
@@ -442,10 +449,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		return result;
 	}
-
-		 
-	 
-	 
-	
 
 }

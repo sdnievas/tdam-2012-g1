@@ -1,12 +1,8 @@
 package com.tdam_2012_g1;
 
-
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
 
 import com.tdam_2012_g1.dom.Contacto;
 
@@ -31,51 +27,45 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Contacts extends ListActivity implements OnItemClickListener { 
+public class Contacts extends ListActivity implements OnItemClickListener {
 
-	
 	private static final int DIALOG_CONTACT_INFO = 0;
 	private ContactsAdapter adapter;
 	private Contacto contactToShow;
 	Intent intent;
-	
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contacts);
-				
+
 		adapter = new ContactsAdapter();
 
 		getListView().setAdapter(adapter);
 
 		getListView().setOnItemClickListener(this);
-		
-		loadListData();
-	    
-	}
-    
-    
-    
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_contacts, menu);
-        return true;
-    }
-    
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		loadListData();
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_contacts, menu);
+		return true;
+	}
+
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
-		
+
 		case R.id.menu_settings:
-		    intent = new Intent(this, Preference_user.class);	
+			intent = new Intent(this, Preference_user.class);
 			break;
 		}
 		startActivity(intent);
 		return true;
 	}
-    
-    
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -93,30 +83,28 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 
 	@Override
 	protected void onStop() {
-		super.onStop();	
+		super.onStop();
 	}
 
-	
 	private void loadListData() {
 
 		SharedPreferences myPreference = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		
+
 		String ordenarForma = myPreference.getString(
-		getString(R.string.preference_Contactos_Ordenamiento), "Acendente");
-		
+				getString(R.string.preference_Contactos_Ordenamiento),
+				"Acendente");
+
 		String forma = "ASC";
-		
-		
+
 		ContentResolver cr = getContentResolver();
-		
+
 		if (!ordenarForma.equals("Acendente"))
 			forma = "DESC";
-		
+
 		String sortOrder = ContactsContract.Contacts.DISPLAY_NAME
-							+ " COLLATE LOCALIZED " + forma;
-		
-		
+				+ " COLLATE LOCALIZED " + forma;
+
 		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
 				null, null, sortOrder);
 
@@ -149,12 +137,12 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 		adapter.notifyDataSetChanged();
 
 	}
-    
+
 	class Holder {
 		private TextView txtName;
 	}
-	
-	//Adapter de la lista de contactos
+
+	// Adapter de la lista de contactos
 	class ContactsAdapter extends BaseAdapter {
 		private ArrayList<Contacto> contacts;
 		private LayoutInflater inflater;
@@ -189,8 +177,7 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 		public View getView(int position, View convertView, ViewGroup arg2) {
 			Holder holder;
 			if (convertView == null) {
-				convertView = inflater
-						.inflate(R.layout.item_contacts, null);
+				convertView = inflater.inflate(R.layout.item_contacts, null);
 				holder = new Holder();
 				holder.txtName = (TextView) convertView
 						.findViewById(R.id.txtvContactoNombre);
@@ -204,14 +191,11 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 
 			return convertView;
 		}
-		
-		
-		
 
 	}
-	
+
 	private void loadContactTelephoneNumbers(Contacto contact) {
-		
+
 		Cursor pCur = getContentResolver().query(
 				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
 				ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
@@ -223,7 +207,7 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 		pCur.close();
 
 	}
-	
+
 	private void loadContactEmails(Contacto contact) {
 		Cursor emailCur = getContentResolver().query(
 				ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
@@ -244,23 +228,15 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 
 	}
 
-
-
-
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
 		contactToShow = (Contacto) adapter.getItem(position);
-		intent = new Intent(this,DetalleContacto.class);
-		intent.putExtra("contacto",contactToShow);
-		
-        startActivity(intent);
-		
-	}
-	
+		intent = new Intent(this, DetalleContacto.class);
+		intent.putExtra("contacto", contactToShow);
 
+		startActivity(intent);
+
+	}
 
 }
-    
-    
-    
-   
