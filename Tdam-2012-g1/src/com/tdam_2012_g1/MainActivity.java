@@ -1,8 +1,12 @@
 package com.tdam_2012_g1;
 
 
+import java.sql.Date;
+
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.entidades.Contacto;
+import com.tdam_2012_g1.entidades.Mail;
+import com.tdam_2012_g1.entidades.MensajeWeb;
 
 import android.content.Context;
 
@@ -24,7 +28,8 @@ public class MainActivity extends Activity implements OnClickListener{
 	Intent intent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+
+    	super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
         ImageButton contactos = (ImageButton)findViewById(R.id.imgbtn_contactos);
@@ -37,10 +42,22 @@ public class MainActivity extends Activity implements OnClickListener{
         perfil.setOnClickListener(this);
         conectividad.setOnClickListener(this);
 
+        //agregar datos a la bd
+        
         DatabaseHelper dbhelper = new DatabaseHelper(this);
         SQLiteDatabase db = dbhelper.getWritableDatabase();
-//        Contacto cont = new Contacto(1, "Bruno");
-//        dbhelper.addContacto(cont);
+       // Contacto cont = new Contacto(1, "Brunos");
+       // dbhelper.addContacto(cont);
+        
+		/*Date date = null;
+		date = new Date(2012, 4, 1);
+		MensajeWeb WebsmsNuevo = new MensajeWeb();
+		WebsmsNuevo.set_id(1);
+		WebsmsNuevo.set_idContactoDestinatario(1);
+		WebsmsNuevo.set_idContactoRemitente(2);
+		WebsmsNuevo.set_detalle("Hola como andas");
+		WebsmsNuevo.set_fechaEnvio(date.toGMTString());
+		dbhelper.addMensaje(WebsmsNuevo);*/
                 
     }
     

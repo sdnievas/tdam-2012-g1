@@ -1,5 +1,9 @@
 package com.tdam_2012_g1.entidades;
 
+import java.sql.Date;
+
+import android.provider.ContactsContract.Contacts.Data;
+
 public class Mail {
 	int _id;
 	int _idUsuarioRemitente;
