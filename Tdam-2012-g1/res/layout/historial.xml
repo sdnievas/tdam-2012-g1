@@ -1,81 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/LinearLatout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background_main" >
 
-    <TabHost android:id="@android:id/tabhost"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent">
-
-	    <LinearLayout
-	        android:orientation="vertical"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent" >
-	
-		     <TabWidget android:layout_width="match_parent"
-		     		android:layout_height="wrap_content"
-		     		android:id="@android:id/tabs" />
-	
-		     <FrameLayout android:layout_width="match_parent"
-		     		android:layout_height="match_parent"
-		     		android:id="@android:id/tabcontent" >
-	
-		     	<LinearLayout android:id="@+id/tabLlamadas"
-					android:orientation="vertical"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent" >
-					
-		    		<ListView android:id="@android:id/list"
-			            android:layout_height="wrap_content"
-						android:layout_width="match_parent"
-						android:cacheColorHint="#00000000" />
-		    		
-			</LinearLayout>
-
-	     	<LinearLayout android:id="@+id/tabSms"
-				android:orientation="vertical"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent" >
-	    		
-					 <ListView android:id="@+id/ListaSms"
-			            android:layout_height="wrap_content"
-						android:layout_width="match_parent"
-						android:cacheColorHint="#00000000" />
-	     	    
-			</LinearLayout>
-			
-	     	<LinearLayout android:id="@+id/tabWebSms"
-				android:orientation="vertical"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent" >
-	    		
-					 <ListView android:id="@+id/ListaWebSms"
-			            android:layout_height="wrap_content"
-						android:layout_width="match_parent"
-						android:cacheColorHint="#00000000" />
-	     	    
-			</LinearLayout>
-			
-		     <LinearLayout android:id="@+id/tabMail"
-				android:orientation="vertical"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent" >
-	    		
-					 <ListView android:id="@+id/ListaMail"
-			            android:layout_height="wrap_content"
-						android:layout_width="match_parent"
-						android:cacheColorHint="#00000000" />
-	     	    
-			</LinearLayout>
-
-	     </FrameLayout>
-    </LinearLayout>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@android:id/tabhost">
+    
+    <TabWidget
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:id="@android:id/tabs"
+    />
+    <FrameLayout
+    android:id="@android:id/tabcontent"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:paddingTop="100px"/>
+    
 
 </TabHost>
-
-           
-
-</LinearLayout>

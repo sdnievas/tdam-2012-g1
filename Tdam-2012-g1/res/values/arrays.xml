@@ -8,18 +8,42 @@
         <item >@string/preference_Contactos_Asc</item>
         <item >@string/preference_Contactos_Desc</item>
     </string-array>
-    <string-array name="filtrousuarios">
-        <item >Contiene Telefono</item>
-        <item >Contiene Email</item>
-        <item >Contiene Mensajes</item>
+    <string-array name="OrdenUsuariosAscoDescValues">
+        <item >0</item>
+        <item >1</item>
     </string-array>
-    <string-array name="orderHistorial">
-        <item >Fecha</item>
-        <item >Fecha y Tipo de Accion</item>
+    <string-array name="FiltrosUsuarios">
+        <item >@string/preference_Contactos_Filtros_Todos</item>
+        <item >@string/preference_Contactos_Filtros_SoloConTelefono</item>
+        <item >@string/preference_Contactos_Filtros_SoloConEmail</item>
+        <item >@string/preference_Contactos_Filtros_SoloConWebUser</item>
     </string-array>
-    <string-array name="filtroHistorial">
-        <item >Tipo de Accion</item>
-        <item >Usuario</item>
+    <string-array name="FiltrosUsuariosValues">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
     </string-array>
+    
+    <string-array name="OrdenarHistorialFecha">
+        <item >@string/preference_Historial_OrdenarFechaReciente</item>
+        <item >@string/preference_Historial_OrdenarAsendente</item>
+    </string-array>
+    <string-array name="OrdenarHistorialFechaValues">
+        <item >0</item>
+        <item >1</item>
+    </string-array>
+    
+    <string-array name="FiltrarHistorial">
+        <item >@string/preference_Historial_FiltrarNada</item>
+        <item >@string/preference_Historial_FiltrarEntradas</item>
+        <item >@string/preference_Historial_FiltrarSalientes</item>
+    </string-array>
+        <string-array name="FiltrarHistorialValues">
+        <item >0</item>
+        <item >1</item>
+        <item >2</item>
+    </string-array>
+    
     
 </resources>
