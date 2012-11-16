@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_main"  >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="80dp" >
+        
+        <TextView 
+            	    android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+            	    android:text="Ingrese los datos para el registro de un nuevo ususario"
+            	    android:layout_gravity="center"
+            	    android:textColor="@android:color/white"/>
+        
+        
+    </LinearLayout>
+    
+    
+    <LinearLayout
+          android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+            
+            	<TextView 
+            	    android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+            	    android:text="Nombre Usuario"
+            	    android:layout_gravity="center"
+            	    android:textColor="@android:color/white"/>
+            	
+		        <EditText
+		            android:id="@+id/new_NombUser"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.5" 
+		            android:singleLine="true"/>
+		</LinearLayout>
+		
+    
+    <LinearLayout
+          android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+            
+            	<TextView 
+            	    android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+            	    android:text="Contraseña"
+            	    android:layout_gravity="center"
+            	    android:textColor="@android:color/white"/>
+            	
+		        <EditText
+		            android:id="@+id/new_PassUser"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.5" 
+		            android:singleLine="true"/>
+		        
+		</LinearLayout>
+		
+    
+        <LinearLayout
+          android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+            
+            	<TextView 
+            	    android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+            	    android:text="Repetir Contraseña"
+            	    android:layout_gravity="center"
+            	    android:textColor="@android:color/white"/>
+            	
+		        <EditText
+		            android:id="@+id/new_RePassUser"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.5" 
+		            android:singleLine="true"/>
+		        
+		</LinearLayout>
+    
+    
+    <LinearLayout
+          android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:orientation="horizontal" >
+            
+            	<TextView 
+            	    android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+            	    android:text="Email"
+            	    android:layout_gravity="center"
+            	    android:textColor="@android:color/white"/>
+            	
+		        <EditText
+		            android:id="@+id/new_Email"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="0.5" 
+		            android:singleLine="true"/>
+		        
+		</LinearLayout>
+		
+     <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="80dp" >
+ 
+    </LinearLayout>
+    
+     <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+ 
+         <Button
+            android:id="@+id/new_btnNewUser"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:text="Agregar" />
+         
+         
+    </LinearLayout>
+    
+    
+    
+    
+    
+
+</LinearLayout>

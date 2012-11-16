@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    <ListPreference android:entryValues="@array/filtroHistorial" android:entries="@array/filtroHistorial" android:key="Filtro Historial" android:summary="Filtro Historial" android:title="Filtro Historial"/>
-    <ListPreference android:entryValues="@array/orderHistorial" android:key="Orden Historial" android:entries="@array/orderHistorial" android:summary="Orden Historial" android:title="Orden Historial"/>
+    <ListPreference android:entryValues="@array/FiltrarHistorialValues" android:entries="@array/FiltrarHistorial" android:key="@string/preference_Historial_Filtrarkey" android:summary="@string/preference_Historial_FiltrarSummary" android:title="@string/preference_Historial_FiltrarTitle" android:defaultValue="0"/>
+    <ListPreference android:entryValues="@array/OrdenarHistorialFechaValues" android:key="@string/preference_Historial_Ordenarkey" android:entries="@array/OrdenarHistorialFecha" android:summary="@string/preference_Historial_OrdenarSummary" android:title="@string/preference_Historial_OrdenarTitle"/>
     
 
 </PreferenceScreen>
