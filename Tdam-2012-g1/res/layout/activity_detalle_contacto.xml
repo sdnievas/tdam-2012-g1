@@ -43,7 +43,7 @@
 	                android:id="@+id/textView2"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:text="Números"
+	                android:text="@string/numeros"
 	                android:textAppearance="?android:attr/textAppearanceMedium"
 	                android:textColor="@android:color/white" />
 	
@@ -60,7 +60,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/nu_email"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
@@ -74,7 +74,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mensajería Web"
+                android:text="@string/dc_msjWeb"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/white" />
 
@@ -93,7 +93,7 @@
                     android:id="@+id/btnHistorial_DetalleContacto"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:text="Historial" />
+                    android:text="@string/dc_historial" />
             </LinearLayout>
         </LinearLayout>
 

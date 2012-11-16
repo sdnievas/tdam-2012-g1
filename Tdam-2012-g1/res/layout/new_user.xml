@@ -12,7 +12,7 @@
         <TextView 
             	    android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
-            	    android:text="Ingrese los datos para el registro de un nuevo ususario"
+            	    android:text="@string/leyenda_nuevo_usuario"
             	    android:layout_gravity="center"
             	    android:textColor="@android:color/white"/>
         
@@ -29,7 +29,7 @@
             	    android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
 		            android:layout_weight="1"
-            	    android:text="Nombre Usuario"
+            	    android:text="@string/nu_nombre_usuario"
             	    android:layout_gravity="center"
             	    android:textColor="@android:color/white"/>
             	
@@ -51,7 +51,7 @@
             	    android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
 		            android:layout_weight="1"
-            	    android:text="Contraseña"
+            	    android:text="@string/nu_password"
             	    android:layout_gravity="center"
             	    android:textColor="@android:color/white"/>
             	
@@ -74,7 +74,7 @@
             	    android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
 		            android:layout_weight="1"
-            	    android:text="Repetir Contraseña"
+            	    android:text="@string/nu_repetir_password"
             	    android:layout_gravity="center"
             	    android:textColor="@android:color/white"/>
             	
@@ -97,7 +97,7 @@
             	    android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
 		            android:layout_weight="1"
-            	    android:text="Email"
+            	    android:text="@string/nu_email"
             	    android:layout_gravity="center"
             	    android:textColor="@android:color/white"/>
             	
@@ -126,7 +126,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginLeft="80dp"
-            android:text="Agregar" />
+            android:text="@string/nu_btn_agregar" />
          
          
     </LinearLayout>

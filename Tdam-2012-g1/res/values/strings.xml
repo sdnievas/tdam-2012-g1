@@ -57,21 +57,22 @@
     
     
     <string name="buscar">Buscar</string>
-    <string name="dc_numeros">Números</string>
+    <string name="dc_numeros">Numeros</string>
     <string name="dc_email">Email</string>
-    <string name="dc_msjWeb">Mensajería Web</string>    
+    <string name="dc_msjWeb">Mensajeria Web</string>    
     <string name="dc_historial">Historial</string>
-    <string name="con_estado">Estado de la Conexión</string>
+    <string name="con_estado">Estado de la Conexion</string>
     <string name="con_wifi">WiFi</string>
     <string name="con_3g">3G</string>
     <string name="nombre_usuario_web">El Nombre del Usuario web</string>
     
     <string name="nombre_usuario">Nombre Usuario</string>
+    <string name="numeros">Numeros</string>
     <string name="btn_agregar">Agregar</string>
     <string name="btn_nuevo_usuario">Nuevo Usuario</string>
     <string name="txt_usuario">Usuario</string>
-    <string name="txt_password">Contraseña</string>
-    <string name="btn_inicio_sesion">Iniciar Sesión</string>
+    <string name="txt_password">ContraseÃ±a</string>
+    <string name="btn_inicio_sesion">Iniciar Sesion</string>
     <string name="main_mensaje_web">Mensajes Web</string>
     <string name="main_contactos">Contactos</string>
     <string name="main_historial">Historial</string>
@@ -80,8 +81,8 @@
     
     <string name="leyenda_nuevo_usuario">Ingrese los datos para el registro de un nuevo ususario</string>
     <string name="nu_nombre_usuario">Nombre Usuario</string>
-    <string name="nu_password">Contraseña</string>
-    <string name="nu_repetir_password">Contraseña</string>
+    <string name="nu_password">Contraseï¿½a</string>
+    <string name="nu_repetir_password">Contraseï¿½a</string>
     <string name="nu_email">Email</string>
     <string name="nu_btn_agregar">Agregar</string>
     
@@ -95,8 +96,8 @@
     <string name="up_nombre_usuario">Nombre de Usuario</string>
     <string name="up_email">Email</string>
     <string name="up_usuario">Usuario</string>
-    <string name="up_password">Contraseña</string>
-    <string name="up_repetir_password">Repetir Contraseña</string>
+    <string name="up_password">ContraseÃ±a</string>
+    <string name="up_repetir_password">Repetir ContraseÃ±a</string>
     
     <string name="up_btn_guardar">Guardar</string>
     

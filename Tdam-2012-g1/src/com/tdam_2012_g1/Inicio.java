@@ -24,6 +24,11 @@ public class Inicio extends Activity implements OnClickListener{
 	private static final String REMEMBER_USER_PASSWORD = "rememberUserPassword";
 	private static final String USER = "user";
 	private static final String PASSWORD = "password";
+	
+
+	private static final String DIALOG_ERROR = "Error";
+	private static final String DIALOG_MSJ = "El Usuario o la Contraseña son Incorrectos";
+	private static final String DIALOG_BTN = "Aceptar";
 
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,10 +39,8 @@ public class Inicio extends Activity implements OnClickListener{
          pass = (EditText) findViewById(R.id.init_UserPassword);
     	 boton = (Button)	findViewById(R.id.init_btnInicio);	
     	 
-    	/* user.setText("federico");
-    	 pass.setText("123456");*/
-    	 user.setText("fernando");
-    	 pass.setText("1234567");
+    	 /*user.setText("fernando");
+    	 pass.setText("1234567");*/
     	 
 		 botonNuevoUsuario = (Button) findViewById(R.id.init_btnNewUser);
 		 
@@ -115,9 +118,9 @@ public class Inicio extends Activity implements OnClickListener{
 	
 	private Dialog createAlertDialog() {
 		Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.image_notification)
-				.setTitle("Error")
-				.setPositiveButton("Aceptar", null)
-				.setMessage("Error en usuario o contraseña").create();
+				.setTitle(DIALOG_ERROR)
+				.setPositiveButton(DIALOG_BTN, null)
+				.setMessage(DIALOG_MSJ).create();
 		return dialog;
 	}
 	

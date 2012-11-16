@@ -15,8 +15,14 @@ import com.tdam_2012_g1.R;
 
 public class Notificacion {
 
-	String mensaje;
-	Context context;
+	private String mensaje;
+	private Context context;
+	
+	private static final String SUCCESS = "Resultado Correcto";
+	private static final String ERROR = "Resultado Incorrecto";
+	private static final String NOTIFICATION_MSJ = "Tiene un Nuevo Mensaje";
+	private static final String NOTIFICATION= "Notificacion";
+	
 	
 	public Notificacion(Context context, String Mensaje) {
 		this.mensaje = Mensaje;
@@ -29,21 +35,21 @@ public class Notificacion {
 	
 	public void notificar(String notificacion){
 		
-		if(notificacion.equals("SUCCESS"))
-			notificacion = "Resultado Correcto";
+		if(notificacion.equals("success"))
+			notificacion = SUCCESS;
 			
-		if(notificacion.equals("ERROR"))
-			notificacion = "Resultado Incorrecto";
+		if(notificacion.equals("error"))
+			notificacion = ERROR;
 						
 		String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager mNotificationManager =(NotificationManager) context.getSystemService(ns);
         
         
         int icon = R.drawable.ic_contacts;
-        CharSequence ticketText = "Notificacion";
+        CharSequence ticketText = NOTIFICATION;
         long when = System.currentTimeMillis();
         
-        Notification notification = new Notification(R.drawable.image_notification,"tiene un nuevo Mensaje",1);
+        Notification notification = new Notification(R.drawable.image_notification,NOTIFICATION_MSJ,1);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
        
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);

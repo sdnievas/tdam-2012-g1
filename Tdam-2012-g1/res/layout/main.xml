@@ -31,7 +31,7 @@
     		     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mensajes Web"
+                        android:text="@string/main_mensaje_web"
                         android:layout_gravity="center"
                         android:textSize="18dp"
                         android:textColor="@android:color/white" />
@@ -62,7 +62,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Contactos"
+                        android:text="@string/main_contactos"
                         android:layout_gravity="center"
                         android:textSize="18dp"
                         android:textColor="@android:color/white" />
@@ -87,7 +87,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Historial"
+                        android:text="@string/main_historial"
                         android:layout_gravity="center"
                         android:textSize="18dp" 
                         android:textColor="@android:color/white"/>
@@ -122,7 +122,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mi Perfil"
+                        android:text="@string/main_perfil"
                         android:layout_gravity="center"
                         android:textSize="18dp" 
                         android:textColor="@android:color/white"/>
@@ -147,7 +147,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Conectividad"
+                        android:text="@string/main_conectividad"
                         android:layout_gravity="center"
                         android:textSize="18dp" 
                         android:textColor="@android:color/white"/>

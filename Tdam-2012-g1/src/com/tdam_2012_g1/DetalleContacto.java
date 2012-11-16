@@ -42,6 +42,9 @@ public class DetalleContacto extends Activity implements OnClickListener{
 	private HashMap<String, Uri> imgUri;
 	private ListView lvCel ,lvMail, lvMsgWeb ;
 	
+	private static final String DIALOG_CALL = "Llamar";
+	private static final String DIALOG_MSJ = "Enviar un Mensaje";
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +130,7 @@ public class DetalleContacto extends Activity implements OnClickListener{
     private void dialog(int position){
     	
     	//final CharSequence[] items = {R.string.dc_llamar,R.string.dc_enviar_mensaje};
-    	final CharSequence[] items = {"Llamar","Enviar Mensaje"};
+    	final CharSequence[] items = {DIALOG_CALL,DIALOG_MSJ};
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setTitle(R.string.dc_eleccion);
     	final int posicion = position;
