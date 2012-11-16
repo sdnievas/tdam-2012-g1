@@ -2,16 +2,12 @@ package com.tdam_2012_g1;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
-
 import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.dom.HistorialLlamada;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.CallLog;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.Intent;

@@ -6,7 +6,7 @@ import android.provider.ContactsContract.Contacts.Data;
 
 public class Mail {
 	int _id;
-	int _idUsuarioRemitente;
+	String _idUsuarioRemitente;
 	String _mailDestinatario;
 	String _fechaEnvio;
 	
@@ -22,11 +22,11 @@ public class Mail {
 		this._id = _id;
 	}
 
-	public int get_idUsuarioRemitente() {
+	public String get_idUsuarioRemitente() {
 		return _idUsuarioRemitente;
 	}
 
-	public void set_idUsuarioRemitente(int _idUsuarioRemitente) {
+	public void set_idUsuarioRemitente(String _idUsuarioRemitente) {
 		this._idUsuarioRemitente = _idUsuarioRemitente;
 	}
 

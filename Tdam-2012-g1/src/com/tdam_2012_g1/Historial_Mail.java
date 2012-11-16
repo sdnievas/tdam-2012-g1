@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
-import com.tdam_2012_g1.dom.HistorialMail;
+import com.tdam_2012_g1.entidades.Mail;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,7 +53,7 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
     	getPreferences();
     	
 		DatabaseHelper dbhelper = getDatabaseHelper();
-		ArrayList<HistorialMail> mails;
+		ArrayList<Mail> mails;
 		if(contact != null){
 			mails = dbhelper.getMailsContacto(contact);
 		}
@@ -86,21 +85,21 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
     
     class HistoryMailAdapter extends BaseAdapter {
 		
-		private ArrayList<HistorialMail> historial;
+		private ArrayList<Mail> historial;
 		private LayoutInflater inflater;
 
 		public HistoryMailAdapter() {
-			historial = new ArrayList<HistorialMail>();
+			historial = new ArrayList<Mail>();
 			inflater = LayoutInflater.from(Historial_Mail.this);
 		}
 
-		public void addHistorial(HistorialMail historials) {
+		public void addHistorial(Mail historials) {
 			if (historial != null) {
 				historial.add(historials);
 			}
 		}
 		
-		public void addListHistorial(ArrayList<HistorialMail> historials) {
+		public void addListHistorial(ArrayList<Mail> historials) {
 			historial = historials;
 		}
 
@@ -137,9 +136,9 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 				holder = (Holder) convertView.getTag();
 			}
 
-			HistorialMail history = (HistorialMail) getItem(position);
-			holder.txtNameHistorial.setText(history.getMailContacto());
-			holder.txtHora.setText(history.getFecha().toString());
+			Mail history = (Mail) getItem(position);
+			holder.txtNameHistorial.setText(history.get_mailDestinatario());
+			holder.txtHora.setText(history.get_fechaEnvio().toString());
 			holder.ImagenType.setImageResource(android.R.drawable.ic_dialog_email);
 			return convertView;
 		}

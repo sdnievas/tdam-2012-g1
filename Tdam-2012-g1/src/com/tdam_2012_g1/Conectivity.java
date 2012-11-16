@@ -1,38 +1,24 @@
 package com.tdam_2012_g1;
 
 import java.util.ArrayList;
-
-import com.tdam_2012_g1.Contacts.ContactsAdapter;
-import com.tdam_2012_g1.Contacts.Holder;
 import com.tdam_2012_g1.database.DatabaseHelper;
-import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.entidades.Conectividad;
-import com.tdam_2012_g1.entidades.MensajeWeb;
-
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 
 public class Conectivity extends ListActivity implements OnItemClickListener {
 	
 	
-	Intent intent;
-	ConectivityAdapter adapter;
+	private Intent intent;
+	private ConectivityAdapter adapter;
 
 
 	public void onCreate(Bundle savedInstanceState) {

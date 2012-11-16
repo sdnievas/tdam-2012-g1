@@ -1,19 +1,12 @@
 package com.tdam_2012_g1;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,32 +18,25 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.tdam_2012_g1.Contacts.ContactsAdapter;
-import com.tdam_2012_g1.Contacts.Holder;
-import com.tdam_2012_g1.New_User.RegisterUserTask;
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
-import com.tdam_2012_g1.dom.HistorialLlamada;
 import com.tdam_2012_g1.entidades.MensajeWeb;
 import com.tdam_2012_g1.entidades.Usuario;
-//import com.tdam_2012_g1.messagesenderclient.EnviarMensajeHandler;
-//import com.tdam_2012_g1.messagesenderclient.RegistrarUsuarioHandler;
 import com.tdam_2012_g1.mensajesWeb.WebService;
 import com.tdam_2012_g1.mensajesWeb.WebServiceInfo;
 import com.tdam_2012_g1.suport.ConexionInfo;
 import com.tdam_2012_g1.suport.Notificacion;
 
 public class Servicio_Web extends ListActivity implements OnClickListener, OnItemClickListener {
-	Intent intent;
-	MensajeWeb msj;
-	MensajeWebAdapter adapter;
-	Contacto contact = null;
-	EditText txtDestinatario;
-	EditText txtMensaje;
-	Usuario usr;
+	
+	private Intent intent;
+	private MensajeWeb msj;
+	private MensajeWebAdapter adapter;
+	private Contacto contact = null;
+	private EditText txtDestinatario;
+	private EditText txtMensaje;
+	private Usuario usr;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

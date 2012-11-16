@@ -1,40 +1,32 @@
 package com.tdam_2012_g1;
 
 
-
-
 import com.tdam_2012_g1.database.DatabaseHelper;
-import com.tdam_2012_g1.entidades.Contacto;
 import com.tdam_2012_g1.entidades.Usuario;
 import com.tdam_2012_g1.mensajesWeb.WebServiceInfo;
 import com.tdam_2012_g1.mensajesWeb.WebService;
 import com.tdam_2012_g1.suport.ConexionInfo;
 import com.tdam_2012_g1.suport.Notificacion;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RemoteViews;
+
 
 public class New_User extends Activity implements OnClickListener{
 
-	Button boton;
-	EditText nomuser;
-	EditText password;
-	EditText Repassword;
-	EditText Email;
+	private Button boton;
+	private EditText nomuser;
+	private EditText password;
+	private EditText Repassword;
+	private EditText Email;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {

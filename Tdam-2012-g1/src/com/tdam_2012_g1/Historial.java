@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.database.*;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.widget.TabHost;
@@ -18,7 +19,7 @@ public class Historial extends TabActivity {
 	
 	private Intent intent;
 	public Contacto contact;
-	final DatabaseHelper db=new DatabaseHelper(this);
+	final DatabaseHelper db = getDatabaseHelper();
 
 	
 	
@@ -33,6 +34,11 @@ public class Historial extends TabActivity {
 
 	    CargarTabs();
 				
+	}
+    
+
+    protected DatabaseHelper getDatabaseHelper(){	
+		return new DatabaseHelper(this);
 	}
     
     private void CargarTabs(){

@@ -2,20 +2,16 @@ package com.tdam_2012_g1;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.LinkedList;
-
 import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.dom.HistorialSms;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;

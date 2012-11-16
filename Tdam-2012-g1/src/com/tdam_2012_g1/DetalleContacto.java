@@ -5,20 +5,15 @@ package com.tdam_2012_g1;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.entidades.Mail;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -36,7 +31,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
@@ -160,7 +154,7 @@ public class DetalleContacto extends Activity implements OnClickListener{
     	DatabaseHelper dbhelper = new DatabaseHelper(this);
     	Mail mail = new Mail();
     	mail.set_id(0);
-    	mail.set_idUsuarioRemitente(Integer.parseInt(contact.getId()));
+    	mail.set_idUsuarioRemitente(contact.getId());
     	mail.set_mailDestinatario(contact.getEmails().get(position));
     	    	
     	Calendar c = Calendar.getInstance();
