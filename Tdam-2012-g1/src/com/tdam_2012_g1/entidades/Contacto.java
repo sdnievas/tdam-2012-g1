@@ -10,6 +10,10 @@ public class Contacto {
 		this._nombreWeb = nombre;
 	}
 	
+	public Contacto(){
+
+	}
+	
 	public int get_id() {
 		return _id;
 	}

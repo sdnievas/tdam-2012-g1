@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import com.tdam_2012_g1.Contacts.ContactsAdapter;
 import com.tdam_2012_g1.Contacts.Holder;
+import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.entidades.Conectividad;
+import com.tdam_2012_g1.entidades.MensajeWeb;
 
 import android.app.Activity;
 import android.app.ListActivity;
@@ -92,28 +94,34 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 	
 	//Adapter de la lista de contactos
 	class ConectivityAdapter extends BaseAdapter {
-		private ArrayList<Conectividad> contacts;
+		private ArrayList<Conectividad> conexion;
 		private LayoutInflater inflater;
 
 		public ConectivityAdapter() {
-			contacts = new ArrayList<Conectividad>();
+			conexion = new ArrayList<Conectividad>();
 			inflater = LayoutInflater.from(Conectivity.this);
 		}
 
-		public void addContact(Conectividad conect) {
+		public void addConectividad(Conectividad conect) {
 			if (conect != null) {
-				contacts.add(conect);
+				conexion.add(conect);
+			}
+		}
+		
+		public void addListConectividad(ArrayList<Conectividad> conect) {
+			if (conect != null) {
+				conexion = conect;
 			}
 		}
 
 		@Override
 		public int getCount() {
-			return contacts.size();
+			return conexion.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			return contacts.get(position);
+			return conexion.get(position);
 		}
 
 		@Override
@@ -126,7 +134,7 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 			Holder holder;
 			if (convertView == null) {
 				convertView = inflater
-						.inflate(R.layout.item_contacts, null);
+						.inflate(R.layout.conectivity_item, null);
 				holder = new Holder();
 				holder.txtName = (TextView) convertView
 						.findViewById(R.id.txt_Item_vConectivityA);
@@ -148,11 +156,12 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 	
 	public void loadListData(){
 		
-		
-		
-		
-		
-		
+		DatabaseHelper dbhelper = new DatabaseHelper(this);
+	      //  SQLiteDatabase db = dbhelper.getWritableDatabase();
+
+		ArrayList<Conectividad> connec = dbhelper.getAllConectividad();
+		adapter.addListConectividad(connec);
+
 	}
 	
 

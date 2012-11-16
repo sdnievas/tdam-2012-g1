@@ -44,8 +44,8 @@ public class MainActivity extends Activity implements OnClickListener{
 
         //agregar datos a la bd
         
-        DatabaseHelper dbhelper = new DatabaseHelper(this);
-        SQLiteDatabase db = dbhelper.getWritableDatabase();
+      //  DatabaseHelper dbhelper = new DatabaseHelper(this);
+       // SQLiteDatabase db = dbhelper.getWritableDatabase();
        // Contacto cont = new Contacto(1, "Brunos");
        // dbhelper.addContacto(cont);
         

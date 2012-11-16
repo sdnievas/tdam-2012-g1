@@ -18,7 +18,7 @@ public class MessageSenderClient {
 	public static void enviarMensajeWeb(String REQUEST) {
 
 		try {
-			URL u = new URL("http://192.168.1.201:8080/MessageSender/");
+			URL u = new URL("http://10.16.0.36:8080/MessageSender/");
 			URLConnection c = u.openConnection();
 
 			c.setDoOutput(true);
