@@ -1,13 +1,7 @@
 package com.tdam_2012_g1;
 
-import java.util.ArrayList;
-
-import org.xml.sax.Parser;
-
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
-import com.tdam_2012_g1.dom.HistorialMail;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,9 +13,9 @@ import android.widget.TextView;
 
 public class New_ContactWebSms extends Activity implements OnClickListener {
 
-	Contacto contact;
-	TextView nContactoWeb ;
-	Button boton;
+	private Contacto contact;
+	private TextView nContactoWeb ;
+	private Button boton;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,5 @@
 package com.tdam_2012_g1;
 
-import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.entidades.MensajeWeb;
 
 import android.os.Bundle;

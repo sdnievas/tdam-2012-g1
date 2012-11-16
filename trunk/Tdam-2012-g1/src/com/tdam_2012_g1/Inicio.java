@@ -1,31 +1,25 @@
 package com.tdam_2012_g1;
 
-import com.tdam_2012_g1.Conectivity.ConectivityAdapter;
 import com.tdam_2012_g1.database.DatabaseHelper;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class Inicio extends Activity implements OnClickListener{
 
-	EditText user;
-	EditText pass;
-	Button boton;
-	Intent intent;
-	Button botonNuevoUsuario;
+	private EditText user;
+	private EditText pass;
+	private Button boton;
+	private Intent intent;
+	private Button botonNuevoUsuario;
 	
-	private static final int REGISTRAR_USUARIO = 0;
 	private static final String LOGIN_SETTINGS = "LoginPreferences";
 	private static final String REMEMBER_USER_PASSWORD = "rememberUserPassword";
 	private static final String USER = "user";

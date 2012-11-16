@@ -43,7 +43,7 @@ public class Notificacion {
         CharSequence ticketText = "Notificacion";
         long when = System.currentTimeMillis();
         
-        Notification notification = new Notification(R.drawable.ic_contacts,"tiene un nuevo Mensaje",1);
+        Notification notification = new Notification(R.drawable.image_notification,"tiene un nuevo Mensaje",1);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
        
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);

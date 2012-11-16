@@ -4,11 +4,7 @@ import com.tdam_2012_g1.entidades.*;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
-
 import com.tdam_2012_g1.dom.Contacto;
-import com.tdam_2012_g1.dom.HistorialMail;
-
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -47,20 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colFechaEnvioMsj = "fechaEnvio";
 	static final String colDetalle = "detalle";	
 	
-//	static final String registrosTable = "registros";
-//	static final String colIdRegistro = "idRegistro";
-//	static final String colIdContacto = "idContacto";
-//	static final String colFecha = "fecha";
-//	static final String colIdTipoRegistro = "idTipoRegistro";
-//	
-//	static final String tiposRegistroTable = "tiposRegistro";
-//	static final String colIdTipo = "id";
-//	static final String colNombreTipo = "nombre";
-//	
-
-	
-//	static final String viewRegistros = "viewRegistros";
-//	static final String viewMensajesWeb = "viewMensajesWeb";
 	
 	public DatabaseHelper(Context context) {
 		super(context, dbName, null, 33);
@@ -91,73 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				colIdContactoRemitente+" INTEGER NOT NULL, "+
 				colIdContactoDestinatario+" INTEGER NOT NULL, "+
 				colFechaEnvioMsj+" DATETIME, "+colDetalle+" TEXT NOT NULL);");
-		
-//		db.execSQL("CREATE TABLE "+registrosTable+" ("+colIdRegistro+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-//				colIdContacto+" INTEGER NOT NULL, "+colFecha+" DATETIME, "+colIdTipoRegistro+" INTEGER NOT NULL);");
-//		
-//		db.execSQL("CREATE TABLE "+tiposRegistroTable+" ("+colIdTipo+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-//				colNombreTipo+" TEXT NOT NULL);");		
-
-		
-		
-//		db.execSQL("CREATE TRIGGER fk_regcontact_contactid " +
-//				" BEFORE INSERT "+
-//				" ON "+registrosTable+
-//				
-//				" FOR EACH ROW BEGIN"+
-//				" SELECT CASE WHEN ((SELECT "+colIdContact+" FROM "+contactoAplicacionTable+" WHERE "+colIdContact+"=new."+colIdContacto+" ) IS NULL)"+
-//				" THEN RAISE (ABORT,'Foreign Key Violation') END;"+
-//				"  END;");
-		
-//		db.execSQL("CREATE TRIGGER fk_regtipo_tipoid " +
-//				" BEFORE INSERT "+
-//				" ON "+registrosTable+
-//				
-//				" FOR EACH ROW BEGIN"+
-//				" SELECT CASE WHEN ((SELECT "+colIdTipo+" FROM "+tiposRegistroTable+" WHERE "+colIdTipo+"=new."+colIdTipoRegistro+" ) IS NULL)"+
-//				" THEN RAISE (ABORT,'Foreign Key Violation') END;"+
-//				"  END;");
-		
-	/*	db.execSQL("CREATE TRIGGER fk_msj_contactoremitente " +
-				" BEFORE INSERT "+
-				" ON "+mensajesWebTable+
-				
-				" FOR EACH ROW BEGIN"+
-				" SELECT CASE WHEN ((SELECT "+colIdContact+" FROM "+contactosAplicacionTable+" WHERE "+colIdContact+"=new."+colIdContactoRemitente+" ) IS NULL)"+
-				" THEN RAISE (ABORT,'Foreign Key Violation') END;"+
-				"  END;");
-		
-		db.execSQL("CREATE TRIGGER fk_msj_contactodestinatario " +
-				" BEFORE INSERT "+
-				" ON "+mensajesWebTable+
-				
-				" FOR EACH ROW BEGIN"+
-				" SELECT CASE WHEN ((SELECT "+colIdContact+" FROM "+contactosAplicacionTable+" WHERE "+colIdContact+"=new."+colIdContactoDestinatario+" ) IS NULL)"+
-				" THEN RAISE (ABORT,'Foreign Key Violation') END;"+
-				"  END;");
-		
-		db.execSQL("CREATE TRIGGER fk_mail_usuarioremitente " +
-				" BEFORE INSERT "+
-				" ON "+mailsTable+
-				
-				" FOR EACH ROW BEGIN"+
-				" SELECT CASE WHEN ((SELECT "+colIdUsuario+" FROM "+usuariosTable+" WHERE "+colIdUsuario+"=new."+colIdUsuarioRemitente+" ) IS NULL)"+
-				" THEN RAISE (ABORT,'Foreign Key Violation') END;"+
-				"  END;");
-		*/
-		
-		
-//		db.execSQL("CREATE VIEW "+viewRegistros+
-//				" AS SELECT "+registrosTable+"."+colIdRegistro+" AS _id,"+
-//				" "+registrosTable+"."+colIdContacto+"AS ID Contacto"+
-//				" "+registrosTable+"."+colFecha+","+
-//				" "+tiposRegistroTable+"."+colNombreTipo+""+
-//				" FROM "+registrosTable+" JOIN "+tiposRegistroTable+
-//				" ON "+registrosTable+"."+colIdTipoRegistro+" ="+tiposRegistroTable+"."+colIdTipo
-//				);
-//		//Inserts pre-defined departments
-//		InsertDepts(db);	
-		
+			
 		
 	}
 	
@@ -171,10 +87,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS "+mensajesWebTable);
 		db.execSQL("DROP TABLE IF EXISTS "+mailsTable);
 		
-		db.execSQL("DROP TRIGGER IF EXISTS fk_msj_contactoremitente");
-		db.execSQL("DROP TRIGGER IF EXISTS fk_msj_contactodestinatario");
-		db.execSQL("DROP TRIGGER IF EXISTS fk_mail_usuarioremitente");
-//		db.execSQL("DROP VIEW IF EXISTS "+viewRegistros);
 		onCreate(db);
 	}
 	
@@ -202,9 +114,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public Cursor getAllContactos() {
 		SQLiteDatabase db = this.getWritableDatabase();//
 
-		// Cursor cur=
-		// db.rawQuery("Select "+colID+" as _id , "+colName+", "+colAge+" from "+employeeTable,
-		// new String [] {});
 		Cursor cur = db.rawQuery("SELECT * FROM " + contactosAplicacionTable,
 				null);
 		return cur;
@@ -318,48 +227,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return cur;
 	}
 	 
-	 
-	 
-//		void AddRegistro(Registro reg)
-//		{		 
-//			SQLiteDatabase db= this.getWritableDatabase();		 
-//			
-//			ContentValues cv=new ContentValues();
-//			
-//			cv.put(colIdContacto, reg.get_idContacto());
-//			cv.put(colFecha, reg.get_fechaRegistro());
-//			cv.put(colIdTipoRegistro, reg.get_idTipoRegistro());
-//			
-//			db.insert(registrosTable, colIdContacto, cv);
-//			db.close();		
-//		}
-//		
-//		 int getRegistrosCount()
-//		 {
-//			SQLiteDatabase db=this.getWritableDatabase();
-//			Cursor cur= db.rawQuery("Select * from "+registrosTable, null);
-//			int x= cur.getCount();
-//			cur.close();
-//			return x;
-//		 }
-//		 
-//		 Cursor getAllRegistros()
-//		 {
-//			 SQLiteDatabase db=this.getWritableDatabase();//		 
-//			 
-//			 //Cursor cur= db.rawQuery("Select "+colID+" as _id , "+colName+", "+colAge+" from "+employeeTable, new String [] {});
-//			 Cursor cur= db.rawQuery("SELECT * FROM "+viewRegistros,null);
-//			 return cur;			 
-//		 }
-	 
-	 
-	 
-	 
-	 public ArrayList<HistorialMail> getTodosMails(){
+
+	 public ArrayList<Mail> getTodosMails(){
 		 
  
-			ArrayList<HistorialMail> mails = new ArrayList<HistorialMail>();
-			HistorialMail aux = null;
+			ArrayList<Mail> mails = new ArrayList<Mail>();
+			Mail aux = null;
 			SQLiteDatabase db = this.getWritableDatabase();
 			String clause = "";
 			String selection[] = null;
@@ -369,15 +242,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					null);
 
 			while (cursor.moveToNext()) {
-				aux = new HistorialMail();
+				aux = new Mail();
 				aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMail)));
-				aux.setContacto(cursor.getString(cursor
+				aux.set_idUsuarioRemitente(cursor.getString(cursor
 						.getColumnIndex(colIdUsuarioRemitente)));
 
-				aux.setFecha(new Date((cursor.getLong(cursor
-						.getColumnIndex(colFechaEnvio)))));
+				aux.set_fechaEnvio(cursor.getString(cursor
+						.getColumnIndex(colFechaEnvio)));
 				
-				aux.setMailContacto(cursor.getString(cursor
+				aux.set_mailDestinatario(cursor.getString(cursor
 						.getColumnIndex(colDestinatario)));
 
 				mails.add(aux);
@@ -460,10 +333,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		 
 	 }
 	 
-	 public ArrayList<HistorialMail> getMailsContacto(Contacto contact){
+	 public ArrayList<Mail> getMailsContacto(Contacto contact){
 		
-		 	ArrayList<HistorialMail> mails = new ArrayList<HistorialMail>();
-			HistorialMail aux = null;
+		 	ArrayList<Mail> mails = new ArrayList<Mail>();
+			Mail aux = null;
 			SQLiteDatabase db = this.getWritableDatabase();
 			String selection[] = {contact.getId()};
 			
@@ -472,15 +345,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					selection);
 
 			while (cursor.moveToNext()) {
-				aux = new HistorialMail();
+				aux = new Mail();
 				aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMail)));
-				aux.setContacto(cursor.getString(cursor
+				aux.set_idUsuarioRemitente(cursor.getString(cursor
 						.getColumnIndex(colIdUsuarioRemitente)));
 
-				aux.setFecha(new Date((cursor.getLong(cursor
-						.getColumnIndex(colFechaEnvio)))));
+				aux.set_fechaEnvio(cursor.getString(cursor
+						.getColumnIndex(colFechaEnvio)));
 				
-				aux.setMailContacto(cursor.getString(cursor
+				aux.set_mailDestinatario(cursor.getString(cursor
 						.getColumnIndex(colDestinatario)));
 
 				mails.add(aux);

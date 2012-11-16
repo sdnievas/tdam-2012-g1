@@ -1,19 +1,17 @@
 package com.tdam_2012_g1;
 
-import com.tdam_2012_g1.New_User.RegisterUserTask;
+
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.entidades.Usuario;
 import com.tdam_2012_g1.mensajesWeb.WebService;
 import com.tdam_2012_g1.mensajesWeb.WebServiceInfo;
 import com.tdam_2012_g1.suport.Notificacion;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,17 +20,15 @@ import android.widget.EditText;
 public class User_Profile extends Activity implements OnClickListener {
 	
 	
-	Button btn_Guardar;
-	Intent intent;
-	EditText user;
-	EditText password;
-	EditText repassword;
-	EditText mail;
-	Usuario usuario;
+	private Button btn_Guardar;
+	private Intent intent;
+	private EditText user;
+	private EditText password;
+	private EditText repassword;
+	private EditText mail;
+	private Usuario usuario;
 	
-	private static final int REGISTRAR_USUARIO = 0;
 	private static final String LOGIN_SETTINGS = "LoginPreferences";
-	private static final String REMEMBER_USER_PASSWORD = "rememberUserPassword";
 	private static final String USER = "user";
 	private static final String PASSWORD = "password";
 	

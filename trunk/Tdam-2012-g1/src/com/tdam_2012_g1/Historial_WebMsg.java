@@ -2,16 +2,11 @@ package com.tdam_2012_g1;
 
 import java.util.ArrayList;
 
-import com.tdam_2012_g1.Historial_Mail.HistoryMailAdapter;
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
-import com.tdam_2012_g1.dom.HistorialLlamada;
-import com.tdam_2012_g1.dom.HistorialWebSms;
 import com.tdam_2012_g1.entidades.MensajeWeb;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;

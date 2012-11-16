@@ -1,31 +1,18 @@
 package com.tdam_2012_g1;
 
 
-import java.sql.Date;
-
-import com.tdam_2012_g1.database.DatabaseHelper;
-import com.tdam_2012_g1.entidades.Contacto;
-import com.tdam_2012_g1.entidades.Mail;
-import com.tdam_2012_g1.entidades.MensajeWeb;
-
-import android.content.Context;
-
 import android.view.View.OnClickListener;
-
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	Intent intent;
+	private Intent intent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
