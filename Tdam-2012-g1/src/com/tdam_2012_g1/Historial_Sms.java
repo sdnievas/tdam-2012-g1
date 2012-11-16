@@ -53,7 +53,7 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
       	getPreferences();
       	
       	if(contact != null)
-      		{loadConversationSms(contact.getId());}
+      		{loadConversationSms(contact);}
       	else{
       		loadConversationsSms();
       	}
@@ -121,36 +121,42 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 	}
 
 	
-	public void loadConversationSms(String threadId) {
+	public void loadConversationSms(Contacto contacto) {
 		
 		Uri smsURI = Uri.parse("content://sms/");
 		String columns[] = new String[] { "address", "body", "date",
 				"thread_id", "type" , "person"}; // type 1 = otro contacto, type 2 =
 										// usuario
-		String clause = "person = ?";
-		String selection[] = new String[] { threadId };
-
-		Cursor cur = this.managedQuery(smsURI, columns, clause,
-				selection, "date asc");
-
-		HistorialSms sms = null;
-
-		while (cur.moveToNext()) {
-			sms = new HistorialSms();
-			sms.setThreadId(threadId);
-			Date date = new Date(cur.getLong(cur.getColumnIndex("date")));
-			sms.setNumero(cur.getString(cur.getColumnIndex("address")));
-			sms.setMensaje(cur.getString(cur.getColumnIndex("body")));
-			sms.setFecha(date);
-			sms.setType(Integer.parseInt(cur.getString(cur
-					.getColumnIndex("type"))));
+		String clause = "address = ?";
+		
+		ArrayList<String> telefonos= contacto.getTelephoneNumbers();
+		int i = 0;
+		while(telefonos.size() > i){
+			String selection[] = new String[] { telefonos.get(i)};
+	
+			Cursor cur = this.managedQuery(smsURI, columns, clause,
+					selection, "date asc");
+	
+			HistorialSms sms = null;
+	
+			while (cur.moveToNext()) {
+				sms = new HistorialSms();
+				Date date = new Date(cur.getLong(cur.getColumnIndex("date")));
+				sms.setNumero(cur.getString(cur.getColumnIndex("address")));
+				sms.setMensaje(cur.getString(cur.getColumnIndex("body")));
+				sms.setFecha(date);
+				sms.setType(Integer.parseInt(cur.getString(cur
+						.getColumnIndex("type"))));
+				
+				AdapertSms.addHistorial(sms);
+			}
 			
-			AdapertSms.addHistorial(sms);
+	
+			cur.close();
+	
+			AdapertSms.notifyDataSetChanged();
+			i++;
 		}
-
-		cur.close();
-
-		AdapertSms.notifyDataSetChanged();
 	}
     
     
