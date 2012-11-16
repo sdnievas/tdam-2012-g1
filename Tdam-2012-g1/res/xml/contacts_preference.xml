@@ -4,7 +4,4 @@
     <ListPreference android:title="Forma de Ordenamiento" android:key="@string/preference_Contactos_Ordenamiento" android:entryValues="@array/OrdenUsuariosAscoDescValues" android:entries="@array/OrdenUsuariosAscoDesc" android:summary="@string/preference_contacto_osummary" android:defaultValue="0"/>
     <ListPreference android:entryValues="@array/FiltrosUsuariosValues" android:key="@string/preference_Contactos_FiltroUsuariokey" android:entries="@array/FiltrosUsuarios" android:summary="@string/preference_Contactos_FiltroUsuarioSummary" android:title="@string/preference_Contactos_FiltroUsuarioTitle"/>
     <CheckBoxPreference android:key="@string/preference_Contactos_VerFotokey" android:title="@string/preference_Contactos_VerFotoTitle" android:summary="@string/preference_Contactos_VerFotoSummary"/>
-    
-    
-
 </PreferenceScreen>

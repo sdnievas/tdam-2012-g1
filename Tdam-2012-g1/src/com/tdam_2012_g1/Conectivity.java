@@ -32,22 +32,13 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 	
 	
 	Intent intent;
-	CheckBox checkBoxWifi;
-	CheckBox checkBox3G;	
 	ConectivityAdapter adapter;
 
 
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.conectivity);
-        
-
-    	checkBoxWifi = (CheckBox) findViewById(R.id.chkWifi);
-        checkBoxWifi.setChecked(true);
-    	checkBox3G = (CheckBox) findViewById(R.id.chk3G);
-        checkBox3G.setChecked(false);    
-        
-        
+       
         adapter = new ConectivityAdapter();
 
 		getListView().setAdapter(adapter);
@@ -60,8 +51,6 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 	}
 	
 
-
-	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -78,8 +67,6 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 	}
 
 
-
-
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
@@ -92,7 +79,7 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 		private TextView Fecha;
 	}
 	
-	//Adapter de la lista de contactos
+
 	class ConectivityAdapter extends BaseAdapter {
 		private ArrayList<Conectividad> conexion;
 		private LayoutInflater inflater;
@@ -157,10 +144,9 @@ public class Conectivity extends ListActivity implements OnItemClickListener {
 	public void loadListData(){
 		
 		DatabaseHelper dbhelper = new DatabaseHelper(this);
-	      //  SQLiteDatabase db = dbhelper.getWritableDatabase();
-
 		ArrayList<Conectividad> connec = dbhelper.getAllConectividad();
 		adapter.addListConectividad(connec);
+		dbhelper.close();
 
 	}
 	
