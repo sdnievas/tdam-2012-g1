@@ -8,12 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-
 import javax.xml.parsers.SAXParser;
 
-
-import android.util.Log;
 
 public class WebService {
 
@@ -21,14 +17,12 @@ public class WebService {
 	private String password;
 	private URL url;
 
-	private final static String URL = "http://192.168.0.104:8080/MessageSender/";
+	private final static String URL = "http://172.16.170.76:8080/MessageSender/";
 
 	public static final int FATAL_ERROR = -1;
 
-	private static final String TAG = "WebService";
 
 	public WebService(String username, String password) {
-		Log.d(TAG, "constructor = " + username + " - " + password);
 		this.username = username;
 		this.password = password;
 		try {
@@ -39,7 +33,6 @@ public class WebService {
 	}
 
 	public WebServiceInfo registerUser() {
-		Log.d(TAG, "registerUser = " + username + " - " + password);
 
 		String REGISTER_REQUEST = "<action id=\"REQUEST_RANDOM_VALUE\" name=\"register-user\">"
 				+ "<action-detail><user username=\""
@@ -67,20 +60,7 @@ public class WebService {
 		return getInfo(SEND_REQUEST, handler);
 	}
 
-	public ArrayList<ReceivedMessageInfo> getMessages(String timestamp) {
 
-		String GET_REQUEST = "<action id=\"REQUEST_RANDOM_VALUE\" name=\"get-messages\">"
-				+ "<action-detail><auth username=\""
-				+ username
-				+ "\" key=\""
-				+ password
-				+ "\"></auth>"
-				+ "<filter type=\"timestamp\">"
-				+ timestamp + "</filter>" + "</action-detail></action>";
-
-		WebServiceReceivedMessageHandler handler = new WebServiceReceivedMessageHandler();
-		return getReceivedMessages(GET_REQUEST, handler);
-	}
 
 	private WebServiceHandler sendRequest(String request,
 			WebServiceHandler handler) {
@@ -107,8 +87,6 @@ public class WebService {
 			while ((s = in.readLine()) != null) {
 				aux.append(s);
 			}
-
-			Log.d(TAG, aux.toString());
 
 			SAXParser parser = XmlParserProvider.getParser();
 			parser.parse(new ByteArrayInputStream(aux.toString().getBytes()),
@@ -138,11 +116,7 @@ public class WebService {
 		return info;
 	}
 
-	private ArrayList<ReceivedMessageInfo> getReceivedMessages(String request,
-			WebServiceReceivedMessageHandler handler) {
-		sendRequest(request, handler);
-		return handler.getReceivedMessages();
-	}
+	
 
 	public void setUser(String username, String password) {
 		this.username = username;

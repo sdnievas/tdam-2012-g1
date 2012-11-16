@@ -28,6 +28,9 @@ public class New_User extends Activity implements OnClickListener{
 	private EditText Repassword;
 	private EditText Email;
 	
+	private static final String DIALOG_ERROR = "Error";
+	private static final String DIALOG_MSJ = "No hay conexion a ocurrido un error";
+	private static final String DIALOG_BTN = "Aceptar";
 	
 	public void onCreate(Bundle savedInstanceState) {
 		
@@ -96,9 +99,9 @@ public class New_User extends Activity implements OnClickListener{
 
 	private Dialog createAlertDialog() {
 		Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.image_notification)
-				.setTitle("Error")
-				.setPositiveButton("Aceptar", null)
-				.setMessage("No hay conexion a ocurrido un error").create();
+				.setTitle(DIALOG_ERROR)
+				.setPositiveButton(DIALOG_BTN, null)
+				.setMessage(DIALOG_MSJ).create();
 		return dialog;
 	}
 	

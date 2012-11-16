@@ -35,6 +35,7 @@ public final class R {
         public static final int ic_historial=0x7f02000a;
         public static final int ic_perfil=0x7f02000b;
         public static final int image_notification=0x7f02000c;
+        public static final int people=0x7f02000d;
     }
     public static final class id {
         public static final int Imagen_Inicio=0x7f09001d;
@@ -143,17 +144,45 @@ public final class R {
         public static final int detalle_contacto_new_websms=0x7f080004;
     }
     public static final class string {
+        public static final int activity_contacts_title=0x7f06005e;
+        public static final int activity_historial_title=0x7f06005f;
         public static final int app_name=0x7f060000;
+        public static final int btn_agregar=0x7f060043;
+        public static final int btn_inicio_sesion=0x7f060047;
+        public static final int btn_nuevo_usuario=0x7f060044;
+        public static final int buscar=0x7f060038;
+        public static final int con_3g=0x7f06003f;
+        public static final int con_estado=0x7f06003d;
+        public static final int con_wifi=0x7f06003e;
         public static final int dc_eleccion=0x7f060008;
+        public static final int dc_email=0x7f06003a;
         public static final int dc_enviar_mensaje=0x7f060007;
+        public static final int dc_historial=0x7f06003c;
         public static final int dc_llamar=0x7f060006;
+        public static final int dc_msjWeb=0x7f06003b;
+        public static final int dc_numeros=0x7f060039;
         public static final int detalle_mensajeWeb_Id=0x7f060033;
         public static final int detalle_mensajeWeb_destinatario=0x7f060035;
         public static final int detalle_mensajeWeb_detalle=0x7f060037;
         public static final int detalle_mensajeWeb_fecha=0x7f060036;
         public static final int detalle_mensajeWeb_remitente=0x7f060034;
         public static final int hello_world=0x7f060001;
+        public static final int leyenda_nuevo_usuario=0x7f06004d;
+        public static final int main_conectividad=0x7f06004c;
+        public static final int main_contactos=0x7f060049;
+        public static final int main_historial=0x7f06004a;
+        public static final int main_mensaje_web=0x7f060048;
+        public static final int main_perfil=0x7f06004b;
         public static final int menu_settings=0x7f060002;
+        public static final int nombre_usuario=0x7f060041;
+        public static final int nombre_usuario_web=0x7f060040;
+        public static final int nu_btn_agregar=0x7f060052;
+        public static final int nu_email=0x7f060051;
+        public static final int nu_nombre_usuario=0x7f06004e;
+        public static final int nu_password=0x7f06004f;
+        public static final int nu_repetir_password=0x7f060050;
+        public static final int nuevo_usuario_web_title=0x7f060060;
+        public static final int numeros=0x7f060042;
         public static final int preference_Contactos_Apellido=0x7f06000c;
         public static final int preference_Contactos_Asc=0x7f060009;
         public static final int preference_Contactos_Desc=0x7f06000a;
@@ -190,6 +219,11 @@ public final class R {
         public static final int preference_InicioSesion_UserTitle=0x7f06002d;
         public static final int preference_InicioSesion_Userkey=0x7f06002c;
         public static final int preference_contacto_osummary=0x7f06000d;
+        public static final int sw=0x7f060053;
+        public static final int sw_btn_enviar=0x7f060057;
+        public static final int sw_destinatario=0x7f060055;
+        public static final int sw_mensaje=0x7f060056;
+        public static final int sw_nombre_usuario=0x7f060054;
         public static final int title_activity_contacts=0x7f060004;
         public static final int title_activity_detalle__msg_web=0x7f060032;
         public static final int title_activity_historial__llamadas=0x7f06001d;
@@ -199,6 +233,15 @@ public final class R {
         public static final int title_activity_main=0x7f060003;
         public static final int title_activity_new__contact_web_sms=0x7f06000f;
         public static final int title_activity_settings_activity=0x7f060005;
+        public static final int title_preference_forma_ordenamiento=0x7f060061;
+        public static final int txt_password=0x7f060046;
+        public static final int txt_usuario=0x7f060045;
+        public static final int up_btn_guardar=0x7f06005d;
+        public static final int up_email=0x7f060059;
+        public static final int up_nombre_usuario=0x7f060058;
+        public static final int up_password=0x7f06005b;
+        public static final int up_repetir_password=0x7f06005c;
+        public static final int up_usuario=0x7f06005a;
     }
     public static final class style {
         public static final int AppTheme=0x7f070000;

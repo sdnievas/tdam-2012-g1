@@ -14,7 +14,7 @@
         	android:id="@+id/txtVEstadoConexion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Estado de la Conexión"
+            android:text="@string/con_estado"
             android:textColor="#FFFFFF" />
     </LinearLayout>
     

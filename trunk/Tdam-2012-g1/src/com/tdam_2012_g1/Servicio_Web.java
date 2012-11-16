@@ -37,6 +37,11 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 	private EditText txtDestinatario;
 	private EditText txtMensaje;
 	private Usuario usr;
+	
+
+	private static final String DIALOG_ERROR = "Error";
+	private static final String DIALOG_MSJ = "No hay conexion a ocurrido un error";
+	private static final String DIALOG_BTN = "Aceptar";
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,9 +101,9 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 	
 	private Dialog createAlertDialog() {
 		Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.image_notification)
-				.setTitle("Error")
-				.setPositiveButton("Aceptar", null)
-				.setMessage("No hay conexion A ocurrido un error").create();
+				.setTitle(DIALOG_ERROR)
+				.setPositiveButton(DIALOG_BTN, null)
+				.setMessage(DIALOG_MSJ).create();
 		return dialog;
 	}
 	
