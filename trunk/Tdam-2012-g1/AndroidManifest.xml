@@ -91,13 +91,6 @@
                 android:value="android.preference.PreferenceActivity" />
         </activity>
         <activity
-            android:name=".Preference_user"
-            android:label="Preferencias Usuario" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.preference.PreferenceActivity" />
-        </activity>
-        <activity
             android:name=".New_ContactWebSms"
             android:label="@string/title_activity_new__contact_web_sms" >
         </activity>
@@ -116,6 +109,15 @@
         <activity
             android:name=".Historial_Mail"
             android:label="@string/title_activity_historial__mail" >
+        </activity>
+        <activity
+            android:name=".Detalle_Msg_web"
+            android:label="@string/title_activity_detalle__msg_web" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
