@@ -1,6 +1,8 @@
 package com.tdam_2012_g1.entidades;
 
-public class MensajeWeb {
+import java.io.Serializable;
+
+public class MensajeWeb implements Serializable {
 	int _id;
 	String _remitente;
 	String _destinatario;
@@ -49,4 +51,6 @@ public class MensajeWeb {
 	public void set_detalle(String _detalle) {
 		this._detalle = _detalle;
 	}
+	
+
 }

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.tdam_2012_g1.Historial_Mail.HistoryMailAdapter;
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
+import com.tdam_2012_g1.dom.HistorialLlamada;
+import com.tdam_2012_g1.dom.HistorialWebSms;
 import com.tdam_2012_g1.entidades.MensajeWeb;
 
 import android.os.Bundle;
@@ -56,8 +58,13 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
     }
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		MensajeWeb WebSms = (MensajeWeb) AdpaterWebSms.getItem(position);
+		Contacto contacto = new Contacto();
+		contacto.setName(WebSms.get_destinatario());
+		Intent intent = new Intent(this, Servicio_Web.class);
+		intent.putExtra("contacto", contacto );
+		startActivity(intent);
 		
 	}
 	
@@ -148,7 +155,7 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
 				}
 
 				MensajeWeb history = (MensajeWeb) getItem(position);
-				holder.txtNameHistorial.setText("Mensaje");
+				holder.txtNameHistorial.setText(history.get_detalle());
 				holder.txtHora.setText(history.get_fechaEnvio());
 
 				return convertView;

@@ -23,7 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener {
 
 	Intent intent;
     @Override
@@ -36,28 +36,12 @@ public class MainActivity extends Activity implements OnClickListener{
         ImageButton historial = (ImageButton)findViewById(R.id.imgbtn_historial);
         ImageButton perfil = (ImageButton)findViewById(R.id.imgbtn_perfil);
         ImageButton conectividad = (ImageButton)findViewById(R.id.imgbtn_conectividad);
-        
+        ImageButton MensajesWeb = (ImageButton) findViewById(R.id.imgbtn_MensajesWeb);
         contactos.setOnClickListener(this);
         historial.setOnClickListener(this);
         perfil.setOnClickListener(this);
         conectividad.setOnClickListener(this);
-
-        //agregar datos a la bd
-        
-      //  DatabaseHelper dbhelper = new DatabaseHelper(this);
-       // SQLiteDatabase db = dbhelper.getWritableDatabase();
-       // Contacto cont = new Contacto(1, "Brunos");
-       // dbhelper.addContacto(cont);
-        
-		/*Date date = null;
-		date = new Date(2012, 4, 1);
-		MensajeWeb WebsmsNuevo = new MensajeWeb();
-		WebsmsNuevo.set_id(1);
-		WebsmsNuevo.set_idContactoDestinatario(1);
-		WebsmsNuevo.set_idContactoRemitente(2);
-		WebsmsNuevo.set_detalle("Hola como andas");
-		WebsmsNuevo.set_fechaEnvio(date.toGMTString());
-		dbhelper.addMensaje(WebsmsNuevo);*/
+        MensajesWeb.setOnClickListener(this);
                 
     }
     
@@ -79,6 +63,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		case R.id.imgbtn_conectividad:
 			intent = new Intent().setClass(this, Conectivity.class);			
 			break;
+			
+		case R.id.imgbtn_MensajesWeb:
+			intent = new Intent().setClass(this, Servicio_Web.class);
 		}
 		startActivity(intent);
 	}

@@ -415,7 +415,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 						.getColumnIndex(colFechaEnvioMsj)))).toString());
 
 				aux.set_detalle(cursor.getString(cursor
-						.getColumnIndex(colIdContactoDestinatario)));
+						.getColumnIndex(colDetalle)));
 				
 				mails.add(aux);
 			}
@@ -498,7 +498,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		 	ArrayList<MensajeWeb> mensWeb = new ArrayList<MensajeWeb>();
 			MensajeWeb aux = null;
 			SQLiteDatabase db = this.getWritableDatabase();
-			String values[] = {cont.getId()};
+			String values[] = {cont.getName()};
 
 			Cursor cursor = db.rawQuery("SELECT * FROM " + mensajesWebTable + " WHERE " + colIdContactoDestinatario + " = ?" 
 						,	values);
@@ -516,10 +516,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 						.getColumnIndex(colFechaEnvioMsj)))).toString());
 
 				aux.set_detalle(cursor.getString(cursor
-						.getColumnIndex(colIdContactoDestinatario)));
+						.getColumnIndex(colDetalle)));
 				
 				mensWeb.add(aux);
 			}
+			
+			
 
 			cursor.close();
 			db.close();
@@ -541,6 +543,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			
 	 }
 	 
+	 public Usuario buscarUsuarioporNombre(String nombre){
+		 
+		 Usuario usuario = null;
+		 SQLiteDatabase db = this.getWritableDatabase();
+		 String values[] = { nombre };
+		 
+		 Cursor cursor = db.rawQuery("SELECT * FROM " + usuariosTable + " WHERE " + colNombre + " = ? " ,values);
+		 
+		 while (cursor.moveToNext()) {
+				usuario = new Usuario();
+				usuario.set_id(cursor.getInt(cursor.getColumnIndex(colIdUsuario)));
+				
+				usuario.set_nombre(cursor.getString(cursor.getColumnIndex(colNombre)));
+				
+				usuario.set_contraseña(cursor.getString(cursor.getColumnIndex(colContraseña)));
+				
+				usuario.set_mail(cursor.getString(cursor.getColumnIndex(colMail)));
+	
+			}
+		 
+		 
+		 return usuario;
+		 
+	 }
+	 
+	 
+	 public void UpdateUser(Usuario user){
+		 
+		 SQLiteDatabase db = this.getWritableDatabase();
+
+			ContentValues cv = new ContentValues();
+
+			cv.put(colNombre, user.get_nombre());
+			cv.put(colContraseña, user.get_contraseña());
+			cv.put(colMail, user.get_mail());
+			
+			String values[] = {String.valueOf(user.get_id())};
+			db.update(usuariosTable, cv, colNombre + "= ?", values);
+			db.close();
+			 
+	 }
 	
 
 }
