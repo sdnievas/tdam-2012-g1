@@ -44,5 +44,17 @@
     <string name="preference_Historial_FiltrarSalientes">Solo Acciones de Salida</string>
     <string name="preference_Historial_OrdenarFechaReciente">Por Fecha Desendente</string>
     <string name="preference_Historial_OrdenarAsendente">Por Fecha Asendente</string>
+    <string name="preference_InicioSesion_Userkey">NombreUsuario</string>
+    <string name="preference_InicioSesion_UserTitle">NombreUsuario</string>
+    <string name="preference_InicioSesion_UserSummary">NombreUsuario</string>
+    <string name="preference_InicioSesion_UserPasskey">PasswordUsuario</string>
+    <string name="preference_InicioSesion_UserPassTitle">PasswordUsuario</string>
+    <string name="preference_InicioSesion_UserPassSummary">PasswordUsuario</string>
+    <string name="title_activity_detalle__msg_web">Detalle_Msg_web</string>
+    <string name="detalle_mensajeWeb_Id">El detalle del mensaje es:</string>
+    <string name="detalle_mensajeWeb_remitente">El remitente es:</string>
+    <string name="detalle_mensajeWeb_destinatario">El destinatario es:</string>
+    <string name="detalle_mensajeWeb_fecha">La fecha del mensaje es:</string>
+    <string name="detalle_mensajeWeb_detalle">El  mensaje es:</string>
 
 </resources>

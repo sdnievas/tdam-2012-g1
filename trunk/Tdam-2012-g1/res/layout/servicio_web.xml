@@ -60,51 +60,42 @@
             android:ems="10" />
 
     </LinearLayout>
-
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.31"
-        android:gravity="right"
+        android:layout_height="342dp"
         android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/textVMensaje"
-            android:layout_width="314dp"
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Mensaje" 
-            android:textColor="#FFFFFF"/>
-
-        <EditText
-            android:id="@+id/txtMensaje"
-            android:layout_width="match_parent"
-            android:layout_height="122dp"
-            android:layout_weight="0.40"
-            android:ems="10"
-            android:inputType="textMultiLine" />
-<LinearLayout 
-     android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.31"
-        android:gravity="right"
-        android:orientation="horizontal">
-            
-   		<EditText
-            android:id="@+id/txtMensaje2"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="0.40"
-            android:singleLine="true"
-            android:inputType="text" />
-   		
-        <Button
-            android:id="@+id/btnEnviar"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Enviar" />
-
- </LinearLayout>
+            android:cacheColorHint="#00000000" />
 
     </LinearLayout>
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="0.08"
+		    android:gravity="right"
+		    android:orientation="horizontal" >
+		            
+		   		<EditText
+		            android:id="@+id/txtMensajeDetalle"
+		            android:layout_width="match_parent"
+		            android:layout_height="50dp"
+		            android:layout_weight="0.40"
+		            android:singleLine="true"
+		            android:inputType="text" />
+		   		
+		        <Button
+		            android:id="@+id/btnEnviar"
+		            android:layout_width="100dp"
+		            android:layout_height="wrap_content"
+		            android:text="Enviar" />
+
+ 		</LinearLayout>
+
+    
 
 </LinearLayout>
