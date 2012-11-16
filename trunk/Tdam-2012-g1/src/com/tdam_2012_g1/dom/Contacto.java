@@ -3,6 +3,8 @@ package com.tdam_2012_g1.dom;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import android.net.Uri;
+
 
 
 public class Contacto  implements Serializable {
@@ -11,6 +13,9 @@ public class Contacto  implements Serializable {
 	private String id;
 	private ArrayList<String> telephoneNumbers;
 	private ArrayList<String> emails;
+	private Uri Imagen;
+	private String nomUserWeb;
+		
 
 	public Contacto() {
 		telephoneNumbers = new ArrayList<String>(0);
@@ -24,13 +29,29 @@ public class Contacto  implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public void setImagen(Uri Imagen) {
+		this.Imagen = Imagen;
+	}
 
+	public void setUserWeb(String userWeb) {
+		this.nomUserWeb = userWeb;
+	}
+	
 	public String getName() {
 		return name;
 	}
 
 	public String getId() {
 		return id;
+	}
+	
+	public String getuserWeb() {
+		return nomUserWeb;
+	}
+	
+	public Uri getImagen(){
+		return Imagen;
 	}
 
 	public void addTelephoneNumber(String number) {

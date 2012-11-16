@@ -21,7 +21,7 @@ import com.tdam_2012_g1.entidades.Usuario;
 
 public class ConsultarMensajesHandler {
 
-	private static final String SERVER_URL = "http://192.168.1.201:8080/MessageSender/";
+	private static final String SERVER_URL = "http://10.16.0.36:8080/MessageSender/";
 	private boolean success = true;
 	private String[] mensajes;
 	private String request;
