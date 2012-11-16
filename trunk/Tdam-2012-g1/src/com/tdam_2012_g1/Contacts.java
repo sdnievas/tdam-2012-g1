@@ -63,10 +63,10 @@ public class Contacts extends ListActivity implements OnItemClickListener {
 		switch (item.getItemId()) {
 
 		case R.id.menu_settings:
-			//intent = new Intent(this, Preference_user.class);
+			intent = new Intent(this, Preference_user.class);
 			break;
 		}
-		//startActivity(intent);
+		startActivity(intent);
 		return true;
 	}
 

@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -148,7 +149,9 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
 					holder.txtNameHistorial = (TextView) convertView
 							.findViewById(R.id.textNombreHistorialItem);
 					holder.txtHora = (TextView) convertView
-							.findViewById(R.id.textHoraHistorialItem);					
+							.findViewById(R.id.textHoraHistorialItem);	
+					holder.ImagenType = (ImageView) convertView
+							.findViewById(R.id.imagehistorialItem);
 					convertView.setTag(holder);
 				} else {
 					holder = (Holder) convertView.getTag();
@@ -157,6 +160,7 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
 				MensajeWeb history = (MensajeWeb) getItem(position);
 				holder.txtNameHistorial.setText(history.get_detalle());
 				holder.txtHora.setText(history.get_fechaEnvio());
+				holder.ImagenType.setImageResource(android.R.drawable.stat_notify_chat);
 
 				return convertView;
 			}
@@ -166,6 +170,7 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
 		 class Holder {
 				private TextView txtNameHistorial;
 				private TextView txtHora;
+				private ImageView ImagenType;
 			}
 		 
 		 public boolean onMenuItemSelected(int featureId, MenuItem item) {

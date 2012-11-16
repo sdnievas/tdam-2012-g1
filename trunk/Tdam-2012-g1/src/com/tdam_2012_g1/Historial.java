@@ -1,57 +1,25 @@
 package com.tdam_2012_g1;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 
-import android.app.Activity;
+
 import android.app.TabActivity;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CallLog;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
-
-
 import com.tdam_2012_g1.dom.Contacto;
-import com.tdam_2012_g1.dom.HistorialLlamada;
-import com.tdam_2012_g1.dom.HistorialMail;
-import com.tdam_2012_g1.dom.HistorialSms;
 import com.tdam_2012_g1.database.*;
-import com.tdam_2012_g1.entidades.Mail;
-import com.tdam_2012_g1.entidades.MensajeWeb;
-
-
-import android.app.ListActivity;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
 
 
 public class Historial extends TabActivity {
 	
 	private Intent intent;
-	private Historial historyToShow;
 	public Contacto contact;
 	final DatabaseHelper db=new DatabaseHelper(this);
-	private Context context;
+
 	
 	
     @Override
@@ -82,14 +50,14 @@ public class Historial extends TabActivity {
 		tabs.addTab(spec);
 
 		spec=tabs.newTabSpec("SmS"); 
-		spec.setIndicator("Sms", res.getDrawable(android.R.drawable.ic_dialog_dialer));
+		spec.setIndicator("Sms", res.getDrawable(android.R.drawable.ic_dialog_email));
 		Intent historialSms = new Intent(this, Historial_Sms.class);
 		historialSms.putExtra("contacto",contact);
 		spec.setContent(historialSms);
 		tabs.addTab(spec);
 		
 		spec=tabs.newTabSpec("WebMessage"); 
-		spec.setIndicator("WebMessage",	res.getDrawable(android.R.drawable.ic_dialog_alert));
+		spec.setIndicator("WebMessage",	res.getDrawable(android.R.drawable.stat_notify_chat));
 		Intent historialWebMsg = new Intent(this, Historial_WebMsg.class);
 		historialWebMsg.putExtra("contacto",contact);
 		spec.setContent(historialWebMsg);
@@ -143,33 +111,6 @@ public class Historial extends TabActivity {
 		}
 		
 		
-		
-/*
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-    
-		
-		
-		
-			
-	  
-	  
-	  
-	  
-	  
-			
-			
-	//------------------------SMS-------------------------------------	
-			
-			
-			
-			
-			
-	  	*/	
+	
 		
 }

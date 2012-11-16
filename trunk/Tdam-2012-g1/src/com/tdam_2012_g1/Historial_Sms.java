@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -207,7 +208,9 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 					holder.txtNameHistorial = (TextView) convertView
 							.findViewById(R.id.textNombreHistorialItem);
 					holder.txtHora = (TextView) convertView
-							.findViewById(R.id.textHoraHistorialItem);					
+							.findViewById(R.id.textHoraHistorialItem);	
+					holder.ImagenType = (ImageView) convertView
+							.findViewById(R.id.imagehistorialItem);
 					convertView.setTag(holder);
 				} else {
 					holder = (Holder) convertView.getTag();
@@ -216,7 +219,7 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 				HistorialSms history = (HistorialSms) getItem(position);
 				holder.txtNameHistorial.setText(history.getNumero());
 				holder.txtHora.setText(history.getFecha().toGMTString());
-	
+				holder.ImagenType.setImageResource(android.R.drawable.ic_dialog_email);
 				return convertView;
 			}
 		
@@ -225,6 +228,7 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 	class Holder {
 		private TextView txtNameHistorial;
 		private TextView txtHora;
+		private ImageView ImagenType;
 	}
 
 	@Override

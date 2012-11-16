@@ -1,6 +1,5 @@
 package com.tdam_2012_g1;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 

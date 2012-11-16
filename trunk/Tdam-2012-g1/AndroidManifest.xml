@@ -90,6 +90,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.preference.PreferenceActivity" />
         </activity>
+         <activity
+            android:name=".Preference_user"
+            android:label="Prefernce Usuario" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.preference.PreferenceActivity" />
+        </activity>
         <activity
             android:name=".New_ContactWebSms"
             android:label="@string/title_activity_new__contact_web_sms" >
