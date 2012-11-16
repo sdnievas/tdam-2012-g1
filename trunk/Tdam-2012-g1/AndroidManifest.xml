@@ -18,20 +18,41 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    
+
     <application
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <receiver android:name=".Broadcast.ConectivityBroadcastReciver" >
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" >
+                </action>
+                <action android:name="android.net.conn.BACKGROUND_DATA_SETTING_CHANGED" >
+                </action>
+                <action android:name="android.net.wifi.STATE_CHANGE" >
+                </action>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.supplicant.CONNECTION_CHANGE" />
+            </intent-filter>
+        </receiver>
+
         <activity
-            android:name=".MainActivity"
-            android:label="Inicio" >
+            android:name=".Inicio"
+            android:label="Tdam 2012" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity
+        <activity
+            android:name=".New_User"
+            android:label="Nuevo usuario" >
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="Inicio" >
+        </activity>
+        <activity
             android:name=".Conectivity"
             android:label="Conectividad" >
         </activity>
@@ -51,7 +72,7 @@
             android:name=".DetalleContacto"
             android:label="Detalle Contacto" >
         </activity>
-         <activity
+        <activity
             android:name=".Historial"
             android:label="Historial" >
         </activity>
@@ -62,7 +83,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.preference.PreferenceActivity" />
         </activity>
-                <activity
+        <activity
             android:name=".Preference_historial"
             android:label="Prefernce Historial" >
             <meta-data
@@ -75,6 +96,26 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.preference.PreferenceActivity" />
+        </activity>
+        <activity
+            android:name=".New_ContactWebSms"
+            android:label="@string/title_activity_new__contact_web_sms" >
+        </activity>
+        <activity
+            android:name=".Historial_Llamadas"
+            android:label="@string/title_activity_historial__llamadas" >
+        </activity>
+        <activity
+            android:name=".Historial_Sms"
+            android:label="@string/title_activity_historial__sms" >
+        </activity>
+        <activity
+            android:name=".Historial_WebMsg"
+            android:label="@string/title_activity_historial__web_msg" >
+        </activity>
+        <activity
+            android:name=".Historial_Mail"
+            android:label="@string/title_activity_historial__mail" >
         </activity>
     </application>
 
