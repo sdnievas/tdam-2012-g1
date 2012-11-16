@@ -124,6 +124,7 @@ public class DetalleContacto extends Activity implements OnClickListener{
     private void MsgWebto(){
     	
     	 intent = new Intent(this, Servicio_Web.class);
+    	 intent.putExtra("contacto", contact );
     	 startActivity(intent);
     }
     
