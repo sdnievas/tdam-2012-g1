@@ -1,6 +1,4 @@
-<resources>
-
-    <string name="app_name">TDAM Aplicacion</string>
+<resources><string name="app_name">TDAM Aplicacion</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
@@ -56,5 +54,56 @@
     <string name="detalle_mensajeWeb_destinatario">El destinatario es:</string>
     <string name="detalle_mensajeWeb_fecha">La fecha del mensaje es:</string>
     <string name="detalle_mensajeWeb_detalle">El  mensaje es:</string>
+    
+    
+    <string name="buscar">Buscar</string>
+    <string name="dc_numeros">Números</string>
+    <string name="dc_email">Email</string>
+    <string name="dc_msjWeb">Mensajería Web</string>    
+    <string name="dc_historial">Historial</string>
+    <string name="con_estado">Estado de la Conexión</string>
+    <string name="con_wifi">WiFi</string>
+    <string name="con_3g">3G</string>
+    <string name="nombre_usuario_web">El Nombre del Usuario web</string>
+    
+    <string name="nombre_usuario">Nombre Usuario</string>
+    <string name="btn_agregar">Agregar</string>
+    <string name="btn_nuevo_usuario">Nuevo Usuario</string>
+    <string name="txt_usuario">Usuario</string>
+    <string name="txt_password">Contraseña</string>
+    <string name="btn_inicio_sesion">Iniciar Sesión</string>
+    <string name="main_mensaje_web">Mensajes Web</string>
+    <string name="main_contactos">Contactos</string>
+    <string name="main_historial">Historial</string>
+    <string name="main_perfil">Mi Perfil</string>
+    <string name="main_conectividad">Conectividad</string>
+    
+    <string name="leyenda_nuevo_usuario">Ingrese los datos para el registro de un nuevo ususario</string>
+    <string name="nu_nombre_usuario">Nombre Usuario</string>
+    <string name="nu_password">Contraseña</string>
+    <string name="nu_repetir_password">Contraseña</string>
+    <string name="nu_email">Email</string>
+    <string name="nu_btn_agregar">Agregar</string>
+    
+    <string name="sw">Servicio de Mensajes Web</string>
+    <string name="sw_nombre_usuario">Nombre de Usuario</string>
+    <string name="sw_destinatario">Destinatario</string>
+    <string name="sw_mensaje">Mensaje</string>
+    <string name="sw_btn_enviar">Enviar</string>
+    
+    
+    <string name="up_nombre_usuario">Nombre de Usuario</string>
+    <string name="up_email">Email</string>
+    <string name="up_usuario">Usuario</string>
+    <string name="up_password">Contraseña</string>
+    <string name="up_repetir_password">Repetir Contraseña</string>
+    
+    <string name="up_btn_guardar">Guardar</string>
+    
+    <string name="activity_contacts_title">User Settings</string>    
+    <string name="activity_historial_title">Historial Settings</string>    
+    <string name="nuevo_usuario_web_title">Nuevo Usuario Web</string>
+    
+    <string name="title_preference_forma_ordenamiento">Forma de Ordenamiento</string>
 
 </resources>
