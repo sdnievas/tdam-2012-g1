@@ -28,6 +28,13 @@ public class Notificacion {
 	}
 	
 	public void notificar(String notificacion){
+		
+		if(notificacion.equals("SUCCESS"))
+			notificacion = "Resultado Correcto";
+			
+		if(notificacion.equals("ERROR"))
+			notificacion = "Resultado Incorrecto";
+						
 		String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager mNotificationManager =(NotificationManager) context.getSystemService(ns);
         
