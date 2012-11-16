@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <EditTextPreference android:key="@string/preference_InicioSesion_Userkey" android:summary="@string/preference_InicioSesion_UserSummary" android:title="@string/preference_InicioSesion_UserTitle" android:defaultValue="@id/init_NombUser"/>
+    <EditTextPreference android:defaultValue="@id/init_UserPassword" android:key="@string/preference_InicioSesion_UserPasskey" android:summary="@string/preference_InicioSesion_UserPassSummary" android:title="@string/preference_InicioSesion_UserPassTitle"/>
+    
+
+</PreferenceScreen>

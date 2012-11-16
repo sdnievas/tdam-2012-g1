@@ -11,8 +11,33 @@
 	    android:id="@+id/linervmain3"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_marginTop="50dp"
+	    android:layout_marginTop="30dp"
 	    android:orientation="vertical">
+	    
+    		<LinearLayout
+    		    android:layout_width="match_parent"
+    		    android:layout_height="100dp"
+    		    android:orientation="vertical" >
+		    
+    		     <ImageButton
+                        android:id="@+id/imgbtn_MensajesWeb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/image_notification" 
+                        android:layout_gravity="center"
+                        android:background="@drawable/border_icons"
+                        />
+    		     
+    		     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mensajes Web"
+                        android:layout_gravity="center"
+                        android:textSize="18dp"
+                        android:textColor="@android:color/white" />
+    		     
+    		    
+    		</LinearLayout>
 	    		<LinearLayout 
 		    android:id="@+id/linervmain1"
 		    android:layout_width="match_parent"
@@ -39,8 +64,8 @@
                         android:layout_height="wrap_content"
                         android:text="Contactos"
                         android:layout_gravity="center"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:textColor="@android:color/white" />
                     
                </LinearLayout>
                
@@ -64,8 +89,9 @@
                         android:layout_height="wrap_content"
                         android:text="Historial"
                         android:layout_gravity="center"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
+                        android:textSize="18dp" 
+                        android:textColor="@android:color/white"/>
+                    
                     </LinearLayout>
                     
                </LinearLayout>
@@ -98,8 +124,9 @@
                         android:layout_height="wrap_content"
                         android:text="Mi Perfil"
                         android:layout_gravity="center"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
+                        android:textSize="18dp" 
+                        android:textColor="@android:color/white"/>
+                    
                 </LinearLayout>
                 
                      <LinearLayout 
@@ -122,8 +149,8 @@
                         android:layout_height="wrap_content"
                         android:text="Conectividad"
                         android:layout_gravity="center"
-                        android:textColor="#000000"
-                        android:textSize="18dp" />
+                        android:textSize="18dp" 
+                        android:textColor="@android:color/white"/>
                 
             	</LinearLayout>
             </LinearLayout>
