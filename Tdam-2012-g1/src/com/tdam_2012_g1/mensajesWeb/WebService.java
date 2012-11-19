@@ -17,7 +17,7 @@ public class WebService {
 	private String password;
 	private URL url;
 
-	private final static String URL = "http://172.16.170.76:8080/MessageSender/";
+	private final static String URL = "http://192.168.0.100:8080/MessageSender/";
 
 	public static final int FATAL_ERROR = -1;
 

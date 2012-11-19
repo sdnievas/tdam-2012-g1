@@ -55,6 +55,12 @@
     <string name="detalle_mensajeWeb_fecha">La fecha del mensaje es:</string>
     <string name="detalle_mensajeWeb_detalle">El  mensaje es:</string>
     
+    <string name="notificacion_ServerError">A ocurrido un error en el server</string>
+    <string name="notificacion_FatalError">A ocurrido un error fatal</string>
+    <string name="notificacion_SuccesUser">El Usuario se ha Registrado Con Exito</string>
+    <string name="notificacion_SuccesMessage">El Mensaje se ha Enviado Con Exito</string>
+    <string name="notificacion_ErrorMessage">El Mensaje no se ha Enviado ha ocurrido un error</string>
+    <string name="notificacion_DuplicateUser">Ya existe un Usuario Registrado con ese Nombrer</string>
     
     <string name="buscar">Buscar</string>
     <string name="dc_numeros">Numeros</string>

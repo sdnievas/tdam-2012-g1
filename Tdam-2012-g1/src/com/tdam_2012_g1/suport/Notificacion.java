@@ -10,43 +10,68 @@ import android.widget.RemoteViews;
 
 import com.tdam_2012_g1.MainActivity;
 import com.tdam_2012_g1.R;
+import com.tdam_2012_g1.mensajesWeb.WebServiceInfo;
 
 
 
 public class Notificacion {
 
-	private String mensaje;
 	private Context context;
-	
-	private static final String SUCCESS = "Resultado Correcto";
-	private static final String ERROR = "Resultado Incorrecto";
 	private static final String NOTIFICATION_MSJ = "Tiene un Nuevo Mensaje";
-	private static final String NOTIFICATION= "Notificacion";
+	private WebServiceInfo info;
+	private String notificacion;
+	private int Type;
 	
 	
-	public Notificacion(Context context, String Mensaje) {
-		this.mensaje = Mensaje;
+	
+	
+	public Notificacion(Context context, WebServiceInfo info , int Type) {
 		this.context = context;
+		this.info = info;
+		this.Type = Type;
 	}
 	
-	public Notificacion(Context context) {
-		this.context = context;
-	}
-	
-	public void notificar(String notificacion){
+	public void notificionMensajes(){
 		
-		if(notificacion.equals("success"))
-			notificacion = SUCCESS;
+		switch (info.getCode())
+		{
+		
+		case -1:
+				notificacion = context.getString(R.string.notificacion_ServerError);
+			break;
+		
+		case 0:
+				notificacion = context.getString(R.string.notificacion_FatalError);
+			break;
+		
+		case 1:
+			if(Type == 1)
+				notificacion = context.getString(R.string.notificacion_SuccesUser);
+			else
+				notificacion = context.getString(R.string.notificacion_SuccesMessage);
+			break;
 			
-		if(notificacion.equals("error"))
-			notificacion = ERROR;
-						
+		case 2:
+				notificacion = context.getString(R.string.notificacion_ErrorMessage);
+			break;
+			
+		case 5:
+				notificacion = context.getString(R.string.notificacion_DuplicateUser);
+			break;
+		
+		}
+							
+		nuevaNotificacion();
+	}
+	
+	private void nuevaNotificacion(){
+		
 		String ns = Context.NOTIFICATION_SERVICE;
         NotificationManager mNotificationManager =(NotificationManager) context.getSystemService(ns);
         
         
         int icon = R.drawable.ic_contacts;
-        CharSequence ticketText = NOTIFICATION;
+        CharSequence ticketText = NOTIFICATION_MSJ;
         long when = System.currentTimeMillis();
         
         Notification notification = new Notification(R.drawable.image_notification,NOTIFICATION_MSJ,1);
@@ -54,15 +79,21 @@ public class Notificacion {
        
         RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
         contentView.setImageViewResource(R.id.imagenNotification, R.drawable.image_notification);
-        contentView.setTextViewText(R.id.textoNotification, notificacion  );
+        contentView.setTextViewText(R.id.textoNotification, notificacion );
         notification.contentView = contentView;
         
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent();
         PendingIntent contentIntent = PendingIntent.getActivity(context,0, notificationIntent, 0);
         
         notification.contentIntent = contentIntent;
         mNotificationManager.notify(1, notification);
+		
 	}
+	
+	
+	
+	
+
 	
 	
 }

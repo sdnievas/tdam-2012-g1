@@ -141,8 +141,8 @@ public class New_User extends Activity implements OnClickListener{
 		{
 			super.onPostExecute(result);
 	
-			Notificacion noti = new Notificacion(context);
-			noti.notificar(result.getType());
+			Notificacion noti = new Notificacion(context,result,1);
+			noti.notificionMensajes();
 		}
 
     } 
