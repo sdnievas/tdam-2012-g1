@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
@@ -42,6 +44,9 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 	private static final String DIALOG_ERROR = "Error";
 	private static final String DIALOG_MSJ = "No hay conexion a ocurrido un error";
 	private static final String DIALOG_BTN = "Aceptar";
+	private static final String LOGIN_SETTINGS = "LoginPreferences";
+	private static final String USER = "user";
+	private static final String PASSWORD = "password";
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,8 +67,20 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
         	txtDestinatario.setText(contact.getName());
         	txtDestinatario.setEnabled(false);
         	AdapterAndList();}
+        
+        cargarUsuario();
 	}
 
+	public void cargarUsuario(){
+		
+		SharedPreferences preferences = getSharedPreferences(LOGIN_SETTINGS,
+				MODE_PRIVATE);
+		usr = new Usuario();
+		usr.set_nombre(preferences.getString(USER, ""));
+		usr.set_contraseña(preferences.getString(PASSWORD, ""));
+
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -110,9 +127,8 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 	private void nuevoMensaje(){
 		
 		msj = new MensajeWeb();
-		usr = new Usuario();
-		usr.set_nombre("federico");
-		usr.set_contraseña("123456");	
+		
+	
 		msj.set_remitente(usr.get_nombre());
 		msj.set_detalle(txtMensaje.getText().toString());
 		msj.set_destinatario(txtDestinatario.getText().toString());
@@ -198,6 +214,9 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 				holder.txtHora = (TextView) convertView
 						.findViewById(R.id.textHoraHistorialItem);					
 				convertView.setTag(holder);
+				holder.Imagen = (ImageView) convertView
+						.findViewById(R.id.imagehistorialItem);					
+				convertView.setTag(holder);
 			} else {
 				holder = (Holder) convertView.getTag();
 			}
@@ -205,7 +224,7 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 			MensajeWeb history = (MensajeWeb) getItem(position);
 			holder.txtNameHistorial.setText(history.get_detalle());
 			holder.txtHora.setText(history.get_fechaEnvio());
-
+			holder.Imagen.setImageResource(android.R.drawable.ic_dialog_email);
 			return convertView;
 		}
 	
@@ -214,6 +233,7 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 	 class Holder {
 			private TextView txtNameHistorial;
 			private TextView txtHora;
+			private ImageView Imagen;
 		}
 
 	
@@ -254,8 +274,9 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 			{
 				super.onPostExecute(result);
 		
-				Notificacion noti = new Notificacion(context);
-				noti.notificar(result.getType());
+				Notificacion noti = new Notificacion(context,result,0);
+				noti.notificionMensajes();
+				
 				AdapterAndList();
 			}
 
