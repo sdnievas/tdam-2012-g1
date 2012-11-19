@@ -72,10 +72,10 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 	private void loadListData(){
 		
 		adapter.limpiar();
-		String forma = "date asc";
+		String forma = "date desc";
     	
     	if(!ordenarForma.equals("0")){
-    		forma = "date desc";
+    		forma = "date asc";
     	}
 		
 		ContentResolver cr = getContentResolver();
@@ -144,7 +144,7 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 		
 		private ArrayList<HistorialLlamada> historial;
 		private LayoutInflater inflater;
-		private SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm");
+		private SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
 		
 		public HistorialLLamadasAdapter() {
 			historial = new ArrayList<HistorialLlamada>();
