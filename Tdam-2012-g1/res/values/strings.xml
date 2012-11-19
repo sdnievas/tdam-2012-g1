@@ -40,8 +40,8 @@
     <string name="preference_Historial_FiltrarNada">No Filtrar</string>
     <string name="preference_Historial_FiltrarEntradas">Solo Acciones de Entrada</string>
     <string name="preference_Historial_FiltrarSalientes">Solo Acciones de Salida</string>
-    <string name="preference_Historial_OrdenarFechaReciente">Por Fecha Desendente</string>
-    <string name="preference_Historial_OrdenarAsendente">Por Fecha Asendente</string>
+    <string name="preference_Historial_OrdenarFechaReciente">Nuevos primero</string>
+    <string name="preference_Historial_OrdenarAsendente">Viejos primero</string>
     <string name="preference_InicioSesion_Userkey">NombreUsuario</string>
     <string name="preference_InicioSesion_UserTitle">NombreUsuario</string>
     <string name="preference_InicioSesion_UserSummary">NombreUsuario</string>
@@ -63,7 +63,7 @@
     <string name="notificacion_DuplicateUser">Ya existe un Usuario Registrado con ese Nombrer</string>
     
     <string name="buscar">Buscar</string>
-    <string name="dc_numeros">Numeros</string>
+    <string name="dc_numeros">Números</string>
     <string name="dc_email">Email</string>
     <string name="dc_msjWeb">Mensajeria Web</string>    
     <string name="dc_historial">Historial</string>
@@ -73,7 +73,7 @@
     <string name="nombre_usuario_web">El Nombre del Usuario web</string>
     
     <string name="nombre_usuario">Nombre Usuario</string>
-    <string name="numeros">Numeros</string>
+    <string name="numeros">Números</string>
     <string name="btn_agregar">Agregar</string>
     <string name="txt_usuario">Usuario</string>
     <string name="txt_password">Contraseña</string>
