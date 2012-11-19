@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -52,6 +55,8 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.servicio_web);
 		
+		final Animation escalar = AnimationUtils.loadAnimation(this, R.anim.escalar);
+		
 		txtDestinatario = (EditText) findViewById(R.id.txtDestinatario);
 		txtMensaje = (EditText) findViewById(R.id.txtMensajeDetalle);
 		
@@ -69,6 +74,24 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
         	AdapterAndList();}
         
         cargarUsuario();
+        
+        txtDestinatario.setOnFocusChangeListener(new OnFocusChangeListener(){
+   		 public void onFocusChange(View v, boolean hasFocus){
+   			 if(hasFocus){
+   				 escalar.reset();
+   				txtDestinatario.startAnimation(escalar);
+   			 }    			 
+   		 }   		 
+   	 	}); 
+        
+        txtMensaje.setOnFocusChangeListener(new OnFocusChangeListener(){
+   		 public void onFocusChange(View v, boolean hasFocus){
+   			 if(hasFocus){
+   				 escalar.reset();
+   				txtMensaje.startAnimation(escalar);
+   			 }    			 
+   		 }   		 
+   	 	});  
 	}
 
 	public void cargarUsuario(){

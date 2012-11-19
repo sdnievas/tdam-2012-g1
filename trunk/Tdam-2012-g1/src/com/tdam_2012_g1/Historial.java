@@ -101,9 +101,7 @@ public class Historial extends TabActivity {
 	 
 		@Override
 		protected void onResume() {
-			super.onResume();
-			
-			
+			super.onResume();			
 		}
 
 		@Override
