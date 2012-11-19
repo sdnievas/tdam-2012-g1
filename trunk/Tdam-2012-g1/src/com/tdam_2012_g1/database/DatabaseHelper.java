@@ -448,7 +448,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(colMail, user.get_mail());
 
 		String values[] = { String.valueOf(user.get_id()) };
-		db.update(usuariosTable, cv, colNombre + "= ?", values);
+		db.update(usuariosTable, cv, colIdUsuario + "= ?", values);
 		db.close();
 
 	}
