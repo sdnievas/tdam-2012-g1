@@ -1,6 +1,7 @@
 package com.tdam_2012_g1;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.dom.HistorialSms;
@@ -26,7 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class Historial_Sms extends ListActivity implements OnItemClickListener {
 
 	
-	private HistorySmsAdapter AdapertSms;
+	private HistorySmsAdapter adapertSms;
 	private Contacto contact;
 	private String ordenarForma;
 	private String FiltroContactos;
@@ -41,9 +42,9 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
         if(extras != null)
 	    	contact = (Contacto) extras.getSerializable("contacto"); //Cargamos el contacto que recibimos del intent de la activity contactos
       
-        AdapertSms = new HistorySmsAdapter();
+        adapertSms = new HistorySmsAdapter();
         
-        getListView().setAdapter(AdapertSms);
+        getListView().setAdapter(adapertSms);
 
       	getListView().setOnItemClickListener(this);
       	
@@ -78,7 +79,7 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
     
     
     private void loadConversationsSms() {
-    	
+    	adapertSms.limpiar();
     	String forma = "date asc";
     	
     	if(!ordenarForma.equals("0")){
@@ -86,8 +87,7 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
     	}
     	
 		Uri smsURI = Uri.parse("content://sms/");
-		String columns[] = new String[] { "address", "body", "date",
-				"thread_id", "type"}; // type 1 = otro contacto, type 2 =
+		String columns[] = new String[] { "address", "person", "date", "body","type", "thread_id"}; // type 1 = otro contacto, type 2 =
 										// usuario
 		
 		Cursor cur = this.managedQuery(smsURI, columns, null,
@@ -100,7 +100,8 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 			
 			sms = new HistorialSms();
 			
-			sms.setThreadId("thread_id");
+			sms.setThreadId(cur.getString(cur.getColumnIndex("thread_id")));
+			sms.setNombre(cur.getString(cur.getColumnIndex("person")));
 			Date date = new Date(cur.getLong(cur.getColumnIndex("date")));
 			sms.setNumero(cur.getString(cur.getColumnIndex("address")));
 			sms.setMensaje(cur.getString(cur.getColumnIndex("body")));
@@ -109,12 +110,12 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 					.getColumnIndex("type"))));
 			
 			smsData.add(sms);
-			AdapertSms.addHistorial(sms);
+			adapertSms.addHistorial(sms);
 		}
 
 		cur.close();
 
-		AdapertSms.notifyDataSetChanged();
+		adapertSms.notifyDataSetChanged();
 	}
 
 	
@@ -138,6 +139,7 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 	
 			while (cur.moveToNext()) {
 				sms = new HistorialSms();
+				sms.setNombre(cur.getString(cur.getColumnIndex("person")));
 				Date date = new Date(cur.getLong(cur.getColumnIndex("date")));
 				sms.setNumero(cur.getString(cur.getColumnIndex("address")));
 				sms.setMensaje(cur.getString(cur.getColumnIndex("body")));
@@ -145,13 +147,13 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 				sms.setType(Integer.parseInt(cur.getString(cur
 						.getColumnIndex("type"))));
 				
-				AdapertSms.addHistorial(sms);
+				adapertSms.addHistorial(sms);
 			}
 			
 	
 			cur.close();
 	
-			AdapertSms.notifyDataSetChanged();
+			adapertSms.notifyDataSetChanged();
 			i++;
 		}
 	}
@@ -163,6 +165,8 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 			
 			private ArrayList<HistorialSms> historial;
 			private LayoutInflater inflater;
+			private SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm");
+			private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 	
 			public HistorySmsAdapter() {
 				historial = new ArrayList<HistorialSms>();
@@ -201,10 +205,14 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 					convertView = inflater
 							.inflate(R.layout.historial_item, null);
 					holder = new Holder();
-					holder.txtNameHistorial = (TextView) convertView
-							.findViewById(R.id.textNombreHistorialItem);
+					holder.txtNombre = (TextView) convertView
+							.findViewById(R.id.txtArribaIzquierda);
+					holder.txtFecha = (TextView) convertView
+							.findViewById(R.id.txtArribaDerecha);
 					holder.txtHora = (TextView) convertView
-							.findViewById(R.id.textHoraHistorialItem);	
+							.findViewById(R.id.txtAbajoDerecha);	
+					holder.txtNumero =(TextView) convertView
+							.findViewById(R.id.txtAbajoIzquierda);	
 					holder.ImagenType = (ImageView) convertView
 							.findViewById(R.id.imagehistorialItem);
 					convertView.setTag(holder);
@@ -213,24 +221,34 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener {
 				}
 	
 				HistorialSms history = (HistorialSms) getItem(position);
-				holder.txtNameHistorial.setText(history.getNumero());
-				holder.txtHora.setText(history.getFecha().toGMTString());
+				holder.txtNombre.setText(history.getNumero());
+				holder.txtFecha.setText(formatoFecha.format(history.getFecha()));
+				holder.txtHora.setText(formatoHora.format(history.getFecha()));
+				holder.txtNumero.setText(history.getMensaje());
 				holder.ImagenType.setImageResource(android.R.drawable.ic_dialog_email);
 				return convertView;
+			}
+			
+			public void limpiar(){
+				if(historial != null){
+					historial.clear();
+				}
 			}
 		
 	}
 	
 	class Holder {
-		private TextView txtNameHistorial;
+		private TextView txtNombre;
 		private TextView txtHora;
 		private ImageView ImagenType;
+		private TextView txtFecha;
+		private TextView txtNumero;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 		// TODO Auto-generated method stub
-		HistorialSms Sms = (HistorialSms) AdapertSms.getItem(position);
+		HistorialSms Sms = (HistorialSms) adapertSms.getItem(position);
     	Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setType("vnd.android-dir/mms-sms");
 		intent.setData(Uri.parse("smsto:" + Sms.getNumero()));

@@ -1,6 +1,7 @@
 package com.tdam_2012_g1;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import com.tdam_2012_g1.dom.Contacto;
 import com.tdam_2012_g1.dom.HistorialLlamada;
@@ -70,6 +71,7 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 	
 	private void loadListData(){
 		
+		adapter.limpiar();
 		String forma = "date asc";
     	
     	if(!ordenarForma.equals("0")){
@@ -99,14 +101,15 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 		if (cur.getCount() > 0) {
 			while (cur.moveToNext()) {
 				String nomb = cur.getString(cur
+						.getColumnIndex(CallLog.Calls.CACHED_NAME));
+				String numero = cur.getString(cur
 						.getColumnIndex(CallLog.Calls.NUMBER));
 				Date hora = (new Date(cur.getLong(cur
 								.getColumnIndex(CallLog.Calls.DATE))));
-
 				historial = new HistorialLlamada();
 				historial.setNombre(nomb);
 				historial.setFecha(hora);
-
+				historial.setNumero(numero);
 				adapter.addHistorial(historial);
 			}
 		}
@@ -130,8 +133,10 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 	}
 	
 	class Holder {
-		private TextView txtNameHistorial;
+		private TextView txtNombre;
 		private TextView txtHora;
+		private TextView txtFecha;
+		private TextView txtNumero;
 	}
 	
 	//Adapter de la lista de contactos
@@ -139,7 +144,8 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 		
 		private ArrayList<HistorialLlamada> historial;
 		private LayoutInflater inflater;
-
+		private SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm");
+		
 		public HistorialLLamadasAdapter() {
 			historial = new ArrayList<HistorialLlamada>();
 			inflater = LayoutInflater.from(Historial_Llamadas.this);
@@ -173,20 +179,31 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 				convertView = inflater
 						.inflate(R.layout.historial_item, null);
 				holder = new Holder();
-				holder.txtNameHistorial = (TextView) convertView
-						.findViewById(R.id.textNombreHistorialItem);
+				holder.txtNombre = (TextView) convertView
+						.findViewById(R.id.txtArribaIzquierda);
 				holder.txtHora = (TextView) convertView
-						.findViewById(R.id.textHoraHistorialItem);					
+						.findViewById(R.id.txtArribaDerecha);
+				holder.txtNumero = (TextView) convertView
+						.findViewById(R.id.txtAbajoIzquierda);
+				holder.txtFecha =(TextView) convertView
+						.findViewById(R.id.txtAbajoDerecha);
 				convertView.setTag(holder);
 			} else {
 				holder = (Holder) convertView.getTag();
 			}
 
 			HistorialLlamada history = (HistorialLlamada) getItem(position);
-			holder.txtNameHistorial.setText(history.getNombre());
-			holder.txtHora.setText(history.getFecha().toString());
-
+			holder.txtNombre.setText(history.getNombre());
+			holder.txtFecha.setText(history.getFecha().toString().trim());
+			holder.txtHora.setText((formatoHora.format(history.getFecha()).trim()));
+			holder.txtNumero.setText(history.getNumero().trim());
 			return convertView;
+		}
+		
+		public void limpiar(){
+			if(historial != null){
+				historial.clear();
+			}
 		}
 		
 

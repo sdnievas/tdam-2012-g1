@@ -233,9 +233,9 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 						.inflate(R.layout.historial_item, null);
 				holder = new Holder();
 				holder.txtNameHistorial = (TextView) convertView
-						.findViewById(R.id.textNombreHistorialItem);
+						.findViewById(R.id.txtAbajoIzquierda);
 				holder.txtHora = (TextView) convertView
-						.findViewById(R.id.textHoraHistorialItem);					
+						.findViewById(R.id.txtArribaDerecha);					
 				convertView.setTag(holder);
 				holder.Imagen = (ImageView) convertView
 						.findViewById(R.id.imagehistorialItem);					

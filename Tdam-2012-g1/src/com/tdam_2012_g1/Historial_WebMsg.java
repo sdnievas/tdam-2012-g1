@@ -1,6 +1,9 @@
 package com.tdam_2012_g1;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
@@ -103,7 +106,10 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
 			
 			private ArrayList<MensajeWeb> historial;
 			private LayoutInflater inflater;
-
+			private SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm");
+			private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+			private SimpleDateFormat formateFechaString = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+			
 			public HistoryWebSmsAdapter() {
 				historial = new ArrayList<MensajeWeb>();
 				inflater = LayoutInflater.from(Historial_WebMsg.this);
@@ -141,20 +147,32 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
 					convertView = inflater
 							.inflate(R.layout.historial_item, null);
 					holder = new Holder();
-					holder.txtNameHistorial = (TextView) convertView
-							.findViewById(R.id.textNombreHistorialItem);
+					holder.txtNombre = (TextView) convertView
+							.findViewById(R.id.txtArribaIzquierda);
+					holder.txtFecha = (TextView) convertView
+							.findViewById(R.id.txtArribaDerecha);	
 					holder.txtHora = (TextView) convertView
-							.findViewById(R.id.textHoraHistorialItem);	
+							.findViewById(R.id.txtAbajoDerecha);
 					holder.ImagenType = (ImageView) convertView
 							.findViewById(R.id.imagehistorialItem);
+					holder.txtMensaje = (TextView) convertView
+							.findViewById(R.id.txtAbajoIzquierda);
 					convertView.setTag(holder);
 				} else {
 					holder = (Holder) convertView.getTag();
 				}
-
+				
 				MensajeWeb history = (MensajeWeb) getItem(position);
-				holder.txtNameHistorial.setText(history.get_detalle());
-				holder.txtHora.setText(history.get_fechaEnvio());
+				Date fecha = new Date();
+				try {
+					fecha = formateFechaString.parse(history.get_fechaEnvio());
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				holder.txtNombre.setText(history.get_destinatario());
+				holder.txtFecha.setText(formatoFecha.format(fecha));
+				holder.txtHora.setText(formatoHora.format(fecha));
+				holder.txtMensaje.setText(history.get_detalle());
 				holder.ImagenType.setImageResource(android.R.drawable.stat_notify_chat);
 
 				return convertView;
@@ -163,8 +181,10 @@ public class Historial_WebMsg extends ListActivity implements OnItemClickListene
   }
 		
 		 class Holder {
-				private TextView txtNameHistorial;
+				private TextView txtNombre;
 				private TextView txtHora;
+				private TextView txtFecha;
+				private TextView txtMensaje;
 				private ImageView ImagenType;
 			}
 		 

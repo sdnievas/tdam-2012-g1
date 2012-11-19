@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String usuariosTable = "usuarios";
 	static final String colIdUsuario = "idUsuario";
 	static final String colNombre = "nombre";
-	static final String colContraseña = "contraseña";
+	static final String colContraseña = "contrasena";
 	static final String colMail = "mailUsuario";
 	
 	static final String conectividadesTable = "conectividades";
@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	
 	public DatabaseHelper(Context context) {
-		super(context, dbName, null, 33);
+		super(context, dbName, null, 35);
 		
 	}
 	
