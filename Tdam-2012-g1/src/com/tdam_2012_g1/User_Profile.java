@@ -14,6 +14,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -36,6 +39,7 @@ public class User_Profile extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_profile);
+        final Animation escalar = AnimationUtils.loadAnimation(this, R.anim.escalar);
         
         btn_Guardar = (Button)findViewById(R.id.btnGuardar);         
         btn_Guardar.setOnClickListener(this);
@@ -44,6 +48,42 @@ public class User_Profile extends Activity implements OnClickListener {
         repassword = (EditText) findViewById(R.id.txtUserProfileRePassword);
         mail = (EditText) findViewById(R.id.txtEmail);
         cargarDatos();
+        
+        user.setOnFocusChangeListener(new OnFocusChangeListener(){
+   		 public void onFocusChange(View v, boolean hasFocus){
+   			 if(hasFocus){
+   				 escalar.reset();
+   				 user.startAnimation(escalar);
+   			 }    			 
+   		 }   		 
+   	 	});
+        
+        password.setOnFocusChangeListener(new OnFocusChangeListener(){
+   		 public void onFocusChange(View v, boolean hasFocus){
+   			 if(hasFocus){
+   				 escalar.reset();
+   				 password.startAnimation(escalar);
+   			 }    			 
+   		 }   		 
+        });    	
+        
+        repassword.setOnFocusChangeListener(new OnFocusChangeListener(){
+   		 public void onFocusChange(View v, boolean hasFocus){
+   			 if(hasFocus){
+   				 escalar.reset();
+   				repassword.startAnimation(escalar);
+   			 }    			 
+   		 }   		 
+        });    	
+        
+        mail.setOnFocusChangeListener(new OnFocusChangeListener(){
+   		 public void onFocusChange(View v, boolean hasFocus){
+   			 if(hasFocus){
+   				 escalar.reset();
+   				mail.startAnimation(escalar);
+   			 }    			 
+   		 }   		 
+        });    	
         
 	}
 	

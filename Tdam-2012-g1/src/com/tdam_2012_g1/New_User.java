@@ -16,6 +16,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -37,17 +40,48 @@ public class New_User extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_user);
         
+   	 	 final Animation escalar = AnimationUtils.loadAnimation(this, R.anim.escalar);
          nomuser = (EditText) findViewById(R.id.new_NombUser);
          password = (EditText) findViewById(R.id.new_PassUser);
          Repassword = (EditText) findViewById(R.id.new_RePassUser);
          Email = (EditText) findViewById(R.id.new_Email);
          
          
-    	 boton = (Button)	findViewById(R.id.new_btnNewUser);	
-		 	 
+    	 boton = (Button)	findViewById(R.id.new_btnNewUser);			 	 
     	 boton.setOnClickListener(this);
     	 
-
+    	 nomuser.setOnFocusChangeListener(new OnFocusChangeListener(){
+    		 public void onFocusChange(View v, boolean hasFocus){
+    			 if(hasFocus){
+    				 escalar.reset();
+    				 nomuser.startAnimation(escalar);
+    			 }    			 
+    		 }   		 
+    	 });
+    	 password.setOnFocusChangeListener(new OnFocusChangeListener(){
+    		 public void onFocusChange(View v, boolean hasFocus){
+    			 if(hasFocus){
+    				 escalar.reset();
+    				 password.startAnimation(escalar);
+    			 }    			 
+    		 }   		 
+    	 });    	 
+    	 Repassword.setOnFocusChangeListener(new OnFocusChangeListener(){
+    		 public void onFocusChange(View v, boolean hasFocus){
+    			 if(hasFocus){
+    				 escalar.reset();
+    				 Repassword.startAnimation(escalar);
+    			 }    			 
+    		 }   		 
+    	 });    	 
+    	 Email.setOnFocusChangeListener(new OnFocusChangeListener(){
+    		 public void onFocusChange(View v, boolean hasFocus){
+    			 if(hasFocus){
+    				 escalar.reset();
+    				 Email.startAnimation(escalar);
+    			 }    			 
+    		 }   		 
+    	 });
 	}
 	
 	@Override

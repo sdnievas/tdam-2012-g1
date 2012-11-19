@@ -8,16 +8,7 @@
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        
-        <Button 
-            android:id="@+id/init_btnNewUser"
-            android:text="@string/btn_nuevo_usuario"
-            android:layout_width="100dp"
-        	android:layout_height="wrap_content"
-        	android:layout_gravity="right"/>
-        
-        
+        android:orientation="vertical">       
         
     </LinearLayout>
     

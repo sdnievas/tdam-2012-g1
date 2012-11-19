@@ -75,7 +75,6 @@
     <string name="nombre_usuario">Nombre Usuario</string>
     <string name="numeros">Numeros</string>
     <string name="btn_agregar">Agregar</string>
-    <string name="btn_nuevo_usuario">Nuevo Usuario</string>
     <string name="txt_usuario">Usuario</string>
     <string name="txt_password">Contraseña</string>
     <string name="btn_inicio_sesion">Iniciar Sesion</string>
@@ -87,8 +86,8 @@
     
     <string name="leyenda_nuevo_usuario">Ingrese los datos para el registro de un nuevo ususario</string>
     <string name="nu_nombre_usuario">Nombre Usuario</string>
-    <string name="nu_password">Contrase�a</string>
-    <string name="nu_repetir_password">Contrase�a</string>
+    <string name="nu_password">Contraseña</string>
+    <string name="nu_repetir_password">Contraseña</string>
     <string name="nu_email">Email</string>
     <string name="nu_btn_agregar">Agregar</string>
     
@@ -112,5 +111,7 @@
     <string name="nuevo_usuario_web_title">Nuevo Usuario Web</string>
     
     <string name="title_preference_forma_ordenamiento">Forma de Ordenamiento</string>
+    
+    <string name="menu_nuevo_usuario">Registrar Nuevo Usuario</string>
 
 </resources>
