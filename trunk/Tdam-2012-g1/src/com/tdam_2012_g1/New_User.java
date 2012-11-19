@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,7 +46,6 @@ public class New_User extends Activity implements OnClickListener{
          password = (EditText) findViewById(R.id.new_PassUser);
          Repassword = (EditText) findViewById(R.id.new_RePassUser);
          Email = (EditText) findViewById(R.id.new_Email);
-         
          
     	 boton = (Button)	findViewById(R.id.new_btnNewUser);			 	 
     	 boton.setOnClickListener(this);
@@ -115,17 +115,25 @@ public class New_User extends Activity implements OnClickListener{
 		boolean hayconexionInternet = coninf.isInternetConnectionAvailable();
 		
 		if(hayconexionInternet){
-			RegisterUserTask _initTask = new RegisterUserTask(user,this);
-			_initTask.execute();
+			if(validarDatosIngresados()==true)
+			{
+				RegisterUserTask _initTask = new RegisterUserTask(user,this);
+				_initTask.execute();
+				if(WebServiceInfo.SUCCESS == 1)
+				{
+					AlertDialog.Builder builder1= new AlertDialog.Builder(this).setIcon(R.drawable.image_notification);
+					builder1.setTitle("Información");
+					builder1.setMessage("El usuario se ha creado correctamente");
+					builder1.show();
+				}				
+			}
 		 }
-		else{
+		 else
+		 {
 			Dialog dialogo = null;
 			dialogo = createAlertDialog();
 			dialogo.show();
-			
 		}
-		
-
 		Intent intent = new Intent (this, Inicio.class);
 		startActivity(intent);
 	}
@@ -139,6 +147,27 @@ public class New_User extends Activity implements OnClickListener{
 		return dialog;
 	}
 	
+	public boolean validarDatosIngresados(){
+		if(this.nomuser.getText().toString().trim().length()==0 
+				|| this.password.getText().toString().trim().length()==0
+				|| this.Repassword.getText().toString().trim().length()==0  
+				|| this.Email.getText().toString().trim().length()==0 ){
+			Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.image_notification)
+					.setTitle(DIALOG_ERROR)
+					.setPositiveButton(DIALOG_BTN, null)
+					.setMessage("Datos Incompletos").create();
+			dialog.show();
+			return false;
+		}if(!this.password.getText().toString().equals(this.Repassword.getText().toString())){
+			Dialog dialog = new AlertDialog.Builder(this).setIcon(R.drawable.image_notification)
+					.setTitle(DIALOG_ERROR)
+					.setPositiveButton(DIALOG_BTN, null)
+					.setMessage("Las passwords no concuerdan").create();
+			dialog.show();
+			return false;
+		}
+		return true;			
+	}
 	
     protected class RegisterUserTask extends AsyncTask<String, Integer, WebServiceInfo>
     {
@@ -159,11 +188,14 @@ public class New_User extends Activity implements OnClickListener{
 				WebService web = new  WebService(user.get_nombre() , user.get_contraseña());
 				result = web.registerUser();
 			} catch (Exception e) {
+				
+				e.toString();
 			}
-
+			
 			if (result != null && WebServiceInfo.SUCCESS == result.getCode()) {
 				DatabaseHelper dbhelper = new DatabaseHelper(context);
 				dbhelper.addUsuario(user);
+				System.out.println(dbhelper.getAllUsuarios().toString()+"ACA");
 				dbhelper.close();
 			}
 			
