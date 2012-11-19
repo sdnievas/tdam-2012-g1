@@ -21,12 +21,12 @@ public class Detalle_Msg_web extends Activity {
         
         Bundle extras = getIntent().getExtras();
         MensajeWeb WebSms = (MensajeWeb) extras.getSerializable("MensajeWeb"); //Cargamos el contacto que recibimos del intent de la activity contactos
-        
-        id.setText(R.string.detalle_mensajeWeb_Id);
-        remitente.setText(R.string.detalle_mensajeWeb_remitente + "  " +  WebSms.get_remitente());
-        destinatario.setText(R.string.detalle_mensajeWeb_destinatario + "  " + WebSms.get_destinatario());
-        detalle.setText(R.string.detalle_mensajeWeb_detalle + "  " + WebSms.get_detalle());
-        fecha.setText(R.string.detalle_mensajeWeb_fecha + "  " + WebSms.get_fechaEnvio());
+        //
+        id.setText(this.getString(R.string.detalle_mensajeWeb_Id));
+        remitente.setText(this.getString(R.string.detalle_mensajeWeb_remitente) + "  " +  WebSms.get_remitente());
+        destinatario.setText(this.getString(R.string.detalle_mensajeWeb_destinatario) + "  " + WebSms.get_destinatario());
+        detalle.setText(this.getString(R.string.detalle_mensajeWeb_detalle) + "  " + WebSms.get_detalle());
+        fecha.setText(this.getString(R.string.detalle_mensajeWeb_fecha) + "  " + WebSms.get_fechaEnvio());
         
     }
 

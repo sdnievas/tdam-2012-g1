@@ -100,6 +100,9 @@ public class User_Profile extends Activity implements OnClickListener {
 		
 		UpdateUserTask _initTask = new UpdateUserTask(Updateuser,this);
 		 _initTask.execute();
+		 
+		 intent = new Intent(this,MainActivity.class);
+		 startActivity(intent);
 
 	}
 	
@@ -177,6 +180,14 @@ public class User_Profile extends Activity implements OnClickListener {
 	
 			Notificacion noti = new Notificacion(context,result,1);
 			noti.notificionMensajes();
+			if(result.getCode() == 1){
+			SharedPreferences preferences = getSharedPreferences(LOGIN_SETTINGS,
+					MODE_PRIVATE);
+			SharedPreferences.Editor edit = preferences.edit();
+			edit.clear();
+			edit.putString(USER, user.get_nombre());
+			edit.putString(PASSWORD, user.get_contraseña());
+			edit.commit();}
 		}
 
     } 

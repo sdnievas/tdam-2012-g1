@@ -1,5 +1,5 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/nuevo_usuario"
         android:title="@string/menu_nuevo_usuario"
-        android:orderInCategory="1" />
+        android:orderInCategory="1" android:icon="@android:drawable/ic_menu_add"/>
 </menu>

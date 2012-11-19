@@ -46,11 +46,13 @@
 	                android:text="@string/numeros"
 	                android:textAppearance="?android:attr/textAppearanceMedium"
 	                android:textColor="@android:color/white" />
-	
+	
+
 	            <ListView
 	                android:id="@+id/listNumeros"
 	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content" >
+	                android:layout_height="wrap_content" 
+	                android:background="@android:color/white">
 
 	            </ListView>
 
@@ -67,7 +69,8 @@
             <ListView
                 android:id="@+id/listEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" >
             </ListView>
 
             <TextView
@@ -81,7 +84,8 @@
             <ListView
                 android:id="@+id/listMensajeriaWeb"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" >
             </ListView>
 
             <Button

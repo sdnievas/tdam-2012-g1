@@ -61,6 +61,8 @@
     <string name="notificacion_SuccesMessage">El Mensaje se ha Enviado Con Exito</string>
     <string name="notificacion_ErrorMessage">El Mensaje no se ha Enviado ha ocurrido un error</string>
     <string name="notificacion_DuplicateUser">Ya existe un Usuario Registrado con ese Nombrer</string>
+    <string name="dialog_info">Alerta</string>
+    <string name="dialog_error">Se ha Producido un error</string>
     
     <string name="buscar">Buscar</string>
     <string name="dc_numeros">Números</string>

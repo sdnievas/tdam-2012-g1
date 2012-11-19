@@ -119,13 +119,7 @@ public class New_User extends Activity implements OnClickListener{
 			{
 				RegisterUserTask _initTask = new RegisterUserTask(user,this);
 				_initTask.execute();
-				if(WebServiceInfo.SUCCESS == 1)
-				{
-					AlertDialog.Builder builder1= new AlertDialog.Builder(this).setIcon(R.drawable.image_notification);
-					builder1.setTitle("Información");
-					builder1.setMessage("El usuario se ha creado correctamente");
-					builder1.show();
-				}				
+							
 			}
 		 }
 		 else
@@ -206,7 +200,13 @@ public class New_User extends Activity implements OnClickListener{
 		protected void onPostExecute(WebServiceInfo result) 
 		{
 			super.onPostExecute(result);
-	
+			if(result.getCode() == -1 || result.getCode() == 0 || result.getCode() == 2) 
+			{
+				AlertDialog.Builder builder1= new AlertDialog.Builder(context).setIcon(R.drawable.image_notification);
+				builder1.setTitle(context.getString(R.string.dialog_info));
+				builder1.setMessage(R.string.dialog_error);
+				builder1.show();
+			}	
 			Notificacion noti = new Notificacion(context,result,1);
 			noti.notificionMensajes();
 		}

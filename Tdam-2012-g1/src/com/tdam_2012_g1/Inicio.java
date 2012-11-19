@@ -45,11 +45,7 @@ public class Inicio extends Activity implements OnClickListener{
          pass = (EditText) findViewById(R.id.init_UserPassword);
     	 boton = (Button)	findViewById(R.id.init_btnInicio);
     	 
-    	 
-    	 
-    	 /*user.setText("fernando");
-    	 pass.setText("1234567");*/
-		 
+    	 		 
     	 boton.setOnClickListener(this);
     	 
     	 final Animation escalar = AnimationUtils.loadAnimation(this, R.anim.escalar);
@@ -112,7 +108,6 @@ public class Inicio extends Activity implements OnClickListener{
 		
 		switch (v.getId()) {
 		case R.id.init_btnInicio:
-				intent = new Intent().setClass(this, MainActivity.class);
 				ControlUser();
 			break;
 		}
