@@ -1,6 +1,9 @@
 package com.tdam_2012_g1;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.tdam_2012_g1.database.DatabaseHelper;
 import com.tdam_2012_g1.dom.Contacto;
@@ -87,6 +90,8 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 		
 		private ArrayList<Mail> historial;
 		private LayoutInflater inflater;
+		private SimpleDateFormat formatoHora = new SimpleDateFormat("hh:mm");
+		private SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
 
 		public HistoryMailAdapter() {
 			historial = new ArrayList<Mail>();
@@ -125,10 +130,14 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 				convertView = inflater
 						.inflate(R.layout.historial_item, null);
 				holder = new Holder();
-				holder.txtNameHistorial = (TextView) convertView
-						.findViewById(R.id.textNombreHistorialItem);
+				holder.txtDestinatario = (TextView) convertView
+						.findViewById(R.id.txtArribaIzquierda);
+				holder.txtFecha = (TextView) convertView
+						.findViewById(R.id.txtArribaDerecha);
+				holder.txtAsunto = (TextView) convertView
+						.findViewById(R.id.txtAbajoIzquierda);
 				holder.txtHora = (TextView) convertView
-						.findViewById(R.id.textHoraHistorialItem);
+						.findViewById(R.id.txtAbajoDerecha);
 				holder.ImagenType = (ImageView) convertView
 						.findViewById(R.id.imagehistorialItem);
 				convertView.setTag(holder);
@@ -137,16 +146,26 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 			}
 
 			Mail history = (Mail) getItem(position);
-			holder.txtNameHistorial.setText(history.get_mailDestinatario());
-			holder.txtHora.setText(history.get_fechaEnvio().toString());
+			Date fecha = new Date();
+			try {
+				fecha = formatoFecha.parse(history.get_fechaEnvio());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			holder.txtDestinatario.setText(history.get_mailDestinatario());
+			holder.txtFecha.setText(history.get_fechaEnvio());
+			//holder.txtHora.setText(formatoHora.format(fecha));
+			//holder.txtAsunto.setText(history.get_asunto());
 			holder.ImagenType.setImageResource(android.R.drawable.ic_dialog_email);
 			return convertView;
 		}
   }
     
     class Holder {
-		private TextView txtNameHistorial;
+		private TextView txtDestinatario;
 		private TextView txtHora;
+		private TextView txtFecha;
+		private TextView txtAsunto;
 		private ImageView ImagenType;
 	}
 

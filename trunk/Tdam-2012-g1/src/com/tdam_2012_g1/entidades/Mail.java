@@ -9,6 +9,7 @@ public class Mail {
 	String _idUsuarioRemitente;
 	String _mailDestinatario;
 	String _fechaEnvio;
+	String _asunto;
 	
 	public Mail(){
 		
@@ -44,6 +45,14 @@ public class Mail {
 
 	public void set_fechaEnvio(String _fechaEnvio) {
 		this._fechaEnvio = _fechaEnvio;
+	}
+
+	public String get_asunto() {
+		return _asunto;
+	}
+
+	public void set_asunto(String _asunto) {
+		this._asunto = _asunto;
 	}
 	
 	
