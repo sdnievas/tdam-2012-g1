@@ -63,6 +63,8 @@
     <string name="notificacion_DuplicateUser">Ya existe un Usuario Registrado con ese Nombrer</string>
     <string name="dialog_info">Alerta</string>
     <string name="dialog_error">Se ha Producido un error</string>
+    <string name="dialog_errormsg">Se ha Producido un error en el envio del mensaje</string>
+    <string name="dialog_btn">Aceptar</string>
     
     <string name="buscar">Buscar</string>
     <string name="dc_numeros">Números</string>

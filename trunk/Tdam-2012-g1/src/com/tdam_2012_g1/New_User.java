@@ -205,6 +205,7 @@ public class New_User extends Activity implements OnClickListener{
 				AlertDialog.Builder builder1= new AlertDialog.Builder(context).setIcon(R.drawable.image_notification);
 				builder1.setTitle(context.getString(R.string.dialog_info));
 				builder1.setMessage(R.string.dialog_error);
+				builder1.setPositiveButton(R.string.dialog_btn, null);
 				builder1.show();
 			}	
 			Notificacion noti = new Notificacion(context,result,1);

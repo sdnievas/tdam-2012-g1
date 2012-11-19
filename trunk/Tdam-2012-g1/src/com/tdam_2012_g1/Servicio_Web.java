@@ -297,6 +297,14 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 			{
 				super.onPostExecute(result);
 		
+				if(result.getCode() == -1 || result.getCode() == 0 || result.getCode() == 2) 
+				{
+					AlertDialog.Builder builder1= new AlertDialog.Builder(context).setIcon(R.drawable.image_notification);
+					builder1.setTitle(context.getString(R.string.dialog_info));
+					builder1.setMessage(R.string.dialog_errormsg);
+					builder1.setPositiveButton(R.string.dialog_btn, null);
+					builder1.show();
+				}	
 				Notificacion noti = new Notificacion(context,result,0);
 				noti.notificionMensajes();
 				

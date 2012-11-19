@@ -63,7 +63,7 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 		// TODO Auto-generated method stub
 		HistorialLlamada llamada = (HistorialLlamada) adapter.getItem(position);
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
-		callIntent.setData(Uri.parse("tel:" + llamada.getNombre()));
+		callIntent.setData(Uri.parse("tel:" + llamada.getNumero()));
 		startActivity(callIntent);
 
 	}
