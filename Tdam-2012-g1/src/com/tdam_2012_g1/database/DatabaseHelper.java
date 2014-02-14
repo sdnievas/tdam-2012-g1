@@ -4,7 +4,11 @@ import com.tdam_2012_g1.entidades.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import com.tdam_2012_g1.dom.Contacto;
+
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -43,8 +47,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colFechaEnvioMsj = "fechaEnvio";
 	static final String colDetalle = "detalle";
 
+	static final String registroAccionTable = "registroAccion";
+	static final String colIdRegistroAccion = "id";
+	static final String colFechaRegistro = "fecha";
+	static final String colIdContactoRegistro = "idContacto";
+	static final String colTipoAccion = "tipoAccion";
+
 	public DatabaseHelper(Context context) {
-		super(context, dbName, null, 35);
+		super(context, dbName, null, 36);
 
 	}
 
@@ -81,6 +91,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ colFechaEnvioMsj + " DATETIME, " + colDetalle
 				+ " TEXT NOT NULL);");
 
+		// Tabla RegistroAccion
+		db.execSQL("CREATE TABLE " + registroAccionTable + " ("
+				+ colIdRegistroAccion + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ colFechaRegistro + " DATETIME NOT NULL, "
+				+ colIdContactoRegistro + " INTEGER NOT NULL, " + colTipoAccion
+				+ " TEXT NOT NULL);");
+
 	}
 
 	@Override
@@ -92,6 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + conectividadesTable);
 		db.execSQL("DROP TABLE IF EXISTS " + mensajesWebTable);
 		db.execSQL("DROP TABLE IF EXISTS " + mailsTable);
+		db.execSQL("DROP TABLE IF EXISTS " + registroAccionTable);
 
 		onCreate(db);
 	}
@@ -451,6 +469,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.update(usuariosTable, cv, colIdUsuario + "= ?", values);
 		db.close();
 
+	}
+
+	public void insertarRegistroAccion(RegistroAccion registro) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(colFechaRegistro, registro.getFecha());
+		cv.put(colIdContactoRegistro, registro.getIdContacto());
+		cv.put(colTipoAccion, registro.getTipoAccion());
+		db.insert(registroAccionTable, null, cv);
+		db.close();
+	}
+
+	public void eliminarRegistroAccion(int idRegistro) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String values[] = { idRegistro + "" };
+		db.delete(registroAccionTable, colIdRegistroAccion + "=?", values);
+	}
+
+	public List<RegistroAccion> seleccionarRegistroAccionPorContacto(
+			int idContacto) {
+		List<RegistroAccion> listaRegistros = new ArrayList<RegistroAccion>();
+		RegistroAccion registro;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String values[] = { idContacto + "" };
+		Cursor cursor = db.rawQuery("SELECT r.*, c." + colNombre + " FROM "
+				+ registroAccionTable + " r JOIN " + contactosAplicacionTable
+				+ "c ON r." + colIdContactoRegistro + " = c." + colNombre
+				+ " WHERE " + colIdContactoRegistro + " = ? ", values);
+		while (cursor.moveToNext()) {
+			registro = new RegistroAccion();
+			registro.setIdRegistro(cursor.getInt(cursor
+					.getColumnIndex(colIdRegistroAccion)));
+			registro.setFecha(cursor.getString(cursor
+					.getColumnIndex(colFechaRegistro)));
+			registro.setIdContacto(cursor.getString(cursor
+					.getColumnIndex(colIdContactoRegistro)));
+			registro.setNombreContacto(cursor.getString(cursor
+					.getColumnIndex(colNombre)));
+			registro.setTipoAccion(cursor.getString(cursor
+					.getColumnIndex(colTipoAccion)));
+			listaRegistros.add(registro);
+		}
+		return listaRegistros;
 	}
 
 }
