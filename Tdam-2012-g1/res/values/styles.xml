@@ -2,4 +2,13 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
+    <style name="QuickActionAboveAnimation">
+        <item name="android:windowEnterAnimation">@anim/quickaction_above_enter</item>
+        <item name="android:windowExitAnimation">@anim/quickaction_above_exit</item>
+    </style>
+
+    <style name="QuickActionBelowAnimation">
+        <item name="android:windowEnterAnimation">@anim/quickaction_below_enter</item>
+        <item name="android:windowExitAnimation">@anim/quickaction_below_exit</item>
+    </style>
 </resources>

@@ -5,6 +5,7 @@
     android:orientation="vertical" 
     android:background="@drawable/background_main">
 
+    
     <TextView
         android:id="@+id/txt_detallemsgweb_id"
         android:layout_width="wrap_content"
@@ -54,5 +55,7 @@
         android:text="@string/hello_world"
         android:textColor="@android:color/white"
         tools:context=".Detalle_Msg_web" />
+    
+
 
 </LinearLayout>

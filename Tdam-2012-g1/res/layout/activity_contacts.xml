@@ -5,12 +5,14 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" 
     android:background="@drawable/background_main">
+    
 
     <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginTop="2dp">
     
 		<ImageView android:id="@+id/imgvBuscarContacto"
 				android:layout_width="60dp" 
@@ -23,7 +25,6 @@
 				/>
 		
         <EditText android:id="@+id/txtBuscarContactos" 
-            android:text="Buscar"
 			android:layout_height="wrap_content"
 			 android:layout_width="match_parent"
 			android:textColor="#707070"
@@ -39,7 +40,6 @@
 	     android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:cacheColorHint="#00000000" />
-    
     
     
     
