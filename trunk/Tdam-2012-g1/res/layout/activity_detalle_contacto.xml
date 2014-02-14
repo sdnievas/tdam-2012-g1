@@ -6,6 +6,9 @@
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
+<ScrollView 
+     android:layout_width="match_parent"
+   	 android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,6 +90,21 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white" >
             </ListView>
+            
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="userBluetooth"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+
+            <ListView
+                android:id="@+id/listUserBluetooth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" >
+            </ListView>
 
             <Button
                 android:id="@+id/btnHistorial_DetalleContacto"
@@ -95,5 +113,5 @@
                 android:text="@string/dc_historial" />
         </LinearLayout>
 
-
+	</ScrollView>
 </LinearLayout>
