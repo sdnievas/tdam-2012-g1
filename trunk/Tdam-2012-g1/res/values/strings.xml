@@ -112,8 +112,12 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_historial__bluetooth">Historial_Bluetooth</string>
     <string name="title_activity_new_contact_bluetooth">NewContactBluetooth</string>
-    
-    <!--  BluetoothChat -->
+    <string name="direccion_ip_servidor">Dirección IP</string>
+    <string name="puerto_servidor">Puerto</string>
+    <string name="configuracion_servidor">Configuración del servidor</string>
+    <string name="guardar">Guardar</string>
+
+    <!-- BluetoothChat -->
     <string name="send">Send</string>
     <string name="not_connected">You are not connected to a device</string>
     <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Leaving Bluetooth Chat.</string>
@@ -121,7 +125,7 @@
     <string name="title_connected_to">connected: </string>
     <string name="title_not_connected">not connected</string>
 
-    <!--  DeviceListActivity -->
+    <!-- DeviceListActivity -->
     <string name="scanning">scanning for devices...</string>
     <string name="select_device">select a device to connect</string>
     <string name="none_paired">No devices have been paired</string>
@@ -133,5 +137,7 @@
     <!-- Options Menu -->
     <string name="connect">Connect a device</string>
     <string name="discoverable">Make discoverable</string>
+    <string name="title_activity_direccion_servidor">Configuración del Servidor</string>
+    <string name="title_activity_configuracion_servidor">ConfiguracionServidor</string>
 
 </resources>

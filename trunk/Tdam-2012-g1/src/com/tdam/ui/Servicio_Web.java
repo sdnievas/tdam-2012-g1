@@ -316,7 +316,7 @@ public class Servicio_Web extends ListActivity implements OnClickListener, OnIte
 				WebServiceInfo result = null;
 
 				try {
-					WebService webser = new WebService(user.get_nombre(), user.get_contraseña());
+					WebService webser = new WebService(user.get_nombre(), user.get_contraseña(),this.context);
 					result = webser.sendMessage(msj);
 				} catch (Exception e) {
 				}
