@@ -135,24 +135,33 @@
             android:name="com.tdam.ui.NewContactBluetooth"
             android:label="@string/title_activity_new_contact_bluetooth" >
         </activity>
-        
-        <activity android:name="com.tdam.Bluetooth.BluetoothChat"
-                  android:label="@string/app_name">
+        <activity
+            android:name="com.tdam.Bluetooth.BluetoothChat"
+            android:label="@string/app_name" >
         </activity>
-        <activity android:name="com.tdam.Bluetooth.DeviceListActivity"
-                  android:label="@string/select_device">
+        <activity
+            android:name="com.tdam.Bluetooth.DeviceListActivity"
+            android:label="@string/select_device" >
         </activity>
-        
-        <receiver android:name="com.tdam.ServicioWeb.NetworkReceiver" >
 
+        <receiver android:name="com.tdam.ServicioWeb.NetworkReceiver" >
         </receiver>
-        
         <receiver android:name="com.tdam.ServicioWeb.StartUpdateMessagesReceiver" >
         </receiver>
-        
         <receiver android:name="com.tdam.ServicioWeb.StopUpdateMessagesReceiver" >
         </receiver>
-            
+
+        <activity
+            android:name="com.tdam.ui.DireccionServidor"
+            android:label="@string/title_activity_direccion_servidor" >
+        </activity>
+        <activity
+            android:name="com.tdam.ui.ConfiguracionServidor"
+            android:label="@string/title_activity_configuracion_servidor" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.preference.PreferenceActivity" />
+        </activity>
     </application>
 
 </manifest>

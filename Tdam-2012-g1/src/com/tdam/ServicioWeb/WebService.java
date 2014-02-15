@@ -12,21 +12,29 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.SAXParser;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class WebService {
 
 	private String username;
 	private String password;
 	private URL url;
+	private static final String LOGIN_SETTINGS = "LoginPreferences";
 
-	private final static String URL = "http://192.168.0.101:8080/MessageSender/";
+	private static String URL = "http://192.168.0.101:8080/MessageSender/";
 
 	public static final int FATAL_ERROR = -1;
 
-
-	public WebService(String username, String password) {
+	public WebService(String username, String password, Context context) {
 		this.username = username;
 		this.password = password;
+		SharedPreferences preferencias = context.getSharedPreferences(
+				LOGIN_SETTINGS, context.MODE_PRIVATE);
+		String ip = preferencias.getString("ip_servidor", "192.168.80.182");
+		String puerto = preferencias.getString("puerto_servidor", "8080");
+		URL = new StringBuilder("http://").append(ip).append(":")
+				.append(puerto).append("/MessageSender/").toString();
 		try {
 			url = new URL(URL);
 		} catch (MalformedURLException e) {
@@ -56,12 +64,12 @@ public class WebService {
 				+ msgw.get_contacto()
 				+ "\"><![CDATA["
 				+ msgw.get_detalle()
-				+ "]]></message>" + "</action-detail></action>";
+				+ "]]></message>"
+				+ "</action-detail></action>";
 
 		WebServiceHandler handler = new WebServiceHandler();
 		return getInfo(SEND_REQUEST, handler);
 	}
-
 
 	public ArrayList<ReceivedMessageInfo> getMessages(String timestamp) {
 

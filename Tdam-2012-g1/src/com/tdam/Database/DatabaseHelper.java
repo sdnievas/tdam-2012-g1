@@ -787,6 +787,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					.getColumnIndex(colTipoAccion)));
 			listaRegistros.add(registro);
 		}
+		cursor.close();
+		db.close();
 		return listaRegistros;
 	}
 }

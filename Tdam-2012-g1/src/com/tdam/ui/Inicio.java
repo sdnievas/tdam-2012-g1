@@ -90,6 +90,12 @@ public class Inicio extends Activity implements OnClickListener{
 		
 			case R.id.nuevo_usuario:
 			    intent = new Intent(this, New_User.class);	
+			    intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				break;
+				
+			case R.id.configuracion_servidor:
+				intent = new Intent(this, ConfiguracionServidor.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 				break;
 
 		}

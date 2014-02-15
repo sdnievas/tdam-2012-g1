@@ -121,7 +121,7 @@ public class User_Profile extends Activity implements OnClickListener {
 			WebServiceInfo result = null;
 
 			try {
-				WebService web = new  WebService(user.get_nombre() , user.get_contraseña());
+				WebService web = new  WebService(user.get_nombre() , user.get_contraseña(),this.context);
 				result = web.registerUser();
 			} catch (Exception e) {
 			}

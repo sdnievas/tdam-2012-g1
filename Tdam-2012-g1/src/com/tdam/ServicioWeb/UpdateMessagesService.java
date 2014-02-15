@@ -156,7 +156,7 @@ public class UpdateMessagesService extends Service {
 			}
 
 
-			WebService webservi = new WebService(usr.get_nombre(), usr.get_contraseña());
+			WebService webservi = new WebService(usr.get_nombre(), usr.get_contraseña(),this.context);
 			
 			ArrayList<ReceivedMessageInfo> receivedMessages = new ArrayList<ReceivedMessageInfo>();
 			receivedMessages = webservi.getMessages(timestamp);
