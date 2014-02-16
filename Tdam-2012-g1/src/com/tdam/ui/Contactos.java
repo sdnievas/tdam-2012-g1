@@ -439,9 +439,10 @@ public class Contactos extends ListActivity implements OnItemClickListener, Text
 		qa.addItem(getResources().getDrawable(android.R.drawable.stat_notify_chat), "webmsg", new OnClickListener() {
 			public void onClick(View v) {
 				 contactToShow = (Contacto) adapter.getItem(posicion);
+				 if(contactToShow.getuserWeb()!=null){
 				 intent = new Intent(mContext, Servicio_Web.class);
 		    	 intent.putExtra(CONTACT,contactToShow );
-		    	 startActivity(intent);
+		    	 startActivity(intent);}
 				qa.dismiss();
 			}
 		});

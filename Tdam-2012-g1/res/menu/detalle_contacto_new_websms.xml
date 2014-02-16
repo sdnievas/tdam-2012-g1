@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/userdetalle_newwebsms" android:orderInCategory="1" android:title="Nuevo Usuario Web"
-        android:icon="@android:drawable/ic_menu_add"></item>
-    <item android:id="@+id/userdetalle_newuserbluetooth" android:orderInCategory="2" android:title="Nuevo Usuario Bluetooth"
-        android:icon="@android:drawable/ic_menu_add"></item>
-    
+
+    <item
+        android:id="@+id/userdetalle_newwebsms"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="1"
+        android:title="Nuevo Usuario Web">
+    </item>
+    <item
+        android:id="@+id/userdetalle_newuserbluetooth"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="2"
+        android:title="Nuevo Usuario Bluetooth">
+    </item>
 
 </menu>
