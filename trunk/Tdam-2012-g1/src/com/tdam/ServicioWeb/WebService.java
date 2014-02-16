@@ -20,7 +20,7 @@ public class WebService {
 	private String username;
 	private String password;
 	private URL url;
-	private static final String LOGIN_SETTINGS = "LoginPreferences";
+	private static final String SERVER_SETTINGS = "ServerPreferences";
 
 	private static String URL = "http://192.168.0.101:8080/MessageSender/";
 
@@ -30,9 +30,9 @@ public class WebService {
 		this.username = username;
 		this.password = password;
 		SharedPreferences preferencias = context.getSharedPreferences(
-				LOGIN_SETTINGS, context.MODE_PRIVATE);
-		String ip = preferencias.getString("ip_servidor", "192.168.80.182");
-		String puerto = preferencias.getString("puerto_servidor", "8080");
+				SERVER_SETTINGS, Context.MODE_PRIVATE);
+		String ip = preferencias.getString("ip_servidor", "");
+		String puerto = preferencias.getString("puerto_servidor", "");
 		URL = new StringBuilder("http://").append(ip).append(":")
 				.append(puerto).append("/MessageSender/").toString();
 		try {
