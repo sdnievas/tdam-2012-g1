@@ -14,6 +14,7 @@ import com.tdam.Class.Type;
 import com.tdam.Class.Usuario;
 import com.tdam.Database.SingletonDB;
 import com.tdam.Suport.Notificacion;
+import com.tdam.ui.Servicio_Web;
 
 import android.app.NotificationManager;
 import android.app.Service;
@@ -77,7 +78,7 @@ public class UpdateMessagesService extends Service {
 	            });
 	        }
 	    };
-	    timer.schedule(doAsynchronousTask, 0, 50000); //execute in every 50000 ms
+	    timer.schedule(doAsynchronousTask, 0, 30000); //execute in every 50000 ms
 	}
 	
 	
@@ -103,8 +104,8 @@ public class UpdateMessagesService extends Service {
 		
 	}
 
-	private void showNotification(WebServiceInfo info) {
-		Notificacion noti = new Notificacion(this,info,1);
+	private void showNotification(WebServiceInfo info, String usuario) {
+		Notificacion noti = new Notificacion(this,info,3,usuario);
 		noti.notificionMensajes();
 		
 		/*Notification notification = new Notification(R.drawable.icon_app,
@@ -184,7 +185,7 @@ public class UpdateMessagesService extends Service {
 					
 					SingletonDB.getInstance(context).getDatabaseHelper().addMensaje(webMessage);
 
-					showNotification(receivedMessage);
+					showNotification(receivedMessage, webMessage.get_contacto());
 				}
 			}
 		}
