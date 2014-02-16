@@ -155,7 +155,6 @@ public class UpdateMessagesService extends Service {
 				timestamp= "01/01/1970 00:00:00";		
 			}
 
-
 			WebService webservi = new WebService(usr.get_nombre(), usr.get_contraseña(),this.context);
 			
 			ArrayList<ReceivedMessageInfo> receivedMessages = new ArrayList<ReceivedMessageInfo>();

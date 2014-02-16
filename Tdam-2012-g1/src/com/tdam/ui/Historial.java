@@ -37,7 +37,8 @@ public class Historial extends TabActivity {
 
 	    Bundle extras = getIntent().getExtras();
 	    if(extras != null)
-	    	contact = (Contacto) extras.getSerializable(sCONTACT); //Cargamos el contacto que recibimos del intent de la activity contactos
+	    	//Cargamos el contacto que recibimos del intent de la activity contactos
+	    	contact = (Contacto) extras.getSerializable(sCONTACT); 
 
 	    CargarTabs();
 				

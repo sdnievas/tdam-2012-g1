@@ -43,7 +43,8 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
         
         Bundle extras = getIntent().getExtras();
 	    if(extras != null)
-	    	contact = (Contacto) extras.getSerializable("contacto"); //Cargamos el contacto que recibimos del intent de la activity contactos
+	    	//Cargamos el contacto que recibimos del intent de la activity contactos
+	    	contact = (Contacto) extras.getSerializable("contacto"); 
         
         adapter = new HistorialLLamadasAdapter();
         

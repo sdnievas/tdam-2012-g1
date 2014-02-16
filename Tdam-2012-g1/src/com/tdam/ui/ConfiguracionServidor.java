@@ -19,7 +19,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 
 public class ConfiguracionServidor extends Activity implements OnClickListener {
-	private static final String LOGIN_SETTINGS = "LoginPreferences";
+	private static final String SERVER_SETTINGS = "ServerPreferences";
 	private SharedPreferences preferencias;
 	private SharedPreferences.Editor editor;
 	private EditText txtIP;
@@ -33,7 +33,7 @@ public class ConfiguracionServidor extends Activity implements OnClickListener {
 		txtIP = (EditText) findViewById(R.id.txtIP);
 		txtPuerto= (EditText) findViewById(R.id.txtPuerto);
 		btnAceptar = (Button) findViewById(R.id.configuracion_servidor_btnAceptar);
-		preferencias = getSharedPreferences(LOGIN_SETTINGS, MODE_PRIVATE);
+		preferencias = getSharedPreferences(SERVER_SETTINGS, MODE_PRIVATE);
 		txtIP.setText(preferencias.getString("ip_servidor",
 				"192.168.0.1"));
 		txtPuerto.setText(preferencias.getString("puerto_servidor",
@@ -47,7 +47,7 @@ public class ConfiguracionServidor extends Activity implements OnClickListener {
 		case R.id.configuracion_servidor_btnAceptar:
 			editor = preferencias.edit();
 			editor.putString("ip_servidor", txtIP.getText().toString());
-			editor.putString("puerto_setvidor", txtPuerto.getText().toString());
+			editor.putString("puerto_servidor", txtPuerto.getText().toString());
 			editor.commit();
 			Intent intent = new Intent(this, Inicio.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

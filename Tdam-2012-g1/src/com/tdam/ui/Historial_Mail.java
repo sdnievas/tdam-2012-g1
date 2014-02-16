@@ -41,16 +41,8 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null)
-			contact = (Contacto) extras.getSerializable("contacto"); // Cargamos
-																		// el
-																		// contacto
-																		// que
-																		// recibimos
-																		// del
-																		// intent
-																		// de la
-																		// activity
-																		// contactos
+			//Cargamos el contacto que recibimos del intent de la activity contactos
+			contact = (Contacto) extras.getSerializable("contacto");
 
 		adaptador = new HistoryMailAdapter();
 

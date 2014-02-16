@@ -3,6 +3,7 @@ package com.tdam.ui;
 import com.tdam.Class.Usuario;
 import com.tdam.Database.SingletonDB;
 import com.tdam_2012_g1.R;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;

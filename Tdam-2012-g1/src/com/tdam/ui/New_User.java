@@ -30,7 +30,7 @@ public class New_User extends Activity implements OnClickListener {
 	private EditText Email;
 
 	private static final String DIALOG_ERROR = "Error";
-	private static final String DIALOG_MSJ = "No hay conexion a ocurrido un error";
+	private static final String DIALOG_MSJ = "No hay conexión a ocurrido un error";
 	private static final String DIALOG_BTN = "Aceptar";
 	private static final String USER_NAME_ERROR = "El Nombre debe contener 6 o mas caracteres";
 	private static final String USER_PASS_ERROR = "El Password debe contener 6 o mas caracteres y debe conicidir las 2 veces";

@@ -31,12 +31,12 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Historial_Bluetooth extends ListActivity implements
-OnItemClickListener {
+		OnItemClickListener {
 
-private HistoryBluetoothAdapter adapterBluetooth;
-private Contacto contact;
-private String ordenarForma;
-private String FiltroContactos;
+	private HistoryBluetoothAdapter adapterBluetooth;
+	private Contacto contact;
+	private String ordenarForma;
+	private String FiltroContactos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +44,9 @@ private String FiltroContactos;
 		setContentView(R.layout.activity_historial__bluetooth);
 		Bundle extras = getIntent().getExtras();
 		if (extras != null)
-			contact = (Contacto) extras.getSerializable("contacto"); // Cargamos
-																		// el
-																		// contacto
-																		// que
-																		// recibimos
-																		// del
-																		// intent
-																		// de la
-																		// activity
-																		// contactos
+			// Cargamos el contacto que recibimos del intent de la activity
+			// contactos
+			contact = (Contacto) extras.getSerializable("contacto");
 
 		adapterBluetooth = new HistoryBluetoothAdapter();
 
@@ -78,7 +71,6 @@ private String FiltroContactos;
 		getMenuInflater().inflate(R.menu.historial__bluetooth, menu);
 		return true;
 	}
-
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
@@ -105,24 +97,24 @@ private String FiltroContactos;
 	}
 
 	public void loadBlutoothData() {
-//		adapterBluetooth.limpiar();
-//		getPreferences();
-//		String forma = "desc";
-//
-//		if (!ordenarForma.equals("0")) {
-//			forma = "asc";
-//		}
-//		DatabaseHelper dbhelper = getDatabaseHelper();
-//		ArrayList<MensajeWeb> mails = null;
-//		if (contact != null) {
-//			mails = dbhelper.getContactMensajeWeb(contact,null);
-//		} else {
-//			mails = dbhelper.getAllLastMensajeWeb(forma,null);
-//		}
-//
-//		adapterBluetooth.addListHistorial(mails);
-//		dbhelper.close();
-//		adapterBluetooth.notifyDataSetChanged();
+		// adapterBluetooth.limpiar();
+		// getPreferences();
+		// String forma = "desc";
+		//
+		// if (!ordenarForma.equals("0")) {
+		// forma = "asc";
+		// }
+		// DatabaseHelper dbhelper = getDatabaseHelper();
+		// ArrayList<MensajeWeb> mails = null;
+		// if (contact != null) {
+		// mails = dbhelper.getContactMensajeWeb(contact,null);
+		// } else {
+		// mails = dbhelper.getAllLastMensajeWeb(forma,null);
+		// }
+		//
+		// adapterBluetooth.addListHistorial(mails);
+		// dbhelper.close();
+		// adapterBluetooth.notifyDataSetChanged();
 	}
 
 	protected DatabaseHelper getDatabaseHelper() {
@@ -177,38 +169,38 @@ private String FiltroContactos;
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup arg2) {
-//			Holder holder;
-//			if (convertView == null) {
-//				convertView = inflater.inflate(R.layout.historial_item, null);
-//				holder = new Holder();
-//				holder.txtNombre = (TextView) convertView
-//						.findViewById(R.id.txtArribaIzquierda);
-//				holder.txtFecha = (TextView) convertView
-//						.findViewById(R.id.txtArribaDerecha);
-//				holder.txtHora = (TextView) convertView
-//						.findViewById(R.id.txtAbajoDerecha);
-//				holder.ImagenType = (ImageView) convertView
-//						.findViewById(R.id.imagehistorialItem);
-//				holder.txtMensaje = (TextView) convertView
-//						.findViewById(R.id.txtAbajoIzquierda);
-//				convertView.setTag(holder);
-//			} else {
-//				holder = (Holder) convertView.getTag();
-//			}
-//
-//			MensajeWeb history = (MensajeWeb) getItem(position);
-//			Date fecha = new Date();
-//			try {
-//				fecha = formateFechaString.parse(history.get_fechaEnvio());
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//			holder.txtNombre.setText(history.get_destinatario());
-//			holder.txtFecha.setText(formatoFecha.format(fecha));
-//			holder.txtHora.setText(formatoHora.format(fecha));
-//			holder.txtMensaje.setText(history.get_detalle());
-//			holder.ImagenType
-//					.setImageResource(android.R.drawable.stat_notify_chat);
+			// Holder holder;
+			// if (convertView == null) {
+			// convertView = inflater.inflate(R.layout.historial_item, null);
+			// holder = new Holder();
+			// holder.txtNombre = (TextView) convertView
+			// .findViewById(R.id.txtArribaIzquierda);
+			// holder.txtFecha = (TextView) convertView
+			// .findViewById(R.id.txtArribaDerecha);
+			// holder.txtHora = (TextView) convertView
+			// .findViewById(R.id.txtAbajoDerecha);
+			// holder.ImagenType = (ImageView) convertView
+			// .findViewById(R.id.imagehistorialItem);
+			// holder.txtMensaje = (TextView) convertView
+			// .findViewById(R.id.txtAbajoIzquierda);
+			// convertView.setTag(holder);
+			// } else {
+			// holder = (Holder) convertView.getTag();
+			// }
+			//
+			// MensajeWeb history = (MensajeWeb) getItem(position);
+			// Date fecha = new Date();
+			// try {
+			// fecha = formateFechaString.parse(history.get_fechaEnvio());
+			// } catch (ParseException e) {
+			// e.printStackTrace();
+			// }
+			// holder.txtNombre.setText(history.get_destinatario());
+			// holder.txtFecha.setText(formatoFecha.format(fecha));
+			// holder.txtHora.setText(formatoHora.format(fecha));
+			// holder.txtMensaje.setText(history.get_detalle());
+			// holder.ImagenType
+			// .setImageResource(android.R.drawable.stat_notify_chat);
 
 			return convertView;
 		}
@@ -234,7 +226,5 @@ private String FiltroContactos;
 		startActivity(intent);
 		return true;
 	}
-	
-
 
 }
