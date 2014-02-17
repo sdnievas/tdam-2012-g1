@@ -3,9 +3,7 @@ package com.tdam.ui;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import android.R.color;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -13,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.FeatureInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,9 +18,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -36,10 +32,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tdam.Class.Contacto;
-import com.tdam.Class.HistorialSms;
 import com.tdam.Class.MensajeWeb;
-import com.tdam.Class.Usuario;
 import com.tdam.Class.Type;
+import com.tdam.Class.Usuario;
 import com.tdam.Database.DatabaseHelper;
 import com.tdam.Database.SingletonDB;
 import com.tdam.ServicioWeb.WebService;
@@ -58,7 +53,6 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 	private EditText txtDestinatario;
 	private EditText txtMensaje;
 	private Usuario usr;
-	private Boolean actualizar;
 	private int filtro;
 
 	private static final String DIALOG_ERROR = "Error";
@@ -91,7 +85,7 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 		getPreferences();
 		if (contact != null) {
 			txtDestinatario.setText(contact.getuserWeb());
-			txtDestinatario.setEnabled(false);
+			// txtDestinatario.setEnabled(false);
 			txtDestinatario.setClickable(false);
 			AdapterAndList();
 		}
@@ -117,6 +111,7 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 	protected void onResume() {
 		super.onResume();
 		getPreferences();
+		AdapterAndList();
 	}
 
 	@Override
@@ -162,8 +157,14 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 		case R.id.servicio_web_settings:
 			intent = new Intent(this, Preference_servicio_web.class);
 			break;
+
+		case R.id.actualizar_mensajes:
+			loadWebSmsData();
+			intent = null;
 		}
-		startActivity(intent);
+		if (intent != null) {
+			startActivity(intent);
+		}
 		return true;
 	}
 
@@ -217,6 +218,9 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 	}
 
 	public void loadWebSmsData() {
+		if (txtDestinatario.getText().toString().equals("")) {
+			return;
+		}
 
 		ArrayList<MensajeWeb> mensajesWeb = null;
 		if (filtro == 0) {

@@ -4,7 +4,14 @@
     <item
         android:id="@+id/servicio_web_settings"
         android:orderInCategory="1"
-        android:title="Servicio Web Settings">
+        android:title="Editar preferencias"
+        android:icon="@android:drawable/ic_menu_edit">
+    </item>
+    <item
+        android:id="@+id/actualizar_mensajes"
+        android:orderInCategory="2"
+        android:title="Actualizar mensajes"
+        android:icon="@android:drawable/ic_menu_rotate">
     </item>
 
 </menu>

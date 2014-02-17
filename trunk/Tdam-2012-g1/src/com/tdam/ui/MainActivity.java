@@ -1,20 +1,17 @@
 package com.tdam.ui;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
 import com.tdam.ServicioWeb.UpdateMessagesService;
 import com.tdam.Suport.ConexionInfo;
 import com.tdam_2012_g1.R;
-
-import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -92,8 +89,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		case R.id.preference_main:
 			// startService(new Intent(this, UpdateMessagesService.class));
-			Toast.makeText(this, "Se estan actualizando los mensajes", 1000)
-					.show();
+			Toast.makeText(this, "Se estan actualizando los mensajes",
+					Toast.LENGTH_SHORT).show();
 			// intent = new Intent(this, Settings_activity.class);
 			break;
 

@@ -1,14 +1,6 @@
 package com.tdam.ui;
 
 
-import com.tdam.Class.Usuario;
-import com.tdam.Database.DatabaseHelper;
-import com.tdam.Database.SingletonDB;
-import com.tdam.ServicioWeb.WebService;
-import com.tdam.ServicioWeb.WebServiceInfo;
-import com.tdam.Suport.Notificacion;
-import com.tdam_2012_g1.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,11 +9,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.tdam.Class.Usuario;
+import com.tdam.Database.SingletonDB;
+import com.tdam.ServicioWeb.WebService;
+import com.tdam.ServicioWeb.WebServiceInfo;
+import com.tdam.Suport.Notificacion;
+import com.tdam_2012_g1.R;
 
 public class User_Profile extends Activity implements OnClickListener {
 	

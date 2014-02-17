@@ -4,32 +4,34 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import com.tdam.Class.Contacto;
-import com.tdam.Class.HistorialSms;
-import com.tdam.Class.MensajeWeb;
-import com.tdam.Database.SingletonDB;
-import com.tdam_2012_g1.R;
-
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
+
+import com.tdam.Class.Contacto;
+import com.tdam.Class.HistorialSms;
+import com.tdam.Database.DatabaseHelper;
+import com.tdam_2012_g1.R;
 
 public class Historial_Sms extends ListActivity implements OnItemClickListener,
 		OnItemLongClickListener {
@@ -40,6 +42,8 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener,
 	private String FiltroContactos;
 	private int filtro;
 	private Cursor cur;
+	private final int DIALGO_ELIMINACION = -2;
+	private static final String LOGIN_SETTINGS = "LoginPreferences";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -321,8 +325,14 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener,
 		case R.id.historial_settings:
 			intent = new Intent(this, Preference_historial.class);
 			break;
+		case R.id.historial_delete:
+			showDialog(DIALGO_ELIMINACION);
+			intent = null;
+			break;
 		}
-		startActivity(intent);
+		if (intent != null) {
+			startActivity(intent);
+		}
 		return true;
 	}
 
@@ -370,5 +380,54 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener,
 
 		loadConversationsSms();
 
+	}
+
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
+		// TODO Auto-generated method stub
+		super.onPrepareDialog(id, dialog, args);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id, Bundle args) {
+		Dialog dialog = null;
+		OnClickListener clickOk = new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				eliminarHistorial();
+				dismissDialog(DIALGO_ELIMINACION);
+
+			}
+		};
+
+		OnClickListener clickCancel = new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dismissDialog(DIALGO_ELIMINACION);
+			}
+		};
+
+		dialog = new AlertDialog.Builder(this)
+				.setIcon(R.drawable.icon)
+				.setTitle("Advertencia")
+				.setPositiveButton("OK. Borrar registros", clickOk)
+				.setNegativeButton("NO. Cancelar borrado", clickCancel)
+				.setMessage(
+						"Se eliminarán los registros de emails y mensajes web. Esta acción no se puede deshacer. ¿Está seguro que desea continuar?")
+				.create();
+
+		return dialog;
+
+	}
+
+	private void eliminarHistorial() {
+		DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+		SharedPreferences preferencias = getSharedPreferences(LOGIN_SETTINGS,
+				MODE_PRIVATE);
+		String user = preferencias.getString("User", "");
+		dbHelper.eliminarRegistros(user);
+		Toast.makeText(getApplicationContext(), "Se eliminaron registros",
+				Toast.LENGTH_LONG).show();
 	}
 }

@@ -2,19 +2,15 @@ package com.tdam.Broadcast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
-import com.tdam.Class.Conectividad;
-import com.tdam.Database.DatabaseHelper;
-import com.tdam.Database.SingletonDB;
-
-
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import com.tdam.Class.Conectividad;
+import com.tdam.Database.SingletonDB;
 
 
 public class ConectivityBroadcastReciver extends BroadcastReceiver {

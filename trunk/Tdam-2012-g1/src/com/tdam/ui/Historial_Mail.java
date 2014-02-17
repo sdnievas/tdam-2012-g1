@@ -1,41 +1,44 @@
 package com.tdam.ui;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import com.tdam.Class.Contacto;
-import com.tdam.Class.ContactoWeb;
-import com.tdam.Class.Mail;
-import com.tdam.Database.DatabaseHelper;
-import com.tdam_2012_g1.R;
-
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ListActivity;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-import android.app.ListActivity;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.tdam.Class.Contacto;
+import com.tdam.Class.Mail;
+import com.tdam.Database.DatabaseHelper;
+import com.tdam_2012_g1.R;
 
 public class Historial_Mail extends ListActivity implements OnItemClickListener {
 
 	private HistoryMailAdapter adaptador;
 	private Contacto contact;
 	private String ordenarForma;
-	private String FiltroContactos;
+	private final int DIALGO_ELIMINACION = -2;
+	private static final String LOGIN_SETTINGS = "LoginPreferences";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,7 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 		DatabaseHelper dbhelper = getDatabaseHelper();
 		ArrayList<Mail> mails;
 		if (contact != null) {
-			mails = (ArrayList<Mail>) dbhelper.getMails(contact,forma);
+			mails = (ArrayList<Mail>) dbhelper.getMails(contact, forma);
 			// mails = dbhelper.getMailsContacto(contact);
 		} else {
 			mails = (ArrayList<Mail>) dbhelper.getMails(forma);
@@ -110,7 +113,7 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 		ordenarForma = myPreference.getString(
 				getString(R.string.preference_Historial_Ordenarkey), "0");
 
-		FiltroContactos = myPreference.getString(
+		myPreference.getString(
 				getString(R.string.preference_Historial_Filtrarkey), "0");
 	}
 
@@ -205,8 +208,8 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 			holder.txtMailDestino.setText(history.get_mailDestino());
 			holder.txtHora
 					.setText(formatoHora.format(history.get_fechaEnvio()));
-			holder.txtFecha
-					.setText(formatoFecha.format(history.get_fechaEnvio()));
+			holder.txtFecha.setText(formatoFecha.format(history
+					.get_fechaEnvio()));
 			holder.ImagenType
 					.setImageResource(android.R.drawable.ic_dialog_email);
 			return convertView;
@@ -239,9 +242,62 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 
 		case R.id.historial_settings:
 			intent = new Intent(this, Preference_historial.class);
-			break;
-		}
-		startActivity(intent);
+			break;case R.id.historial_delete:
+				showDialog(DIALGO_ELIMINACION);
+				intent = null;
+				break;
+			}
+			if (intent != null) {
+				startActivity(intent);
+			}
 		return true;
+	}
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
+		// TODO Auto-generated method stub
+		super.onPrepareDialog(id, dialog, args);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id, Bundle args) {
+		Dialog dialog = null;
+		OnClickListener clickOk = new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				eliminarHistorial();
+				dismissDialog(DIALGO_ELIMINACION);
+
+			}
+		};
+
+		OnClickListener clickCancel = new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dismissDialog(DIALGO_ELIMINACION);
+			}
+		};
+
+		dialog = new AlertDialog.Builder(this)
+				.setIcon(R.drawable.icon)
+				.setTitle("Advertencia")
+				.setPositiveButton("OK. Borrar registros", clickOk)
+				.setNegativeButton("NO. Cancelar borrado", clickCancel)
+				.setMessage(
+						"Se eliminarán los registros de emails y mensajes web. Esta acción no se puede deshacer. ¿Está seguro que desea continuar?")
+				.create();
+
+		return dialog;
+
+	}
+
+	private void eliminarHistorial() {
+		DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+		SharedPreferences preferencias = getSharedPreferences(LOGIN_SETTINGS,
+				MODE_PRIVATE);
+		String user = preferencias.getString("User", "");
+		dbHelper.eliminarRegistros(user);
+		Toast.makeText(getApplicationContext(), "Se eliminaron registros",
+				Toast.LENGTH_LONG).show();
 	}
 }

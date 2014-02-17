@@ -9,7 +9,6 @@ import android.widget.RemoteViews;
 
 import com.tdam.Class.Contacto;
 import com.tdam.ServicioWeb.WebServiceInfo;
-import com.tdam.ui.MainActivity;
 import com.tdam.ui.Servicio_Web;
 import com.tdam_2012_g1.R;
 

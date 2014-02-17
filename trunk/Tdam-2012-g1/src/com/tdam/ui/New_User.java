@@ -1,13 +1,5 @@
 package com.tdam.ui;
 
-import com.tdam.Class.Usuario;
-import com.tdam.Database.DatabaseHelper;
-import com.tdam.Database.SingletonDB;
-import com.tdam.ServicioWeb.WebService;
-import com.tdam.ServicioWeb.WebServiceInfo;
-import com.tdam.Suport.ConexionInfo;
-import com.tdam.Suport.Notificacion;
-import com.tdam_2012_g1.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -20,6 +12,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.tdam.Class.Usuario;
+import com.tdam.Database.SingletonDB;
+import com.tdam.ServicioWeb.WebService;
+import com.tdam.ServicioWeb.WebServiceInfo;
+import com.tdam.Suport.ConexionInfo;
+import com.tdam.Suport.Notificacion;
+import com.tdam_2012_g1.R;
 
 public class New_User extends Activity implements OnClickListener {
 	// vista

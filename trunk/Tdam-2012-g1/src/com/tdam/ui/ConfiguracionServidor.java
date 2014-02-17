@@ -1,23 +1,16 @@
 package com.tdam.ui;
 
-import com.tdam_2012_g1.R;
-import com.tdam_2012_g1.R.layout;
-import com.tdam_2012_g1.R.menu;
-
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
+
+import com.tdam_2012_g1.R;
 
 public class ConfiguracionServidor extends Activity implements OnClickListener {
 	private static final String SERVER_SETTINGS = "ServerPreferences";
