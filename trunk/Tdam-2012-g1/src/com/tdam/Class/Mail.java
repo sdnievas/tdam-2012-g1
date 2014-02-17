@@ -1,18 +1,15 @@
 package com.tdam.Class;
 
-import java.sql.Date;
-
-import android.provider.ContactsContract.Contacts.Data;
+import java.util.Date;
 
 public class Mail {
 	int _id;
-	String _idUsuarioRemitente;
-	String _mailDestinatario;
-	String _fechaEnvio;
-	String _asunto;
-	
-	public Mail(){
-		
+	String _idContacto;
+	String _mailDestino;
+	Date _fechaEnvio;
+
+	public Mail() {
+
 	}
 
 	public int get_id() {
@@ -23,38 +20,28 @@ public class Mail {
 		this._id = _id;
 	}
 
-	public String get_idUsuarioRemitente() {
-		return _idUsuarioRemitente;
+	public String get_idContacto() {
+		return _idContacto;
 	}
 
-	public void set_idUsuarioRemitente(String _idUsuarioRemitente) {
-		this._idUsuarioRemitente = _idUsuarioRemitente;
+	public void set_idContacto(String _idContacto) {
+		this._idContacto = _idContacto;
 	}
 
-	public String get_mailDestinatario() {
-		return _mailDestinatario;
+	public String get_mailDestino() {
+		return _mailDestino;
 	}
 
-	public void set_mailDestinatario(String _mailDestinatario) {
-		this._mailDestinatario = _mailDestinatario;
+	public void set_mailDestino(String _mailDestino) {
+		this._mailDestino = _mailDestino;
 	}
 
-	public String get_fechaEnvio() {
+	public Date get_fechaEnvio() {
 		return _fechaEnvio;
 	}
 
-	public void set_fechaEnvio(String _fechaEnvio) {
+	public void set_fechaEnvio(Date _fechaEnvio) {
 		this._fechaEnvio = _fechaEnvio;
 	}
-
-	public String get_asunto() {
-		return _asunto;
-	}
-
-	public void set_asunto(String _asunto) {
-		this._asunto = _asunto;
-	}
-	
-	
 
 }

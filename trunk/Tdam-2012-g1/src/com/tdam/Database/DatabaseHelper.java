@@ -1,7 +1,8 @@
 package com.tdam.Database;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -14,6 +15,7 @@ import com.tdam.Class.Conectividad;
 import com.tdam.Class.Contacto;
 import com.tdam.Class.ContactoBluetooth;
 import com.tdam.Class.ContactoWeb;
+import com.tdam.Class.Mail;
 import com.tdam.Class.MensajeBluetooth;
 import com.tdam.Class.MensajeWeb;
 import com.tdam.Class.RegistroAccion;
@@ -37,6 +39,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colNombre = "nombre";
 	static final String colContraseña = "contrasena";
 	static final String colMail = "mailUsuario";
+
+	// Tabla emails enviados
+	static final String mailsTable = "email";
+	static final String colIdMail = "idMail";
+	static final String colIdContactoMail = "idContacto";
+	static final String colDireccionDestino = "direccionDestino";
+	static final String colFechaEnvioMail = "fechaEnvio";
 
 	// Tabla conectividades
 	static final String conectividadesTable = "conectividades";
@@ -78,7 +87,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colTipoAccion = "tipoAccion";
 
 	public DatabaseHelper(Context context) {
-		super(context, dbName, null, 38);
+		super(context, dbName, null, 39);
 
 	}
 
@@ -95,6 +104,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + colNombre
 				+ " TEXT, " + colContraseña + " TEXT, " + colMail + " TEXT )");
 
+		// Tabla mails
+		db.execSQL("CREATE TABLE " + mailsTable + "( " + colIdMail
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + colIdContactoMail
+				+ " TEXT, " + colDireccionDestino + " TEXT, "
+				+ colFechaEnvioMail + " TEXT)");
+
 		// Tabla Conectividad
 		db.execSQL("CREATE TABLE " + conectividadesTable + "( "
 				+ colIdConectividad + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -109,18 +124,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ " TEXT NOT NULL, " + colTipoMensaje + " INTEGER NOT NULL);");
 
 		// Tabla Usuario Bluetooth
-		db.execSQL("CREATE TABLE " + contactoBluetoothTable + " ("
-				+ colIdContactBluetooth + " INTEGER PRIMARY KEY , "
-				+ colNombreBluetooth + " TEXT, " + colMAC + " TEXT)");
+		// db.execSQL("CREATE TABLE " + contactoBluetoothTable + " ("
+		// + colIdContactBluetooth + " INTEGER PRIMARY KEY , "
+		// + colNombreBluetooth + " TEXT, " + colMAC + " TEXT)");
 
 		// Tabla MensajeBluetooth
-		db.execSQL("CREATE TABLE " + mensajesBluetoothTable + " ("
-				+ colIdMensajeBluetooth
-				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + colUsuarioBluetooth
-				+ " INTEGER NOT NULL, " + colContactoBluetooth
-				+ " INTEGER NOT NULL, " + colFechaEnvioMsjBluetooth
-				+ " DATETIME, " + colMensajeBluetooth + " TEXT NOT NULL, "
-				+ colTipoBluetooth + " INTEGER NOT NULL)");
+		// db.execSQL("CREATE TABLE " + mensajesBluetoothTable + " ("
+		// + colIdMensajeBluetooth
+		// + " INTEGER PRIMARY KEY AUTOINCREMENT, " + colUsuarioBluetooth
+		// + " INTEGER NOT NULL, " + colContactoBluetooth
+		// + " INTEGER NOT NULL, " + colFechaEnvioMsjBluetooth
+		// + " DATETIME, " + colMensajeBluetooth + " TEXT NOT NULL, "
+		// + colTipoBluetooth + " INTEGER NOT NULL)");
 
 	}
 
@@ -130,6 +145,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		db.execSQL("DROP TABLE IF EXISTS " + contactosAplicacionTable);
 		db.execSQL("DROP TABLE IF EXISTS " + usuariosTable);
+		db.execSQL("DROP TABLE IF EXISTS " + mailsTable);
 		db.execSQL("DROP TABLE IF EXISTS " + conectividadesTable);
 		db.execSQL("DROP TABLE IF EXISTS " + mensajesWebTable);
 		db.execSQL("DROP TABLE IF EXISTS " + contactoBluetoothTable);
@@ -950,5 +966,81 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cursor.close();
 		db.close();
 		return listaRegistros;
+	}
+
+	public void addMail(Mail mail) {
+		SimpleDateFormat formatoFecha = new SimpleDateFormat(
+				"dd/MM/yyyy HH:mm:ss");
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
+		cv.put(colIdContactoMail, mail.get_idContacto());
+		cv.put(colDireccionDestino, mail.get_mailDestino());
+		cv.put(colFechaEnvioMail, formatoFecha.format(mail.get_fechaEnvio()));
+
+		db.insert(mailsTable, null, cv);
+		db.close();
+	}
+
+	public List<Mail> getMails(String orden) {
+		List<Mail> listaMails = new ArrayList<Mail>();
+		SimpleDateFormat formatoFecha = new SimpleDateFormat(
+				"dd/MM/yyyy HH:mm:ss");
+		SQLiteDatabase db = this.getWritableDatabase();
+		// String[] columnas =
+		// {colIdMail,colIdContactoMail,colDireccionDestino,colFechaEnvioMail};
+		Cursor cursor = db.query(mailsTable, null, null, null, null, null,
+				colFechaEnvioMail + " " + orden);
+		while (cursor.moveToNext()) {
+			Mail mail = new Mail();
+			mail.set_id(cursor.getInt(cursor.getColumnIndex(colIdMail)));
+			mail.set_idContacto(cursor.getString(cursor
+					.getColumnIndex(colIdContactoMail)));
+			mail.set_mailDestino(cursor.getString(cursor
+					.getColumnIndex(colDireccionDestino)));
+			try {
+				mail.set_fechaEnvio(formatoFecha.parse(cursor.getString(cursor
+						.getColumnIndex(colFechaEnvioMail))));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			listaMails.add(mail);
+		}
+		cursor.close();
+		db.close();
+		return listaMails;
+	}
+
+	public List<Mail> getMails(Contacto contacto, String orden) {
+		List<Mail> listaMails = new ArrayList<Mail>();
+		SimpleDateFormat formatoFecha = new SimpleDateFormat(
+				"dd/MM/yyyy HH:mm:ss");
+		SQLiteDatabase db = this.getWritableDatabase();
+		// String[] columnas =
+		// {colIdMail,colIdContactoMail,colDireccionDestino,colFechaEnvioMail};
+		Cursor cursor = db.query(mailsTable, null, colIdContactoMail + " = ? ",
+				new String[] { contacto.getId() }, null, null,
+				colFechaEnvioMail + " " + orden);
+		while (cursor.moveToNext()) {
+			Mail mail = new Mail();
+			mail.set_id(cursor.getInt(cursor.getColumnIndex(colIdMail)));
+			mail.set_idContacto(cursor.getString(cursor
+					.getColumnIndex(colIdContactoMail)));
+			mail.set_mailDestino(cursor.getString(cursor
+					.getColumnIndex(colDireccionDestino)));
+			try {
+				mail.set_fechaEnvio(formatoFecha.parse(cursor.getString(cursor
+						.getColumnIndex(colFechaEnvioMail))));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			listaMails.add(mail);
+		}
+		cursor.close();
+		db.close();
+		return listaMails;
 	}
 }

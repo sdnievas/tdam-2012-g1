@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -14,6 +15,7 @@ import com.tdam.Class.Contacto;
 import com.tdam.Class.ContactoBluetooth;
 import com.tdam.Class.ContactoWeb;
 import com.tdam.Class.Mail;
+import com.tdam.Class.Usuario;
 import com.tdam.Database.DatabaseHelper;
 import com.tdam.Database.SingletonDB;
 import com.tdam_2012_g1.R;
@@ -24,6 +26,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -63,6 +66,8 @@ public class DetalleContacto extends Activity implements OnClickListener {
 
 	private static final int REQUEST_CONNECT_DEVICE = 1;
 	private static final int REQUEST_WEBUSER = 2;
+	private static final String LOGIN_SETTINGS = "LoginPreferences";
+	private static final String USER = "User";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -180,9 +185,11 @@ public class DetalleContacto extends Activity implements OnClickListener {
 			lvBTUser.setAdapter(new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, BTUser));
 		}
-		if(contact.getDirecciones()!= null){
-		lvDirecciones.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, contact.getDirecciones()));}
+		if (contact.getDirecciones() != null) {
+			lvDirecciones.setAdapter(new ArrayAdapter<String>(this,
+					android.R.layout.simple_list_item_1, contact
+							.getDirecciones()));
+		}
 
 	}
 
@@ -234,20 +241,25 @@ public class DetalleContacto extends Activity implements OnClickListener {
 
 	// En caso de mandar mail llama al Intent que envia los mails
 	private void Mailto(int position) {
-
 		DatabaseHelper dbhelper = new DatabaseHelper(this);
+		SharedPreferences preferences = getSharedPreferences(LOGIN_SETTINGS,
+				MODE_PRIVATE);
+		Usuario usuario = dbhelper.buscarUsuarioporNombre(preferences
+				.getString(USER, ""));
+
 		Mail mail = new Mail();
-		mail.set_id(0);
-		mail.set_idUsuarioRemitente(contact.getId());
-		mail.set_mailDestinatario(contact.getEmails().get(position));
+		// mail.set_id(0);
+		mail.set_idContacto(contact.getId());
+		mail.set_mailDestino(contact.getEmails().get(position));
+		mail.set_fechaEnvio(new Date());
 
-		Calendar c = Calendar.getInstance();
-		int mYear = c.get(Calendar.YEAR);
-		int mMonth = c.get(Calendar.MONTH);
-		int mDay = c.get(Calendar.DAY_OF_MONTH);
-		mail.set_fechaEnvio(mDay + "/" + (mMonth + 1) + "/" + mYear);
+		// Calendar c = Calendar.getInstance();
+		// int mYear = c.get(Calendar.YEAR);
+		// int mMonth = c.get(Calendar.MONTH);
+		// int mDay = c.get(Calendar.DAY_OF_MONTH);
+		// mail.set_fechaEnvio(mDay + "/" + (mMonth + 1) + "/" + mYear);
 
-		// dbhelper.addMail(mail);
+		dbhelper.addMail(mail);
 		dbhelper.close();
 
 		ArrayList<String> mails = contact.getEmails();
@@ -431,7 +443,7 @@ public class DetalleContacto extends Activity implements OnClickListener {
 				con.set_nombreWeb(Name);
 				con.set_id(Integer.parseInt(contact.getId()));
 				SingletonDB.getInstance(getApplicationContext())
-						.getDatabaseHelper().addContacto(con);
+						.getDatabaseHelper().updateContacto(con);
 				CargarListas();
 			}
 			break;

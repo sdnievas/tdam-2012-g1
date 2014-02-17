@@ -53,6 +53,8 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 	private ContactsAdapter adapter;
 	private Contacto contactToShow;
 	private static final int CALL = 1;
+	private static final int SMS = 2;
+	private static final int MAIL = 3;
 
 	/*
 	 * Variables de preferences de contactos
@@ -418,7 +420,7 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 
 		// loadUserMsgWeb(contactToShow);
 
-		loadUserContactBluetooth(contactToShow);
+		// loadUserContactBluetooth(contactToShow);
 
 		loadContactAddress(contactToShow);
 
@@ -437,7 +439,7 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 		// triggered
 		// when the item is clicked on
 		qa.addItem(getResources()
-				.getDrawable(android.R.drawable.ic_menu_agenda), "detalle",
+				.getDrawable(android.R.drawable.ic_menu_agenda), "Detalle",
 				new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
@@ -450,15 +452,24 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 				});
 
 		qa.addItem(getResources().getDrawable(android.R.drawable.ic_menu_call),
-				"call", new OnClickListener() {
+				"Llamar", new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
-						if (contactToShow.getTelephoneNumbers().size() > 1) {
+						int cantidadNumeros = contactToShow
+								.getTelephoneNumbers().size();
+						if (cantidadNumeros == 0) {
+							Toast.makeText(getApplicationContext(),
+									"El Contacto no tiene números telefónicos",
+									Toast.LENGTH_LONG).show();
+						}
+						if (cantidadNumeros == 1) {
 							dialog(contactToShow, CALL);
-						} else {
+						}
+						if (cantidadNumeros > 1) {
 							Intent callIntent = new Intent(Intent.ACTION_CALL);
 							callIntent.setData(Uri.parse("tel:"
-									+ contactToShow.getTelephoneNumbers()));
+									+ contactToShow.getTelephoneNumbers()
+											.get(0)));
 							startActivity(callIntent);
 						}
 						qa.dismiss();
@@ -467,58 +478,87 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 
 		qa.addItem(
 				getResources().getDrawable(android.R.drawable.ic_dialog_email),
-				"sms", new OnClickListener() {
+				"SMS", new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
-						if (contactToShow.getTelephoneNumbers().size() > 1) {
-							dialog(contactToShow, 2);
-						} else {
+						int cantidadNumeros = contactToShow
+								.getTelephoneNumbers().size();
+						if (cantidadNumeros == 0) {
+							Toast.makeText(getApplicationContext(),
+									"El Contacto no tiene números telefónicos",
+									Toast.LENGTH_LONG).show();
+						}
+						if (cantidadNumeros == 1) {
 							Intent intent = new Intent(Intent.ACTION_VIEW);
 							intent.setType("vnd.android-dir/mms-sms");
 							intent.setData(Uri.parse("smsto:"
-									+ contactToShow.getTelephoneNumbers()));
+									+ contactToShow.getTelephoneNumbers()
+											.get(0)));
 							startActivity(intent);
 						}
+						if (cantidadNumeros > 1) {
+							dialog(contactToShow, SMS);
+						}
+
 						qa.dismiss();
 					}
 				});
 
 		qa.addItem(
 				getResources().getDrawable(android.R.drawable.ic_dialog_email),
-				"e-mail", new OnClickListener() {
+				"Email", new OnClickListener() {
 					public void onClick(View v) {
-						Toast.makeText(mContext, "e-mail", Toast.LENGTH_SHORT)
-								.show();
+						contactToShow = (Contacto) adapter.getItem(posicion);
+						int cantidadMails = contactToShow.getEmails().size();
+						if (cantidadMails == 0) {
+							Toast.makeText(
+									getApplicationContext(),
+									"El Contacto no tiene direcciones de Email",
+									Toast.LENGTH_LONG).show();
+						}
+						if (cantidadMails == 1) {
+							Uri uri = Uri.parse("mailto:"
+									+ contactToShow.getEmails().get(0));
+							intent = new Intent(Intent.ACTION_SENDTO, uri);
+							startActivity(intent);
+						}
+						if (cantidadMails > 1) {
+							dialog(contactToShow, MAIL);
+						}
 						qa.dismiss();
 					}
 				});
 		qa.addItem(
 				getResources().getDrawable(android.R.drawable.stat_notify_chat),
-				"webmsg", new OnClickListener() {
+				"WebMsg", new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
 						if (contactToShow.getuserWeb() != null) {
 							intent = new Intent(mContext, Servicio_Web.class);
 							intent.putExtra(CONTACT, contactToShow);
 							startActivity(intent);
+						} else {
+							Toast.makeText(getApplicationContext(),
+									"El Contacto no tiene usuario web",
+									Toast.LENGTH_LONG).show();
 						}
 						qa.dismiss();
 					}
 				});
 
-		qa.addItem(
-				getResources().getDrawable(
-						android.R.drawable.stat_sys_data_bluetooth),
-				"msgbluetooth", new OnClickListener() {
-					public void onClick(View v) {
-						contactToShow = (Contacto) adapter.getItem(posicion);
-						intent = new Intent(mContext, BluetoothChat.class);
-						intent.putExtra(CONTACT,
-								contactToShow.getMACBluetooth());
-						startActivity(intent);
-						qa.dismiss();
-					}
-				});
+		// qa.addItem(
+		// getResources().getDrawable(
+		// android.R.drawable.stat_sys_data_bluetooth),
+		// "msgbluetooth", new OnClickListener() {
+		// public void onClick(View v) {
+		// contactToShow = (Contacto) adapter.getItem(posicion);
+		// intent = new Intent(mContext, BluetoothChat.class);
+		// intent.putExtra(CONTACT,
+		// contactToShow.getMACBluetooth());
+		// startActivity(intent);
+		// qa.dismiss();
+		// }
+		// });
 
 		// shows the quick action window on the screen
 		qa.show();
@@ -545,10 +585,18 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 	}
 
 	private void dialog(final Contacto cont, final int tipo) {
-
-		String[] items = new String[cont.getTelephoneNumbers().size()];
-		for (int i = 0; i < cont.getTelephoneNumbers().size(); i++) {
-			items[i] = cont.getTelephoneNumbers().get(i);
+		String[] items = null;
+		if (tipo == CALL || tipo == SMS) {
+			items = new String[cont.getTelephoneNumbers().size()];
+			for (int i = 0; i < cont.getTelephoneNumbers().size(); i++) {
+				items[i] = cont.getTelephoneNumbers().get(i);
+			}
+		}
+		if (tipo == MAIL) {
+			items = new String[cont.getEmails().size()];
+			for (int i = 0; i < cont.getEmails().size(); i++) {
+				items[i] = cont.getEmails().get(i);
+			}
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.dc_eleccion);
@@ -559,11 +607,18 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 					callIntent.setData(Uri.parse("tel:"
 							+ cont.getTelephoneNumbers().get(item)));
 					startActivity(callIntent);
-				} else {
+				}
+				if (tipo == 2) {
 					Intent intent = new Intent(Intent.ACTION_VIEW);
 					intent.setType("vnd.android-dir/mms-sms");
 					intent.setData(Uri.parse("smsto:"
 							+ cont.getTelephoneNumbers().get(item)));
+					startActivity(intent);
+				}
+				if (tipo == 3) {
+					Uri uri = Uri.parse("mailto:"
+							+ contactToShow.getEmails().get(0));
+					Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
 					startActivity(intent);
 				}
 			}
