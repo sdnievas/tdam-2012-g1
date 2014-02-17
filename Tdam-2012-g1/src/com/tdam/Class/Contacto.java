@@ -2,34 +2,34 @@ package com.tdam.Class;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.net.Uri;
 
-
-
 public class Contacto implements Serializable {
 
-	
 	private String id;
-	
+
 	private String name;
-	
+
 	private ArrayList<String> telephoneNumbers;
-	
+
 	private ArrayList<String> emails;
-	
+
 	private Uri Imagen;
-	
+
 	private String nomUserWeb;
-	
+
 	private String nomUserBluetooth;
-	
+
 	private String MACBluetooth;
-		
+
+	private List<String> direcciones;
 
 	public Contacto() {
 		telephoneNumbers = new ArrayList<String>(0);
 		emails = new ArrayList<String>(0);
+		direcciones = new ArrayList<String>(0);
 	}
 
 	public void setName(String name) {
@@ -39,7 +39,7 @@ public class Contacto implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public void setImagen(Uri Imagen) {
 		this.Imagen = Imagen;
 	}
@@ -47,7 +47,7 @@ public class Contacto implements Serializable {
 	public void setUserWeb(String userWeb) {
 		this.nomUserWeb = userWeb;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -55,12 +55,12 @@ public class Contacto implements Serializable {
 	public String getId() {
 		return id;
 	}
-	
+
 	public String getuserWeb() {
 		return nomUserWeb;
 	}
-	
-	public Uri getImagen(){
+
+	public Uri getImagen() {
 		return Imagen;
 	}
 
@@ -79,7 +79,7 @@ public class Contacto implements Serializable {
 	public ArrayList<String> getEmails() {
 		return emails;
 	}
-	
+
 	public String getNomUserBluetooth() {
 		return nomUserBluetooth;
 	}
@@ -96,28 +96,20 @@ public class Contacto implements Serializable {
 		MACBluetooth = mACBluetooth;
 	}
 
+	public void addDireccion(String direccion) {
+		direcciones.add(direccion);
+	}
+
+	public List<String> getDirecciones() {
+		return direcciones;
+	}
+
+	public void setDirecciones(List<String> direcciones) {
+		this.direcciones = direcciones;
+	}
+
 	@Override
 	public String toString() {
 		return id + " " + name;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

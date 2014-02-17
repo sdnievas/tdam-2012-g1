@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -49,9 +50,11 @@ public class ConfiguracionServidor extends Activity implements OnClickListener {
 			editor.putString("ip_servidor", txtIP.getText().toString());
 			editor.putString("puerto_servidor", txtPuerto.getText().toString());
 			editor.commit();
+			Toast.makeText(this, "Cambios guardados", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(this, Inicio.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			
 		}
 
 	}

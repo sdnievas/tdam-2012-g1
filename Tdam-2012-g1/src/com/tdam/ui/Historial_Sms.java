@@ -31,12 +31,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Historial_Sms extends ListActivity implements OnItemClickListener, OnItemLongClickListener {
+public class Historial_Sms extends ListActivity implements OnItemClickListener,
+		OnItemLongClickListener {
 
 	private HistorySmsAdapter adapertSms;
 	private Contacto contact;
 	private String ordenarForma;
 	private String FiltroContactos;
+	private int filtro;
+	private Cursor cur;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,17 +48,17 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 
 		Bundle extras = getIntent().getExtras();
 
-		// Cargamos el contacto que recibimos del intent de la activity contactos
+		// Cargamos el contacto que recibimos del intent de la activity
+		// contactos
 		if (extras != null)
 			contact = (Contacto) extras.getSerializable("contacto");
-		
 
 		adapertSms = new HistorySmsAdapter();
 
 		getListView().setAdapter(adapertSms);
 
 		getListView().setOnItemClickListener(this);
-		
+
 		getListView().setOnItemLongClickListener(this);
 
 		getPreferences();
@@ -79,6 +82,25 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 	}
 
 	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if (cur != null) {
+			cur.close();
+		}
+
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		if (cur != null) {
+			cur.close();
+		}
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_historial, menu);
 		return true;
@@ -94,12 +116,14 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 
 		FiltroContactos = myPreference.getString(
 				getString(R.string.preference_Historial_Filtrarkey), "0");
+
+		filtro = Integer.parseInt(FiltroContactos);
 	}
 
 	private void loadConversationsSms() {
-		
+
 		adapertSms.limpiar();
-		
+
 		String forma = "date desc";
 
 		if (!ordenarForma.equals("0")) {
@@ -108,11 +132,12 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 
 		Uri smsURI = Uri.parse("content://sms/");
 		String columns[] = new String[] { "address", "person", "date", "body",
-				"type", "thread_id", "MAX(date)"}; // type 1 = otro contacto, type 2 =
+				"type", "thread_id", "MAX(date)" }; // type 1 = otro contacto,
+													// type 2 =
 		// usuario
-		
-		String selection = "1) GROUP BY (thread_id" ;
-		Cursor cur = this.managedQuery(smsURI, columns, selection, null, forma);
+
+		String selection = "1) GROUP BY (thread_id";
+		cur = this.managedQuery(smsURI, columns, selection, null, forma);
 
 		ArrayList<HistorialSms> smsData = new ArrayList<HistorialSms>();
 		HistorialSms sms = null;
@@ -130,11 +155,16 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 			sms.setType(Integer.parseInt(cur.getString(cur
 					.getColumnIndex("type"))));
 
-			smsData.add(sms);
-			adapertSms.addHistorial(sms);
+			if (filtro != 0 && sms.getType() == filtro) {
+				smsData.add(sms);
+				adapertSms.addHistorial(sms);
+			} else if (filtro == 0) {
+				smsData.add(sms);
+				adapertSms.addHistorial(sms);
+			}
 		}
 
-		cur.close();
+		// cur.close();
 
 		adapertSms.notifyDataSetChanged();
 	}
@@ -153,7 +183,7 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 		while (telefonos.size() > i) {
 			String selection[] = new String[] { telefonos.get(i) };
 
-			Cursor cur = this.managedQuery(smsURI, columns, clause, selection,
+			cur = this.managedQuery(smsURI, columns, clause, selection,
 					"date asc");
 
 			HistorialSms sms = null;
@@ -168,10 +198,14 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 				sms.setType(Integer.parseInt(cur.getString(cur
 						.getColumnIndex("type"))));
 
-				adapertSms.addHistorial(sms);
+				if (filtro != 0 && sms.getType() == filtro) {
+					adapertSms.addHistorial(sms);
+				} else if (filtro == 0) {
+					adapertSms.addHistorial(sms);
+				}
 			}
 
-			cur.close();
+			// cur.close();
 
 			adapertSms.notifyDataSetChanged();
 			i++;
@@ -271,18 +305,15 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 
 	}
 
-	
-	private void openSmsConv(int position){
+	private void openSmsConv(int position) {
 		HistorialSms Sms = (HistorialSms) adapertSms.getItem(position);
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setType("vnd.android-dir/mms-sms");
 		intent.setData(Uri.parse("smsto:" + Sms.getNumero()));
 		startActivity(intent);
-		
+
 	}
-	
-	
-	
+
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		Intent intent = null;
 		switch (item.getItemId()) {
@@ -296,51 +327,48 @@ public class Historial_Sms extends ListActivity implements OnItemClickListener, 
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position,
-			long arg3) {
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+			int position, long arg3) {
 
 		HistorialSms Sms = (HistorialSms) adapertSms.getItem(position);
-		
-		dialog(Sms,position);
-		
+
+		dialog(Sms, position);
+
 		return false;
 	}
-	
-	
-	 private void dialog(final HistorialSms parSms, final int position){
-	    	
-	    	final CharSequence[] items = {"Borrar Conversacion", "Ver Conversacion"};
-	    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    	builder.setTitle(R.string.dc_eleccion);
-	    	builder.setItems(items, new DialogInterface.OnClickListener() {
-	    	    public void onClick(DialogInterface dialog, int item) {
-	    	    	 switch (item) {
-	    	    	 case 0: 
-	    	    		 deleteConversation(parSms);
-	    	    		 break;
-	    	    	 case 1: 
-						 openSmsConv(position);
-	    	    		 break;
-	    	         }   	    	
-	    	    }
 
-				
-	    	});
-	    	AlertDialog alert = builder.create();
-	    	alert.show();
+	private void dialog(final HistorialSms parSms, final int position) {
 
-	   }
-	
-	 
-	 private void deleteConversation(HistorialSms parSMS)
-	 {
-		 Uri smsURI = Uri.parse("content://sms/");
-		 String where = "thread_id = ?";
-		 String Args[] = {parSMS.getThreadId()};
-		 
-		 getContentResolver().delete(smsURI, where, Args);
-		 
-		 loadConversationsSms();
-		 
-	 }
+		final CharSequence[] items = { "Borrar Conversacion",
+				"Ver Conversacion" };
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.dc_eleccion);
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int item) {
+				switch (item) {
+				case 0:
+					deleteConversation(parSms);
+					break;
+				case 1:
+					openSmsConv(position);
+					break;
+				}
+			}
+
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+
+	}
+
+	private void deleteConversation(HistorialSms parSMS) {
+		Uri smsURI = Uri.parse("content://sms/");
+		String where = "thread_id = ?";
+		String Args[] = { parSMS.getThreadId() };
+
+		getContentResolver().delete(smsURI, where, Args);
+
+		loadConversationsSms();
+
+	}
 }

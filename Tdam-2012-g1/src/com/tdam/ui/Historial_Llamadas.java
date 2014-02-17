@@ -28,43 +28,46 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class Historial_Llamadas extends ListActivity implements OnItemClickListener {
+public class Historial_Llamadas extends ListActivity implements
+		OnItemClickListener {
 
-	
 	private HistorialLLamadasAdapter adapter;
 	private Contacto contact;
 	private String ordenarForma;
 	private String FiltroContactos;
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_historial__llamadas);
-        
-        Bundle extras = getIntent().getExtras();
-	    if(extras != null)
-	    	//Cargamos el contacto que recibimos del intent de la activity contactos
-	    	contact = (Contacto) extras.getSerializable("contacto"); 
-        
-        adapter = new HistorialLLamadasAdapter();
-        
-        getListView().setAdapter(adapter);
-
-      	getListView().setOnItemClickListener(this);
-      	
-      	getPreferences();
-      	
-      	loadListData();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_historial, menu);
-        return true;
-    }
+	private int filtro;
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_historial__llamadas);
+
+		Bundle extras = getIntent().getExtras();
+		if (extras != null)
+			// Cargamos el contacto que recibimos del intent de la activity
+			// contactos
+			contact = (Contacto) extras.getSerializable("contacto");
+
+		adapter = new HistorialLLamadasAdapter();
+
+		getListView().setAdapter(adapter);
+
+		getListView().setOnItemClickListener(this);
+
+		getPreferences();
+
+		loadListData();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_historial, menu);
+		return true;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
 		// TODO Auto-generated method stub
 		HistorialLlamada llamada = (HistorialLlamada) adapter.getItem(position);
 		Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -72,34 +75,43 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 		startActivity(callIntent);
 
 	}
-	
-	
-	private void loadListData(){
-		
+
+	private void loadListData() {
+
 		adapter.limpiar();
 		String forma = "date desc";
-    	
-    	if(!ordenarForma.equals("0")){
-    		forma = "date asc";
-    	}
-		
+
+		if (!ordenarForma.equals("0")) {
+			forma = "date asc";
+		}
+
 		ContentResolver cr = getContentResolver();
-		
+
 		String[] colSelect = { CallLog.Calls._ID, CallLog.Calls.NUMBER,
 				CallLog.Calls.TYPE, CallLog.Calls.CACHED_NAME,
 				CallLog.Calls.CACHED_NUMBER_TYPE, CallLog.Calls.DATE,
 				CallLog.Calls.DURATION, CallLog.Calls.TYPE };
-		
+
 		String projection = null;
 		String[] values = null;
-		
-		if(contact != null){
-			projection = CallLog.Calls.CACHED_NAME + " = ?";
-			values = new String[] {contact.getName()};
+		if (filtro == 1) {
+			projection = CallLog.Calls.TYPE + "=" + CallLog.Calls.INCOMING_TYPE;
 		}
-		
-		Cursor cur = cr.query(CallLog.Calls.CONTENT_URI, colSelect,
-				projection , values , forma);
+		if (filtro == 2) {
+			projection = CallLog.Calls.TYPE + "=" + CallLog.Calls.OUTGOING_TYPE;
+		}
+		if (contact != null) {
+			if (projection == null) {
+				projection = CallLog.Calls.CACHED_NAME + " = ?";
+			} else {
+				projection = projection + " AND " + CallLog.Calls.CACHED_NAME
+						+ " = ?";
+			}
+			values = new String[] { contact.getName() };
+		}
+
+		Cursor cur = cr.query(CallLog.Calls.CONTENT_URI, colSelect, projection,
+				values, forma);
 
 		HistorialLlamada historial = null;
 
@@ -110,7 +122,7 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 				String numero = cur.getString(cur
 						.getColumnIndex(CallLog.Calls.NUMBER));
 				Date hora = (new Date(cur.getLong(cur
-								.getColumnIndex(CallLog.Calls.DATE))));
+						.getColumnIndex(CallLog.Calls.DATE))));
 				historial = new HistorialLlamada();
 				historial.setNombre(nomb);
 				historial.setFecha(hora);
@@ -123,34 +135,35 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 		adapter.notifyDataSetChanged();
 
 	}
-	
-	private void getPreferences(){
-		
+
+	private void getPreferences() {
+
 		SharedPreferences myPreference = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
 		ordenarForma = myPreference.getString(
-				getString(R.string.preference_Historial_Ordenarkey),"0");
-		
+				getString(R.string.preference_Historial_Ordenarkey), "0");
+
 		FiltroContactos = myPreference.getString(
-				getString(R.string.preference_Historial_Filtrarkey),"0");
-				
+				getString(R.string.preference_Historial_Filtrarkey), "0");
+		filtro = Integer.parseInt(FiltroContactos);
+
 	}
-	
+
 	class Holder {
 		private TextView txtNombre;
 		private TextView txtHora;
 		private TextView txtFecha;
 		private TextView txtNumero;
 	}
-	
-	//Adapter de la lista de contactos
+
+	// Adapter de la lista de contactos
 	class HistorialLLamadasAdapter extends BaseAdapter {
-		
+
 		private ArrayList<HistorialLlamada> historial;
 		private LayoutInflater inflater;
 		private SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
-		
+
 		public HistorialLLamadasAdapter() {
 			historial = new ArrayList<HistorialLlamada>();
 			inflater = LayoutInflater.from(Historial_Llamadas.this);
@@ -181,8 +194,7 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 		public View getView(int position, View convertView, ViewGroup arg2) {
 			Holder holder;
 			if (convertView == null) {
-				convertView = inflater
-						.inflate(R.layout.historial_item, null);
+				convertView = inflater.inflate(R.layout.historial_item, null);
 				holder = new Holder();
 				holder.txtNombre = (TextView) convertView
 						.findViewById(R.id.txtArribaIzquierda);
@@ -190,7 +202,7 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 						.findViewById(R.id.txtArribaDerecha);
 				holder.txtNumero = (TextView) convertView
 						.findViewById(R.id.txtAbajoIzquierda);
-				holder.txtFecha =(TextView) convertView
+				holder.txtFecha = (TextView) convertView
 						.findViewById(R.id.txtAbajoDerecha);
 				convertView.setTag(holder);
 			} else {
@@ -200,41 +212,41 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 			HistorialLlamada history = (HistorialLlamada) getItem(position);
 			holder.txtNombre.setText(history.getNombre());
 			holder.txtFecha.setText(history.getFecha().toString().trim());
-			holder.txtHora.setText((formatoHora.format(history.getFecha()).trim()));
+			holder.txtHora.setText((formatoHora.format(history.getFecha())
+					.trim()));
 			holder.txtNumero.setText(history.getNumero().trim());
 			return convertView;
 		}
-		
-		public void limpiar(){
-			if(historial != null){
+
+		public void limpiar() {
+			if (historial != null) {
 				historial.clear();
 			}
 		}
-		
 
 	}
-	
+
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		
+
 		Intent intent = null;
 		switch (item.getItemId()) {
-		
+
 		case R.id.historial_settings:
-			intent= new Intent(this, Preference_historial.class);	
+			intent = new Intent(this, Preference_historial.class);
 			break;
 		}
 		startActivity(intent);
 		return true;
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		this.setListAdapter(null);
-        getListView().setAdapter(adapter);
-      	getListView().setOnItemClickListener(this);      	
-      	getPreferences();      	
-      	loadListData();
+		getListView().setAdapter(adapter);
+		getListView().setOnItemClickListener(this);
+		getPreferences();
+		loadListData();
 	}
 
 	@Override
@@ -244,6 +256,6 @@ public class Historial_Llamadas extends ListActivity implements OnItemClickListe
 
 	@Override
 	protected void onStop() {
-		super.onStop();	
+		super.onStop();
 	}
 }

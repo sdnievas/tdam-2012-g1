@@ -35,7 +35,8 @@ public class Historial_WebMsg extends ListActivity implements
 	private String ordenarForma;
 	private String FiltroContactos;
 	private Usuario usr;
-	
+	private int filtro;
+
 	private static final String LOGIN_SETTINGS = "LoginPreferences";
 	private static final String USER = "User";
 	private static final String PASSWORD = "Password";
@@ -47,21 +48,21 @@ public class Historial_WebMsg extends ListActivity implements
 		setContentView(R.layout.activity_historial__web_msg);
 
 		Bundle extras = getIntent().getExtras();
-		
-		if (extras != null)// Cargamos el contacto que recibimos del intent de la activity contactos
-			contact = (Contacto) extras.getSerializable("contacto"); 
-		
+
+		if (extras != null)// Cargamos el contacto que recibimos del intent de
+							// la activity contactos
+			contact = (Contacto) extras.getSerializable("contacto");
+
 		adapterWeb = new HistoryWebSmsAdapter();
 
 		getListView().setAdapter(adapterWeb);
 
 		getListView().setOnItemClickListener(this);
-		
+
 		getListView().setOnItemLongClickListener(this);
 
 		loadWebSmsData();
 
-		
 	}
 
 	@Override
@@ -81,8 +82,7 @@ public class Historial_WebMsg extends ListActivity implements
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 		MensajeWeb WebSms = (MensajeWeb) adapterWeb.getItem(position);
-		if(!WebSms.get_detalle().equals(NO_MESSAGES))
-		{
+		if (!WebSms.get_detalle().equals(NO_MESSAGES)) {
 			Contacto contacto = new Contacto();
 			contacto.setUserWeb(WebSms.get_contacto());
 			Intent intent = new Intent(this, Servicio_Web.class);
@@ -92,7 +92,7 @@ public class Historial_WebMsg extends ListActivity implements
 
 	}
 
-	//devuelve las spreference de la app
+	// devuelve las spreference de la app
 	private void getPreferences() {
 
 		SharedPreferences preferences = getSharedPreferences(LOGIN_SETTINGS,
@@ -101,7 +101,6 @@ public class Historial_WebMsg extends ListActivity implements
 		usr.set_nombre(preferences.getString(USER, ""));
 		usr.set_contraseña(preferences.getString(PASSWORD, ""));
 
-		
 		SharedPreferences myPreference = PreferenceManager
 				.getDefaultSharedPreferences(this);
 
@@ -110,9 +109,10 @@ public class Historial_WebMsg extends ListActivity implements
 
 		FiltroContactos = myPreference.getString(
 				getString(R.string.preference_Historial_Filtrarkey), "0");
+		filtro = Integer.parseInt(FiltroContactos);
 	}
 
-	//carga la info de la Db en la lista 
+	// carga la info de la Db en la lista
 	public void loadWebSmsData() {
 		adapterWeb.limpiar();
 		getPreferences();
@@ -122,28 +122,44 @@ public class Historial_WebMsg extends ListActivity implements
 			forma = "asc";
 		}
 
-		
 		ArrayList<MensajeWeb> MensajesWeb = null;
 		if (contact != null) {
-			MensajesWeb = SingletonDB.getInstance(getApplicationContext()).getDatabaseHelper().getContactoMensajeWeb(contact,usr);
+			if (filtro == 0) {
+				MensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper()
+						.getContactoMensajeWeb(contact, usr, forma);
+			} else {
+				if(filtro == 2){
+					filtro = 0;
+				}
+				MensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper()
+						.getContactoMensajeWeb(contact, usr, filtro, forma);
+			}
 		} else {
-			MensajesWeb= SingletonDB.getInstance(getApplicationContext()).getDatabaseHelper().getLastMsgConversations(forma,usr);
+			if (filtro == 0) {
+				MensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper().getMensajesWeb(usr, forma);
+			} else {
+				if(filtro == 2){
+					filtro = 0;
+				}
+				MensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper().getMensajesWeb(usr, filtro, forma);
+			}
 		}
-		
-		if(MensajesWeb == null || MensajesWeb.isEmpty())
-		{
+
+		if (MensajesWeb == null || MensajesWeb.isEmpty()) {
 			MensajesWeb.add(new MensajeWeb(NO_MESSAGES));
 			adapterWeb.addListHistorial(MensajesWeb);
 			adapterWeb.notifyDataSetChanged();
-		}else
-		{
+		} else {
 			adapterWeb.addListHistorial(MensajesWeb);
-			adapterWeb.notifyDataSetChanged();			
+			adapterWeb.notifyDataSetChanged();
 		}
 	}
 
-		
-	//Clase adapter de la pantalla de los mensajes Web
+	// Clase adapter de la pantalla de los mensajes Web
 	class HistoryWebSmsAdapter extends BaseAdapter {
 
 		private ArrayList<MensajeWeb> historialMsgWeb;
@@ -207,12 +223,18 @@ public class Historial_WebMsg extends ListActivity implements
 			}
 
 			MensajeWeb history = (MensajeWeb) getItem(position);
-			
-			holder.txtNombre.setText(history.get_contacto());
-//			holder.txtFecha.setText(history.get_fechaEnvio());
+			if(history.getType() == 0){
+				holder.txtNombre.setText("Para: " +history.get_contacto());
+			}
+			else{
+				holder.txtNombre.setText("De: " +history.get_contacto());
+			}
+			//holder.txtNombre.setText(history.get_contacto());
+			// holder.txtFecha.setText(history.get_fechaEnvio());
 			holder.txtHora.setText(history.get_fechaEnvio());
 			holder.txtMensaje.setText(history.get_detalle());
-			holder.ImagenType.setImageResource(android.R.drawable.stat_notify_chat);
+			holder.ImagenType
+					.setImageResource(android.R.drawable.stat_notify_chat);
 
 			return convertView;
 		}
@@ -228,60 +250,62 @@ public class Historial_WebMsg extends ListActivity implements
 
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		Intent intent = null;
-		switch (item.getItemId()) 
-		{
+		switch (item.getItemId()) {
 
-			case R.id.historial_settings:
-				intent = new Intent(this, Preference_historial.class);
-				break;
+		case R.id.historial_settings:
+			intent = new Intent(this, Preference_historial.class);
+			break;
 		}
-		
+
 		startActivity(intent);
 		return true;
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position,
-			long arg3) {
-		
+	public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+			int position, long arg3) {
+
 		MensajeWeb WebSms = (MensajeWeb) adapterWeb.getItem(position);
-		if(!WebSms.get_detalle().equals(NO_MESSAGES))
-		{
+		if (!WebSms.get_detalle().equals(NO_MESSAGES)) {
 			dialog(WebSms);
 		}
 		return false;
 	}
-	
-	  private void dialog(final MensajeWeb parWebSms){
-	    	
-	    	final CharSequence[] items = {"Borrar Conversacion", "Ver Conversacion"};
-	    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	    	builder.setTitle(R.string.dc_eleccion);
-	    	builder.setItems(items, new DialogInterface.OnClickListener() {
-	    	    public void onClick(DialogInterface dialog, int item) {
-	    	    	 switch (item) {
-	    	    	 case 0: 
-	    	    		  SingletonDB.getInstance(getApplicationContext()).getDatabaseHelper().deleteConversation(parWebSms.get_contacto(), parWebSms.get_usuario());
-	    	    		  loadWebSmsData();
-	    	    		 break;
-	    	    	 case 1: 
-						 openConersation(parWebSms);
-	    	    		 break;
-	    	         }   	    	
-	    	    }
 
-				
-	    	});
-	    	AlertDialog alert = builder.create();
-	    	alert.show();
+	private void dialog(final MensajeWeb parWebSms) {
 
-	   }
-	  
-	  private void openConersation(MensajeWeb parWebSms) {
-			Contacto contacto = new Contacto();
-			contacto.setName(parWebSms.get_contacto());
-			Intent intent = new Intent(this, Servicio_Web.class);
-			intent.putExtra("contacto", contacto);
-			startActivity(intent);
-		}
+		final CharSequence[] items = { "Borrar Conversacion",
+				"Ver Conversacion" };
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.dc_eleccion);
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int item) {
+				switch (item) {
+				case 0:
+					SingletonDB
+							.getInstance(getApplicationContext())
+							.getDatabaseHelper()
+							.deleteConversation(parWebSms.get_contacto(),
+									parWebSms.get_usuario());
+					loadWebSmsData();
+					break;
+				case 1:
+					openConersation(parWebSms);
+					break;
+				}
+			}
+
+		});
+		AlertDialog alert = builder.create();
+		alert.show();
+
+	}
+
+	private void openConersation(MensajeWeb parWebSms) {
+		Contacto contacto = new Contacto();
+		contacto.setName(parWebSms.get_contacto());
+		Intent intent = new Intent(this, Servicio_Web.class);
+		intent.putExtra("contacto", contacto);
+		startActivity(intent);
+	}
 }
