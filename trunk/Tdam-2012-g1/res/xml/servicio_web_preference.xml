@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/FiltrarMensajesWeb"
+        android:entryValues="@array/FiltrarMensajesWebValues"
+        android:key="@string/preference_Mensaje_Web_Filtrarkey"
+        android:title="@string/preference_Mensaje_Web_FiltrarTitle" />
+
+</PreferenceScreen>
