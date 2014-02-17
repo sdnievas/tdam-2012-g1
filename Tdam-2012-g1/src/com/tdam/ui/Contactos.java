@@ -404,14 +404,14 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 
 		final int posicion = position;
 		contactToShow = (Contacto) adapter.getItem(posicion);
-		loadContactTelephoneNumbers(contactToShow);
-		loadContactEmails(contactToShow);
+		// loadContactTelephoneNumbers(contactToShow);
+		// loadContactEmails(contactToShow);
 
 		// loadUserMsgWeb(contactToShow);
 
 		// loadUserContactBluetooth(contactToShow);
 
-		loadContactAddress(contactToShow);
+		// loadContactAddress(contactToShow);
 
 		// array to hold the coordinates of the clicked view
 		int[] xy = new int[2];
@@ -444,6 +444,8 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 				"Llamar", new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
+
+						loadContactTelephoneNumbers(contactToShow);
 						int cantidadNumeros = contactToShow
 								.getTelephoneNumbers().size();
 						if (cantidadNumeros == 0) {
@@ -470,6 +472,7 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 				"SMS", new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
+						loadContactTelephoneNumbers(contactToShow);
 						int cantidadNumeros = contactToShow
 								.getTelephoneNumbers().size();
 						if (cantidadNumeros == 0) {
@@ -498,6 +501,7 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 				"Email", new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
+						loadContactEmails(contactToShow);
 						int cantidadMails = contactToShow.getEmails().size();
 						if (cantidadMails == 0) {
 							Toast.makeText(
@@ -522,9 +526,14 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 				"WebMsg", new OnClickListener() {
 					public void onClick(View v) {
 						contactToShow = (Contacto) adapter.getItem(posicion);
-						if (contactToShow.getuserWeb() != null) {
+						loadUserMsgWeb(contactToShow);
+						Contacto contacto = new Contacto();
+						contacto.setId(contactToShow.getId());
+						contacto.setName(contactToShow.getName());
+						contacto.setUserWeb(contactToShow.getuserWeb());
+						if (contacto.getuserWeb() != null) {
 							intent = new Intent(mContext, Servicio_Web.class);
-							intent.putExtra(CONTACT, contactToShow);
+							intent.putExtra(CONTACT, contacto);
 							startActivity(intent);
 						} else {
 							Toast.makeText(getApplicationContext(),

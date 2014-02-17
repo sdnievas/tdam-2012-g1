@@ -48,9 +48,8 @@ public class DetalleContacto extends Activity implements OnClickListener {
 	private Intent intent;
 	private Contacto contact;
 	private HashMap<String, Uri> imgUri;
-	private ListView lvCel, lvMail, lvMsgWeb, lvBTUser, lvDirecciones;
+	private ListView lvCel, lvMail, lvMsgWeb, lvDirecciones;
 
-	private String adress;
 	private static final String TAG = "BluetoothChat";
 	private static final boolean D = true;
 
@@ -58,7 +57,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 	private static final String DIALOG_MSJ = "Enviar un Mensaje";
 	private static final String CONTACT = "contacto";
 
-	private static final int REQUEST_CONNECT_DEVICE = 1;
 	private static final int REQUEST_WEBUSER = 2;
 	private static final String LOGIN_SETTINGS = "LoginPreferences";
 	private static final String USER = "User";
@@ -88,7 +86,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 		lvCel = (ListView) findViewById(R.id.listNumeros);
 		lvMail = (ListView) findViewById(R.id.listEmail);
 		lvMsgWeb = (ListView) findViewById(R.id.listMensajeriaWeb);
-		lvBTUser = (ListView) findViewById(R.id.listUserBluetooth);
 		lvDirecciones = (ListView) findViewById(R.id.listaDirecciones);
 
 		CargarListas();
@@ -96,7 +93,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 		updateListViewHeight(lvCel);
 		updateListViewHeight(lvMail);
 		updateListViewHeight(lvMsgWeb);
-		updateListViewHeight(lvBTUser);
 		updateListViewHeight(lvDirecciones);
 
 		lvMsgWeb.setOnItemClickListener(new OnItemClickListener() {
@@ -133,7 +129,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 
 		});
 
-
 		lvDirecciones.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -162,13 +157,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 			lvMsgWeb.setAdapter(new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, MsgWeb));
 		}
-
-		if (contact.getNomUserBluetooth() != null) {
-			String[] BTUser = { contact.getNomUserBluetooth() + " : "
-					+ contact.getMACBluetooth() };
-			lvBTUser.setAdapter(new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_1, BTUser));
-		}
 		if (contact.getDirecciones() != null) {
 			lvDirecciones.setAdapter(new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, contact
@@ -180,7 +168,11 @@ public class DetalleContacto extends Activity implements OnClickListener {
 	private void MsgWebto() {
 
 		intent = new Intent(this, Servicio_Web.class);
-		intent.putExtra(CONTACT, contact);
+		Contacto contacto = new Contacto();
+		contacto.setId(contact.getId());
+		contacto.setName(contact.getName());
+		contacto.setUserWeb(contact.getuserWeb());
+		intent.putExtra(CONTACT, contacto);
 		startActivity(intent);
 	}
 
@@ -300,7 +292,7 @@ public class DetalleContacto extends Activity implements OnClickListener {
 		case R.id.userdetalle_newwebsms:
 			if (contact.getuserWeb() != null) {
 				Toast toast = Toast.makeText(this,
-						"El contacto ya posee usuario web", 1000);
+						"El contacto ya posee usuario web", Toast.LENGTH_SHORT);
 				toast.show();
 			} else {
 				intent = new Intent(this, New_ContactWebSms.class);
@@ -380,7 +372,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 		if (D)
 			Log.d(TAG, "onActivityResult " + resultCode);
 		switch (requestCode) {
-		
 
 		case REQUEST_WEBUSER:
 			if (resultCode == Activity.RESULT_OK) {
@@ -389,6 +380,7 @@ public class DetalleContacto extends Activity implements OnClickListener {
 				ContactoWeb con = new ContactoWeb();
 				con.set_nombreWeb(Name);
 				con.set_id(Integer.parseInt(contact.getId()));
+				contact.setUserWeb(Name);
 				SingletonDB.getInstance(getApplicationContext())
 						.getDatabaseHelper().updateContacto(con);
 				CargarListas();

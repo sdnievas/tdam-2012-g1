@@ -835,4 +835,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 		return listaMails;
 	}
+
+	public void eliminarRegistros(String user) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		String[] values = { user };
+		db.delete(mensajesWebTable, colUsuario + " = ?", values);
+		db.delete(mensajesWebTable, colContacto + " = ?", values);
+		db.delete(mailsTable, null, null);
+		db.close();
+	}
 }

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:id="@+id/historial_settings" android:title="Historial Settings" android:orderInCategory="1"></item>
-    
+
+    <item
+        android:id="@+id/historial_settings"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:orderInCategory="1"
+        android:title="Preferencias de Historial">
+    </item>
+    <item
+        android:id="@+id/historial_delete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:orderInCategory="2"
+        android:title="Borrar el Historial">
+    </item>
 
 </menu>

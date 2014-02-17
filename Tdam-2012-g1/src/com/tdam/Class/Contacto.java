@@ -2,7 +2,6 @@ package com.tdam.Class;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.net.Uri;
 
@@ -24,7 +23,7 @@ public class Contacto implements Serializable {
 
 	private String MACBluetooth;
 
-	private List<String> direcciones;
+	private ArrayList<String> direcciones;
 
 	public Contacto() {
 		telephoneNumbers = new ArrayList<String>(0);
@@ -100,12 +99,8 @@ public class Contacto implements Serializable {
 		direcciones.add(direccion);
 	}
 
-	public List<String> getDirecciones() {
+	public ArrayList<String> getDirecciones() {
 		return direcciones;
-	}
-
-	public void setDirecciones(List<String> direcciones) {
-		this.direcciones = direcciones;
 	}
 
 	@Override

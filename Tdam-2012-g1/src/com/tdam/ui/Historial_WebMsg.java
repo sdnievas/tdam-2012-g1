@@ -2,30 +2,34 @@ package com.tdam.ui;
 
 import java.util.ArrayList;
 
-import com.tdam.Class.Contacto;
-import com.tdam.Class.MensajeWeb;
-import com.tdam.Class.Usuario;
-import com.tdam.Database.SingletonDB;
-import com.tdam_2012_g1.R;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnClickListener;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
+import android.widget.Toast;
+
+import com.tdam.Class.Contacto;
+import com.tdam.Class.MensajeWeb;
+import com.tdam.Class.Usuario;
+import com.tdam.Database.DatabaseHelper;
+import com.tdam.Database.SingletonDB;
+import com.tdam_2012_g1.R;
 
 public class Historial_WebMsg extends ListActivity implements
 		OnItemClickListener, OnItemLongClickListener {
@@ -41,6 +45,7 @@ public class Historial_WebMsg extends ListActivity implements
 	private static final String USER = "User";
 	private static final String PASSWORD = "Password";
 	private static final String NO_MESSAGES = "No hay Mensajes";
+	private final int DIALGO_ELIMINACION = -2;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -129,7 +134,7 @@ public class Historial_WebMsg extends ListActivity implements
 						.getDatabaseHelper()
 						.getContactoMensajeWeb(contact, usr, forma);
 			} else {
-				if(filtro == 2){
+				if (filtro == 2) {
 					filtro = 0;
 				}
 				MensajesWeb = SingletonDB.getInstance(getApplicationContext())
@@ -141,7 +146,7 @@ public class Historial_WebMsg extends ListActivity implements
 				MensajesWeb = SingletonDB.getInstance(getApplicationContext())
 						.getDatabaseHelper().getMensajesWeb(usr, forma);
 			} else {
-				if(filtro == 2){
+				if (filtro == 2) {
 					filtro = 0;
 				}
 				MensajesWeb = SingletonDB.getInstance(getApplicationContext())
@@ -223,13 +228,12 @@ public class Historial_WebMsg extends ListActivity implements
 			}
 
 			MensajeWeb history = (MensajeWeb) getItem(position);
-			if(history.getType() == 0){
-				holder.txtNombre.setText("Para: " +history.get_contacto());
+			if (history.getType() == 0) {
+				holder.txtNombre.setText("Para: " + history.get_contacto());
+			} else {
+				holder.txtNombre.setText("De: " + history.get_contacto());
 			}
-			else{
-				holder.txtNombre.setText("De: " +history.get_contacto());
-			}
-			//holder.txtNombre.setText(history.get_contacto());
+			// holder.txtNombre.setText(history.get_contacto());
 			// holder.txtFecha.setText(history.get_fechaEnvio());
 			holder.txtHora.setText(history.get_fechaEnvio());
 			holder.txtMensaje.setText(history.get_detalle());
@@ -255,8 +259,14 @@ public class Historial_WebMsg extends ListActivity implements
 		case R.id.historial_settings:
 			intent = new Intent(this, Preference_historial.class);
 			break;
+		case R.id.historial_delete:
+			showDialog(DIALGO_ELIMINACION);
+			intent = null;
+			break;
 		}
-
+		if (intent != null) {
+			startActivity(intent);
+		}
 		startActivity(intent);
 		return true;
 	}
@@ -307,5 +317,54 @@ public class Historial_WebMsg extends ListActivity implements
 		Intent intent = new Intent(this, Servicio_Web.class);
 		intent.putExtra("contacto", contacto);
 		startActivity(intent);
+	}
+
+	@Override
+	protected void onPrepareDialog(int id, Dialog dialog, Bundle args) {
+		// TODO Auto-generated method stub
+		super.onPrepareDialog(id, dialog, args);
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id, Bundle args) {
+		Dialog dialog = null;
+		OnClickListener clickOk = new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				eliminarHistorial();
+				dismissDialog(DIALGO_ELIMINACION);
+
+			}
+		};
+
+		OnClickListener clickCancel = new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dismissDialog(DIALGO_ELIMINACION);
+			}
+		};
+
+		dialog = new AlertDialog.Builder(this)
+				.setIcon(R.drawable.icon)
+				.setTitle("Advertencia")
+				.setPositiveButton("OK. Borrar registros", clickOk)
+				.setNegativeButton("NO. Cancelar borrado", clickCancel)
+				.setMessage(
+						"Se eliminarán los registros de emails y mensajes web. Esta acción no se puede deshacer. ¿Está seguro que desea continuar?")
+				.create();
+
+		return dialog;
+
+	}
+
+	private void eliminarHistorial() {
+		DatabaseHelper dbHelper = new DatabaseHelper(getApplicationContext());
+		SharedPreferences preferencias = getSharedPreferences(LOGIN_SETTINGS,
+				MODE_PRIVATE);
+		String user = preferencias.getString("User", "");
+		dbHelper.eliminarRegistros(user);
+		Toast.makeText(getApplicationContext(), "Se eliminaron registros",
+				Toast.LENGTH_LONG).show();
 	}
 }
