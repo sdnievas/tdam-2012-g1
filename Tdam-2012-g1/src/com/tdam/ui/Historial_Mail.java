@@ -13,9 +13,12 @@ import com.tdam_2012_g1.R;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.app.ListActivity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,9 +43,25 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 		setContentView(R.layout.activity_historial__mail);
 
 		Bundle extras = getIntent().getExtras();
-		if (extras != null)
-			//Cargamos el contacto que recibimos del intent de la activity contactos
+		if (extras != null) {
+			// Cargamos el contacto que recibimos del intent de la activity
+			// contactos
 			contact = (Contacto) extras.getSerializable("contacto");
+			if (contact != null) {
+				ContentResolver cr = getContentResolver();
+				Cursor cur = cr
+						.query(ContactsContract.Contacts.CONTENT_URI,
+								new String[] { ContactsContract.Contacts.DISPLAY_NAME },
+								ContactsContract.Contacts._ID + "= ? ",
+								new String[] { contact.getId() }, null);
+				if (cur.getCount() > 0) {
+					while (cur.moveToNext()) {
+						contact.setName(cur.getString(cur
+								.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+					}
+				}
+			}
+		}
 
 		adaptador = new HistoryMailAdapter();
 
@@ -71,12 +90,14 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 		DatabaseHelper dbhelper = getDatabaseHelper();
 		ArrayList<Mail> mails;
 		if (contact != null) {
-			//mails = dbhelper.getMailsContacto(contact);
+			mails = (ArrayList<Mail>) dbhelper.getMails(contact,forma);
+			// mails = dbhelper.getMailsContacto(contact);
 		} else {
-			//mails = dbhelper.getTodosMails(forma);
+			mails = (ArrayList<Mail>) dbhelper.getMails(forma);
+			// mails = dbhelper.getTodosMails(forma);
 		}
 
-		//adaptador.addListHistorial(mails);
+		adaptador.addListHistorial(mails);
 		dbhelper.close();
 		adaptador.notifyDataSetChanged();
 	}
@@ -141,11 +162,11 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.historial_item, null);
 				holder = new Holder();
-				holder.txtDestinatario = (TextView) convertView
+				holder.txtContacto = (TextView) convertView
 						.findViewById(R.id.txtArribaIzquierda);
 				holder.txtFecha = (TextView) convertView
 						.findViewById(R.id.txtArribaDerecha);
-				holder.txtAsunto = (TextView) convertView
+				holder.txtMailDestino = (TextView) convertView
 						.findViewById(R.id.txtAbajoIzquierda);
 				holder.txtHora = (TextView) convertView
 						.findViewById(R.id.txtAbajoDerecha);
@@ -157,16 +178,35 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 			}
 
 			Mail history = (Mail) getItem(position);
-			Date fecha = new Date();
-			try {
-				fecha = formatoFecha.parse(history.get_fechaEnvio());
-			} catch (ParseException e) {
-				e.printStackTrace();
+			// Date fecha = new Date();
+			// try {
+			// fecha = history.get_fechaEnvio();
+			// } catch (ParseException e) {
+			// e.printStackTrace();
+			// }
+
+			if (contact != null) {
+				holder.txtContacto.setText(contact.getName());
+			} else {
+				ContentResolver cr = getContentResolver();
+				Cursor cur = cr
+						.query(ContactsContract.Contacts.CONTENT_URI,
+								new String[] { ContactsContract.Contacts.DISPLAY_NAME },
+								ContactsContract.Contacts._ID + "= ? ",
+								new String[] { history.get_idContacto() }, null);
+				if (cur.getCount() > 0) {
+					while (cur.moveToNext()) {
+						holder.txtContacto
+								.setText(cur.getString(cur
+										.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)));
+					}
+				}
 			}
-			holder.txtDestinatario.setText(history.get_mailDestinatario());
-			holder.txtFecha.setText(history.get_fechaEnvio());
-			// holder.txtHora.setText(formatoHora.format(fecha));
-			// holder.txtAsunto.setText(history.get_asunto());
+			holder.txtMailDestino.setText(history.get_mailDestino());
+			holder.txtHora
+					.setText(formatoHora.format(history.get_fechaEnvio()));
+			holder.txtFecha
+					.setText(formatoFecha.format(history.get_fechaEnvio()));
 			holder.ImagenType
 					.setImageResource(android.R.drawable.ic_dialog_email);
 			return convertView;
@@ -174,10 +214,10 @@ public class Historial_Mail extends ListActivity implements OnItemClickListener 
 	}
 
 	class Holder {
-		private TextView txtDestinatario;
-		private TextView txtHora;
+		private TextView txtContacto;
+		private TextView txtMailDestino;
 		private TextView txtFecha;
-		private TextView txtAsunto;
+		private TextView txtHora;
 		private ImageView ImagenType;
 	}
 

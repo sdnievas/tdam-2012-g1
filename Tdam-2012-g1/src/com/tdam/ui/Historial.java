@@ -80,12 +80,12 @@ public class Historial extends TabActivity {
 		spec.setContent(historialMail);
 		tabs.addTab(spec);
 		
-		spec=tabs.newTabSpec(sBLUETOOTH); 
-		spec.setIndicator(sBLUETOOTH, res.getDrawable(android.R.drawable.stat_sys_data_bluetooth));
-		Intent historialBluetooth = new Intent(this, Historial_Bluetooth.class);
-		historialBluetooth.putExtra(sCONTACT,contact);
-		spec.setContent(historialBluetooth);
-		tabs.addTab(spec);
+		//spec=tabs.newTabSpec(sBLUETOOTH); 
+		//spec.setIndicator(sBLUETOOTH, res.getDrawable(android.R.drawable.stat_sys_data_bluetooth));
+		//Intent historialBluetooth = new Intent(this, Historial_Bluetooth.class);
+		//historialBluetooth.putExtra(sCONTACT,contact);
+		//spec.setContent(historialBluetooth);
+		//tabs.addTab(spec);
 
 		tabs.setCurrentTab(0);
     	
