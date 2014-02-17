@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import com.tdam.Bluetooth.BluetoothChat;
 import com.tdam.Bluetooth.DeviceListActivity;
@@ -50,7 +51,7 @@ public class DetalleContacto extends Activity implements OnClickListener {
 	private Intent intent;
 	private Contacto contact;
 	private HashMap<String, Uri> imgUri;
-	private ListView lvCel, lvMail, lvMsgWeb, lvBTUser;
+	private ListView lvCel, lvMail, lvMsgWeb, lvBTUser, lvDirecciones;
 
 	private String adress;
 	private static final String TAG = "BluetoothChat";
@@ -89,6 +90,7 @@ public class DetalleContacto extends Activity implements OnClickListener {
 		lvMail = (ListView) findViewById(R.id.listEmail);
 		lvMsgWeb = (ListView) findViewById(R.id.listMensajeriaWeb);
 		lvBTUser = (ListView) findViewById(R.id.listUserBluetooth);
+		lvDirecciones = (ListView) findViewById(R.id.listaDirecciones);
 
 		CargarListas();
 
@@ -96,6 +98,7 @@ public class DetalleContacto extends Activity implements OnClickListener {
 		updateListViewHeight(lvMail);
 		updateListViewHeight(lvMsgWeb);
 		updateListViewHeight(lvBTUser);
+		updateListViewHeight(lvDirecciones);
 
 		lvMsgWeb.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -142,6 +145,17 @@ public class DetalleContacto extends Activity implements OnClickListener {
 
 		});
 
+		lvDirecciones.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				mostrarMapa(position); // llama al metodo cuando se quiere
+										// enviar un mensaje por bluetooth
+
+			}
+
+		});
+
 	}
 
 	private void CargarListas() {
@@ -166,6 +180,9 @@ public class DetalleContacto extends Activity implements OnClickListener {
 			lvBTUser.setAdapter(new ArrayAdapter<String>(this,
 					android.R.layout.simple_list_item_1, BTUser));
 		}
+		if(contact.getDirecciones()!= null){
+		lvDirecciones.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, contact.getDirecciones()));}
 
 	}
 
@@ -174,6 +191,18 @@ public class DetalleContacto extends Activity implements OnClickListener {
 		intent = new Intent(this, Servicio_Web.class);
 		intent.putExtra(CONTACT, contact);
 		startActivity(intent);
+	}
+
+	private void mostrarMapa(int position) {
+		String direccion = contact.getDirecciones().get(position);
+		direccion = direccion.replace(' ', '+');
+		String uri = "geo:0,0?q=" + direccion;
+		intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse(uri));
+		if (intent.resolveActivity(getPackageManager()) != null) {
+			startActivity(intent);
+		}
+
 	}
 
 	// dialog de eleccion para mensajes de texto o para llamadas

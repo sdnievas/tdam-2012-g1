@@ -45,5 +45,15 @@
         <item >2</item>
     </string-array>
     
+    <string-array name="FiltrarMensajesWeb">
+        <item >@string/preference_Mensaje_Web_FiltrarNada</item>
+        <item >@string/preference_Mensaje_Web_Filtrar5</item>
+        <item >@string/preference_Mensaje_Web_Filtrar10</item>
+    </string-array>
+        <string-array name="FiltrarMensajesWebValues">
+        <item >0</item>
+        <item >5</item>
+        <item >10</item>
+    </string-array>
     
 </resources>

@@ -1,6 +1,7 @@
 package com.tdam.Database;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -19,47 +20,47 @@ import com.tdam.Class.RegistroAccion;
 import com.tdam.Class.Usuario;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-	
-	//Creacion de DataBase Tablas y Columnas (ReName)
-	//----------------------------------------------------------
-	
+
+	// Creacion de DataBase Tablas y Columnas (ReName)
+	// ----------------------------------------------------------
+
 	static final String dbName = "TdamDB";
 
-	//Tabla contactos Web
+	// Tabla contactos Web
 	static final String contactosAplicacionTable = "contactosAplicacion";
 	static final String colIdContact = "idContacto";
 	static final String colNombreWeb = "nombreWeb";
 
-	//Tabla usuarios de la app
+	// Tabla usuarios de la app
 	static final String usuariosTable = "usuarios";
 	static final String colIdUsuario = "idUsuario";
 	static final String colNombre = "nombre";
 	static final String colContraseña = "contrasena";
 	static final String colMail = "mailUsuario";
 
-	//Tabla conectividades
+	// Tabla conectividades
 	static final String conectividadesTable = "conectividades";
 	static final String colIdConectividad = "idConectividad";
 	static final String colConexion = "conexion";
 	static final String colEstado = "estado";
 	static final String colFechaConexion = "fechaConexion";
 
-	//tabla Mensajes web
+	// tabla Mensajes web
 	static final String mensajesWebTable = "mensajesWeb";
 	static final String colIdMensajeWeb = "id";
 	static final String colUsuario = "idUsuario";
 	static final String colContacto = "idContacto";
 	static final String colFechaEnvioMsj = "fechaEnvio";
 	static final String colDetalle = "detalle";
-	static final String colTipoMensaje= "tipoMensaje";
-	
-	//Tabla Usuario Bluetooth
+	static final String colTipoMensaje = "tipoMensaje";
+
+	// Tabla Usuario Bluetooth
 	static final String contactoBluetoothTable = "contactoBluetooth";
 	static final String colIdContactBluetooth = "IdContactoBluetooth";
 	static final String colNombreBluetooth = "NombreBluetooth";
 	static final String colMAC = "MAC";
-	
-	//Tabla Mensaje Bluetooth
+
+	// Tabla Mensaje Bluetooth
 	static final String mensajesBluetoothTable = "mensajesBluetooth";
 	static final String colIdMensajeBluetooth = "id";
 	static final String colUsuarioBluetooth = "idUsuario";
@@ -67,8 +68,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	static final String colFechaEnvioMsjBluetooth = "fechaEnvio";
 	static final String colMensajeBluetooth = "mensaje";
 	static final String colTipoBluetooth = "tipoMensaje";
-	
-	//Tabla RegistroAccion
+
+	// Tabla RegistroAccion
 	static final String registroAccionTable = "registroAccion";
 	static final String colIdRegistroAccion = "id";
 	static final String colFechaRegistro = "fecha";
@@ -100,27 +101,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ colConexion + " TEXT, " + colEstado + " TEXT, "
 				+ colFechaConexion + " DATETIME )");
 
-	
-
 		// Tabla MensajeWeb
 		db.execSQL("CREATE TABLE " + mensajesWebTable + " (" + colIdMensajeWeb
-				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ colUsuario + " TEXT NOT NULL, "
-				+ colContacto + " TEXT NOT NULL, "
-				+ colFechaEnvioMsj + " DATETIME, " + colDetalle	+ " TEXT NOT NULL, "
-				+ colTipoMensaje + " INTEGER NOT NULL);");
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + colUsuario
+				+ " TEXT NOT NULL, " + colContacto + " TEXT NOT NULL, "
+				+ colFechaEnvioMsj + " DATETIME, " + colDetalle
+				+ " TEXT NOT NULL, " + colTipoMensaje + " INTEGER NOT NULL);");
 
 		// Tabla Usuario Bluetooth
 		db.execSQL("CREATE TABLE " + contactoBluetoothTable + " ("
-				+ colIdContactBluetooth + " INTEGER PRIMARY KEY , " + colNombreBluetooth 
-				+ " TEXT, " + colMAC + " TEXT)");
-		
+				+ colIdContactBluetooth + " INTEGER PRIMARY KEY , "
+				+ colNombreBluetooth + " TEXT, " + colMAC + " TEXT)");
+
 		// Tabla MensajeBluetooth
-		db.execSQL("CREATE TABLE " + mensajesBluetoothTable + " (" + colIdMensajeBluetooth
-				+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ colUsuarioBluetooth + " INTEGER NOT NULL, "
-				+ colContactoBluetooth + " INTEGER NOT NULL, "
-				+ colFechaEnvioMsjBluetooth + " DATETIME, " + colMensajeBluetooth	+ " TEXT NOT NULL, "
+		db.execSQL("CREATE TABLE " + mensajesBluetoothTable + " ("
+				+ colIdMensajeBluetooth
+				+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + colUsuarioBluetooth
+				+ " INTEGER NOT NULL, " + colContactoBluetooth
+				+ " INTEGER NOT NULL, " + colFechaEnvioMsjBluetooth
+				+ " DATETIME, " + colMensajeBluetooth + " TEXT NOT NULL, "
 				+ colTipoBluetooth + " INTEGER NOT NULL)");
 
 	}
@@ -139,11 +138,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		onCreate(db);
 	}
-	
-	//DataBase Consultas Tablas Contactos WEB
-	//----------------------------------------------------------	
 
-	//Agrega Contacto web a la app
+	// DataBase Consultas Tablas Contactos WEB
+	// ----------------------------------------------------------
+
+	// Agrega Contacto web a la app
 	public void addContacto(ContactoWeb cont) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -155,20 +154,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.insert(contactosAplicacionTable, colIdContact, cv);
 		db.close();
 	}
-	
-	//Devuelve el Nombre del contacto con el id del usuario de los contactos de la app
+
+	// Devuelve el Nombre del contacto con el id del usuario de los contactos de
+	// la app
 	public ContactoWeb getNameContact(String Userid) {
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContactoWeb aux = null;
-		
-		String[] values = {Userid};
+
+		String[] values = { Userid };
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + contactosAplicacionTable
 				+ " WHERE " + colIdContact + " = ? ", values);
 
 		while (cursor.moveToNext()) {
-			
+
 			aux = new ContactoWeb();
 
 			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdContact)));
@@ -179,31 +179,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		cursor.close();
 		db.close();
-		
+
 		return aux;
 
 	}
 
-	//Borra el contacto web de la app
-	public boolean deleteContacto(ContactoWeb cont){
-		
+	// Borra el contacto web de la app
+	public boolean deleteContacto(ContactoWeb cont) {
+
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		String params[] = {cont.get_nombreWeb()};
-		
-		String where =  colNombreWeb + " = ? ";
-		
-		db.delete(contactosAplicacionTable , where, params);
-		
+
+		String params[] = { cont.get_nombreWeb() };
+
+		String where = colNombreWeb + " = ? ";
+
+		db.delete(contactosAplicacionTable, where, params);
+
 		db.close();
-		
+
 		return true;
-		
+
 	}
-	
-	//Cambia el nombre del contacto web de la app asociada a un contacto
-	public boolean updateContacto(ContactoWeb cont){
-		
+
+	// Cambia el nombre del contacto web de la app asociada a un contacto
+	public boolean updateContacto(ContactoWeb cont) {
+
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues cv = new ContentValues();
@@ -211,38 +211,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(colNombreWeb, cont.get_nombreWeb());
 
 		String[] values = { String.valueOf(cont.get_id()) };
-		
+
 		String Where = colIdContact + "= ?";
-		
-		db.update(contactosAplicacionTable, cv, Where , values);
+
+		db.update(contactosAplicacionTable, cv, Where, values);
 		db.close();
-		
+
 		return true;
-	
+
 	}
-	
-	public boolean exiteContacto(String cont){
-		
+
+	public boolean exiteContacto(String cont) {
+
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContactoWeb aux = null;
-		
-		String[] values = {cont};
+
+		String[] values = { cont };
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + contactosAplicacionTable
 				+ " WHERE " + colNombreWeb + " = ? ", values);
 
-		boolean val = (cursor.getCount()> 0);
-				
+		boolean val = (cursor.getCount() > 0);
+
 		cursor.close();
 		db.close();
-		
+
 		return val;
-		
+
 	}
-	//DataBase Consultas Tablas Usuarios de la Aplicacion
-		//----------------------------------------------------------
-	
-	//agrega un usuario a la aplicacion
+
+	// DataBase Consultas Tablas Usuarios de la Aplicacion
+	// ----------------------------------------------------------
+
+	// agrega un usuario a la aplicacion
 	public void addUsuario(Usuario user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -256,7 +257,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	//existe Contacto
+	// existe Contacto
 	public boolean UsuarioExiste(Usuario user) {
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -267,15 +268,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ " = ? ", values);
 
 		boolean existe = (cursor.getCount() > 0);
-		
+
 		cursor.close();
 		db.close();
-		
+
 		return existe;
 
 	}
-	
-	//Buscar Usuario por Nombre
+
+	// Buscar Usuario por Nombre
 	public Usuario buscarUsuarioporNombre(String nombre) {
 
 		Usuario usuario = null;
@@ -287,9 +288,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 		while (cursor.moveToNext()) {
 			usuario = new Usuario();
-			
-			usuario.set_id(cursor.getInt(cursor.
-					getColumnIndex(colIdUsuario)));
+
+			usuario.set_id(cursor.getInt(cursor.getColumnIndex(colIdUsuario)));
 
 			usuario.set_nombre(cursor.getString(cursor
 					.getColumnIndex(colNombre)));
@@ -297,19 +297,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			usuario.set_contraseña(cursor.getString(cursor
 					.getColumnIndex(colContraseña)));
 
-			usuario.set_mail(cursor.getString(cursor.
-					getColumnIndex(colMail)));
+			usuario.set_mail(cursor.getString(cursor.getColumnIndex(colMail)));
 
 		}
 
 		cursor.close();
 		db.close();
-		
+
 		return usuario;
 
 	}
 
-	//Actualizar el Usuario
+	// Actualizar el Usuario
 	public void UpdateUser(Usuario user) {
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -321,20 +320,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(colMail, user.get_mail());
 
 		String[] values = { String.valueOf(user.get_id()) };
-		
+
 		String Where = colIdUsuario + "= ?";
-		
-		db.update(usuariosTable, cv, Where , values);
+
+		db.update(usuariosTable, cv, Where, values);
 		db.close();
 
 	}
 
-	
-	
-	//DataBase Consultas Tablas Conexion
-	//----------------------------------------------------------	
+	// DataBase Consultas Tablas Conexion
+	// ----------------------------------------------------------
 
-	//agrega conectividad 
+	// agrega conectividad
 	public void addConectividad(Conectividad conect) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -348,62 +345,58 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	//devuelve todas la aplicacione de la tabla
+	// devuelve todas la aplicacione de la tabla
 	public ArrayList<Conectividad> getAllConectividad() {
 
 		ArrayList<Conectividad> conec = new ArrayList<Conectividad>();
-		
+
 		Conectividad aux = null;
-		
+
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + conectividadesTable,
 				null);
-		
+
 		while (cursor.moveToNext()) {
-			
+
 			aux = new Conectividad();
-			aux.set_id(cursor.getInt(cursor
-					.getColumnIndex(colIdConectividad)));
+			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdConectividad)));
 
 			aux.set_conexion(cursor.getString(cursor
 					.getColumnIndex(colConexion)));
-			
+
 			aux.set_fecha(cursor.getString(cursor
 					.getColumnIndex(colFechaConexion)));
 
-			aux.set_estado(cursor.getString(cursor
-					.getColumnIndex(colEstado)));
+			aux.set_estado(cursor.getString(cursor.getColumnIndex(colEstado)));
 
 			conec.add(aux);
-		}	
-		
+		}
 
 		cursor.close();
 		db.close();
 		return conec;
 	}
-	
-	//elimina una conectividad de la tabla
-	public void deleteConectividad(String date){
-			
-			SQLiteDatabase db = this.getWritableDatabase();
-			
-			String params[] = {date};
 
-			String where =  colFechaConexion + " = ? ";
-			
-			db.delete(mensajesWebTable , where, params);
-			db.close();
-	
-		}
+	// elimina una conectividad de la tabla
+	public void deleteConectividad(String date) {
 
-	
-	//DataBase Consultas Tablas MensajesWeb
-	//----------------------------------------------------------
-	
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		String params[] = { date };
+
+		String where = colFechaConexion + " = ? ";
+
+		db.delete(mensajesWebTable, where, params);
+		db.close();
+
+	}
+
+	// DataBase Consultas Tablas MensajesWeb
+	// ----------------------------------------------------------
+
 	public void addMensaje(MensajeWeb msj) {
-		
+
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues cv = new ContentValues();
@@ -414,43 +407,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(colDetalle, msj.get_detalle());
 		cv.put(colDetalle, msj.get_detalle());
 		cv.put(colTipoMensaje, msj.getType());
-		
+
 		db.insert(mensajesWebTable, null, cv);
 		db.close();
 	}
 
-	public ArrayList<MensajeWeb> getLastMsgConversations(String parOrdenFecha, Usuario parUser) {
+	public ArrayList<MensajeWeb> getLastMsgConversations(String parOrdenFecha,
+			Usuario parUser) {
 
 		ArrayList<MensajeWeb> MsgWeb = new ArrayList<MensajeWeb>();
-		
+
 		MensajeWeb aux = null;
-		
+
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		String[] select = {parUser.get_nombre()};
-		
-		
-		Cursor cursor = db.rawQuery("SELECT *, max(fechaEnvio) FROM mensajesWeb " +
-				" WHERE " + colUsuario + " = ? " +
-				" GROUP BY " + colUsuario + " , " + colContacto
-				+ " ORDER BY " + colFechaEnvioMsj + " " + parOrdenFecha, select);
+
+		String[] select = { parUser.get_nombre() };
+
+		Cursor cursor = db.rawQuery(
+				"SELECT *, max(fechaEnvio) FROM mensajesWeb " + " WHERE "
+						+ colUsuario + " = ? " + " GROUP BY " + colUsuario
+						+ " , " + colContacto + " ORDER BY " + colFechaEnvioMsj
+						+ " " + parOrdenFecha, select);
 
 		while (cursor.moveToNext()) {
 			aux = new MensajeWeb();
 			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
 
-			aux.set_usuario(cursor.getString(cursor
-					.getColumnIndex(colUsuario)));
+			aux.set_usuario(cursor.getString(cursor.getColumnIndex(colUsuario)));
 
 			aux.set_contacto(cursor.getString(cursor
 					.getColumnIndex(colContacto)));
-		
-			aux.set_fechaEnvio(cursor.getString(cursor.getColumnIndex(colFechaEnvioMsj)));
-			
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsj)));
+
 			aux.set_detalle(cursor.getString(cursor.getColumnIndex(colDetalle)));
 
 			aux.setType(cursor.getInt(cursor.getColumnIndex(colTipoMensaje)));
-			
+
 			MsgWeb.add(aux);
 		}
 
@@ -460,34 +454,113 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	}
 
-	public ArrayList<MensajeWeb> getContactoMensajeWeb(Contacto cont, Usuario parUsuario) {
+	public ArrayList<MensajeWeb> getContactoMensajeWeb(Contacto cont,
+			Usuario parUsuario, String forma) {
 
 		ArrayList<MensajeWeb> mensWeb = new ArrayList<MensajeWeb>();
 		MensajeWeb aux = null;
 		SQLiteDatabase db = this.getWritableDatabase();
 		String[] values = { cont.getuserWeb(), parUsuario.get_nombre() };
 
-			
 		Cursor cursor = db.rawQuery(" SELECT * FROM " + mensajesWebTable
-				+ " WHERE " + colContacto + " = ? "
-				+ " AND " + colUsuario  + " = ? ", values);
+				+ " WHERE " + colContacto + " = ? " + " AND " + colUsuario
+				+ " = ? " + " ORDER BY " + colFechaEnvioMsj + " " + forma,
+				values);
 
 		while (cursor.moveToNext()) {
 			aux = new MensajeWeb();
 			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
 
-			aux.set_usuario(cursor.getString(cursor
-					.getColumnIndex(colUsuario)));
+			aux.set_usuario(cursor.getString(cursor.getColumnIndex(colUsuario)));
 
 			aux.set_contacto(cursor.getString(cursor
 					.getColumnIndex(colContacto)));
 
-			aux.set_fechaEnvio(cursor.getString(cursor.getColumnIndex(colFechaEnvioMsj)));
-			
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsj)));
+
 			aux.set_detalle(cursor.getString(cursor.getColumnIndex(colDetalle)));
 
 			aux.setType(cursor.getInt(cursor.getColumnIndex(colTipoMensaje)));
-			
+			mensWeb.add(aux);
+
+		}
+		cursor.close();
+		db.close();
+		return mensWeb;
+
+	}
+
+	public ArrayList<MensajeWeb> getContactoMensajeWeb(Contacto cont,
+			Usuario parUsuario, String forma, int limite) {
+
+		ArrayList<MensajeWeb> mensWeb = new ArrayList<MensajeWeb>();
+		MensajeWeb aux = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String[] values = { cont.getuserWeb(), parUsuario.get_nombre() };
+
+		Cursor cursor = db.rawQuery(" SELECT * FROM " + mensajesWebTable
+				+ " WHERE " + colContacto + " = ? " + " AND " + colUsuario
+				+ " = ? " + " ORDER BY " + colFechaEnvioMsj + " " + forma
+				+ " LIMIT " + limite, values);
+
+		while (cursor.moveToNext()) {
+			aux = new MensajeWeb();
+			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
+
+			aux.set_usuario(cursor.getString(cursor.getColumnIndex(colUsuario)));
+
+			aux.set_contacto(cursor.getString(cursor
+					.getColumnIndex(colContacto)));
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsj)));
+
+			aux.set_detalle(cursor.getString(cursor.getColumnIndex(colDetalle)));
+
+			aux.setType(cursor.getInt(cursor.getColumnIndex(colTipoMensaje)));
+
+			mensWeb.add(aux);
+		}
+		ArrayList<MensajeWeb> listaAux = new ArrayList<MensajeWeb>(limite);
+		for (int i = mensWeb.size() - 1; i >= 0; i--) {
+			listaAux.add(mensWeb.get(i));
+		}
+		cursor.close();
+		db.close();
+		return listaAux;
+
+	}
+
+	public ArrayList<MensajeWeb> getContactoMensajeWeb(Contacto cont,
+			Usuario parUsuario, int tipo, String forma) {
+		ArrayList<MensajeWeb> mensWeb = new ArrayList<MensajeWeb>();
+		MensajeWeb aux = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String[] values = { cont.getuserWeb(), parUsuario.get_nombre(),
+				tipo + "" };
+
+		Cursor cursor = db.rawQuery(" SELECT * FROM " + mensajesWebTable
+				+ " WHERE " + colContacto + " = ? " + " AND " + colUsuario
+				+ " = ? " + " AND " + colTipoMensaje + " = " + tipo
+				+ " ORDER BY " + colFechaEnvioMsj + " " + forma, values);
+
+		while (cursor.moveToNext()) {
+			aux = new MensajeWeb();
+			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
+
+			aux.set_usuario(cursor.getString(cursor.getColumnIndex(colUsuario)));
+
+			aux.set_contacto(cursor.getString(cursor
+					.getColumnIndex(colContacto)));
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsj)));
+
+			aux.set_detalle(cursor.getString(cursor.getColumnIndex(colDetalle)));
+
+			aux.setType(cursor.getInt(cursor.getColumnIndex(colTipoMensaje)));
+
 			mensWeb.add(aux);
 		}
 
@@ -496,27 +569,103 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return mensWeb;
 
 	}
-	
-	public MensajeWeb getLastMsgWeb(Usuario usr){
-		
+
+	public ArrayList<MensajeWeb> getMensajesWeb(Usuario parUsuario, String forma) {
+
+		ArrayList<MensajeWeb> mensWeb = new ArrayList<MensajeWeb>();
 		MensajeWeb aux = null;
 		SQLiteDatabase db = this.getWritableDatabase();
+		String[] values = { parUsuario.get_nombre() };
 
-		String[] args = {usr.get_nombre()};
-
-		Cursor cursor = db.rawQuery("SELECT * , MAX(fechaEnvio) FROM mensajesWeb WHERE " +  colUsuario + " = ? ",args);
+		Cursor cursor = db.rawQuery(" SELECT * FROM " + mensajesWebTable
+				+ " WHERE " + colUsuario + " = ? " + " ORDER BY "
+				+ colFechaEnvioMsj + " " + forma, values);
 
 		while (cursor.moveToNext()) {
 			aux = new MensajeWeb();
 			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
 
-			aux.set_usuario(cursor.getString(cursor
-					.getColumnIndex(colUsuario)));
+			aux.set_usuario(cursor.getString(cursor.getColumnIndex(colUsuario)));
 
 			aux.set_contacto(cursor.getString(cursor
 					.getColumnIndex(colContacto)));
-			
-			aux.set_fechaEnvio(cursor.getString(cursor.getColumnIndex(colFechaEnvioMsj)));
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsj)));
+
+			aux.set_detalle(cursor.getString(cursor.getColumnIndex(colDetalle)));
+
+			aux.setType(cursor.getInt(cursor.getColumnIndex(colTipoMensaje)));
+
+			mensWeb.add(aux);
+		}
+
+		cursor.close();
+		db.close();
+		return mensWeb;
+
+	}
+
+	public ArrayList<MensajeWeb> getMensajesWeb(Usuario parUsuario, int tipo,
+			String forma) {
+
+		ArrayList<MensajeWeb> mensWeb = new ArrayList<MensajeWeb>();
+		MensajeWeb aux = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+		String[] values = { parUsuario.get_nombre() };
+
+		Cursor cursor = db.rawQuery(" SELECT * FROM " + mensajesWebTable
+				+ " WHERE " + colUsuario + " = ? " + " AND " + colTipoMensaje
+				+ " = " + tipo + " ORDER BY " + colFechaEnvioMsj + " " + forma,
+				values);
+
+		while (cursor.moveToNext()) {
+			aux = new MensajeWeb();
+			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
+
+			aux.set_usuario(cursor.getString(cursor.getColumnIndex(colUsuario)));
+
+			aux.set_contacto(cursor.getString(cursor
+					.getColumnIndex(colContacto)));
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsj)));
+
+			aux.set_detalle(cursor.getString(cursor.getColumnIndex(colDetalle)));
+
+			aux.setType(cursor.getInt(cursor.getColumnIndex(colTipoMensaje)));
+
+			mensWeb.add(aux);
+		}
+
+		cursor.close();
+		db.close();
+		return mensWeb;
+
+	}
+
+	public MensajeWeb getLastMsgWeb(Usuario usr) {
+
+		MensajeWeb aux = null;
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		String[] args = { usr.get_nombre() };
+
+		Cursor cursor = db.rawQuery(
+				"SELECT * , MAX(fechaEnvio) FROM mensajesWeb WHERE "
+						+ colUsuario + " = ? ", args);
+
+		while (cursor.moveToNext()) {
+			aux = new MensajeWeb();
+			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeWeb)));
+
+			aux.set_usuario(cursor.getString(cursor.getColumnIndex(colUsuario)));
+
+			aux.set_contacto(cursor.getString(cursor
+					.getColumnIndex(colContacto)));
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsj)));
 
 			aux.set_detalle(cursor.getString(cursor.getColumnIndex(colDetalle)));
 
@@ -525,123 +674,125 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cursor.close();
 		db.close();
 		return aux;
-		
-	}
-	
-	public void deleteConversation(String desti, String user){
-			
-			SQLiteDatabase db = this.getWritableDatabase();
-			
-			String params1[] = {user, desti};
-			
-			String where =  colUsuario + " = ? AND " + colContacto + " = ?";
-			db.delete(mensajesWebTable , where, params1);
-			db.close();
-	
-		}
 
-	public void deleteMsgWeb(MensajeWeb msjweb){
-		
+	}
+
+	public void deleteConversation(String desti, String user) {
+
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		String params1[] = {msjweb.get_usuario(), msjweb.get_fechaEnvio()};
-		
-		String where =  colUsuario + " = ? AND " + colFechaEnvioMsj + " = ?";
-		db.delete(mensajesWebTable , where, params1);
+
+		String params1[] = { user, desti };
+
+		String where = colUsuario + " = ? AND " + colContacto + " = ?";
+		db.delete(mensajesWebTable, where, params1);
 		db.close();
-		
+
 	}
-	
-	//DataBase Consultas Tablas ContactoBluetooth
-		//----------------------------------------------------------	
 
-		//Agrega Contacto bluetooth a la app
-		public void addContactoBluetooth(ContactoBluetooth cont) {
-			SQLiteDatabase db = this.getWritableDatabase();
+	public void deleteMsgWeb(MensajeWeb msjweb) {
 
-			ContentValues cv = new ContentValues();
+		SQLiteDatabase db = this.getWritableDatabase();
 
-			cv.put(colIdContactBluetooth, cont.get_id());
-			cv.put(colNombreBluetooth, cont.get_nombreBluetooth());
-			cv.put(colMAC, cont.get_Mac());
-			
-			db.insert(contactoBluetoothTable, null, cv);
-			db.close();
+		String params1[] = { msjweb.get_usuario(), msjweb.get_fechaEnvio() };
+
+		String where = colUsuario + " = ? AND " + colFechaEnvioMsj + " = ?";
+		db.delete(mensajesWebTable, where, params1);
+		db.close();
+
+	}
+
+	// DataBase Consultas Tablas ContactoBluetooth
+	// ----------------------------------------------------------
+
+	// Agrega Contacto bluetooth a la app
+	public void addContactoBluetooth(ContactoBluetooth cont) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
+		cv.put(colIdContactBluetooth, cont.get_id());
+		cv.put(colNombreBluetooth, cont.get_nombreBluetooth());
+		cv.put(colMAC, cont.get_Mac());
+
+		db.insert(contactoBluetoothTable, null, cv);
+		db.close();
+	}
+
+	// Devuelve el Nombre del contacto con el id del usuario de los contactos de
+	// la app
+	public ContactoBluetooth getNameContactBluetooth(String Userid) {
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContactoBluetooth aux = null;
+
+		String[] values = { Userid };
+
+		Cursor cursor = db.rawQuery("SELECT * FROM " + contactoBluetoothTable
+				+ " WHERE " + colIdContactBluetooth + " = ? ", values);
+
+		while (cursor.moveToNext()) {
+
+			aux = new ContactoBluetooth();
+
+			aux.set_id(cursor.getInt(cursor
+					.getColumnIndex(colIdContactBluetooth)));
+
+			aux.set_nombreBluetooth(cursor.getString(cursor
+					.getColumnIndex(colNombreBluetooth)));
+
+			aux.set_Mac(cursor.getString(cursor.getColumnIndex(colMAC)));
 		}
-		
-		//Devuelve el Nombre del contacto con el id del usuario de los contactos de la app
-		public ContactoBluetooth getNameContactBluetooth(String Userid) {
 
-			SQLiteDatabase db = this.getWritableDatabase();
-			ContactoBluetooth aux = null;
-			
-			String[] values = {Userid};
+		cursor.close();
+		db.close();
 
-			Cursor cursor = db.rawQuery("SELECT * FROM " + contactoBluetoothTable
-					+ " WHERE " + colIdContactBluetooth + " = ? ", values);
+		return aux;
 
-			while (cursor.moveToNext()) {
-				
-				aux = new ContactoBluetooth();
+	}
 
-				aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdContactBluetooth)));
+	// Borra el contacto web de la app
+	public boolean deleteContactoBluetooth(ContactoBluetooth cont) {
 
-				aux.set_nombreBluetooth(cursor.getString(cursor
-						.getColumnIndex(colNombreBluetooth)));
-				
-				aux.set_Mac(cursor.getString(cursor
-						.getColumnIndex(colMAC)));
-			}
+		SQLiteDatabase db = this.getWritableDatabase();
 
-			cursor.close();
-			db.close();
-			
-			return aux;
+		String params[] = { cont.get_nombreBluetooth() };
 
-		}
+		String where = colNombreBluetooth + " = ? ";
 
-		//Borra el contacto web de la app
-		public boolean deleteContactoBluetooth(ContactoBluetooth cont){
-			
-			SQLiteDatabase db = this.getWritableDatabase();
-			
-			String params[] = {cont.get_nombreBluetooth()};
-			
-			String where =  colNombreBluetooth + " = ? ";
-			
-			db.delete(contactoBluetoothTable , where, params);
-			
-			db.close();
-			
-			return true;
-			
-		}
-		
-		//Cambia el nombre del contacto web de la app asociada a un contacto
-		public boolean updateContactoBluetooth(ContactoBluetooth cont){
-			
-			SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(contactoBluetoothTable, where, params);
 
-			ContentValues cv = new ContentValues();
+		db.close();
 
-			cv.put(colNombreBluetooth, cont.get_nombreBluetooth());
+		return true;
 
-			String[] values = { String.valueOf(cont.get_id()) };
-			
-			String Where = colIdContactBluetooth + "= ?";
-			
-			db.update(contactoBluetoothTable, cv, Where , values);
-			db.close();
-			
-			return true;
-		
-		}
-		
-		
-	/* Tabla Mensajes Bluetooth
-	 * ----------------------------------------------------------------------------------
+	}
+
+	// Cambia el nombre del contacto web de la app asociada a un contacto
+	public boolean updateContactoBluetooth(ContactoBluetooth cont) {
+
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+
+		cv.put(colNombreBluetooth, cont.get_nombreBluetooth());
+
+		String[] values = { String.valueOf(cont.get_id()) };
+
+		String Where = colIdContactBluetooth + "= ?";
+
+		db.update(contactoBluetoothTable, cv, Where, values);
+		db.close();
+
+		return true;
+
+	}
+
+	/*
+	 * Tabla Mensajes Bluetooth
+	 * --------------------------------------------------
+	 * --------------------------------
 	 */
-	
+
 	public void addMensajeBluetooth(MensajeBluetooth msj) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -652,43 +803,47 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(colFechaEnvioMsjBluetooth, msj.get_fechaEnvio());
 		cv.put(colMensajeBluetooth, msj.get_Mensaje());
 		cv.put(colTipoBluetooth, msj.get_Type());
-		
+
 		db.insert(mensajesBluetoothTable, null, cv);
 		db.close();
 	}
 
-	public ArrayList<MensajeBluetooth> getLastMsgConversationsBluetooth(String parOrdenFecha, Usuario parUser) {
+	public ArrayList<MensajeBluetooth> getLastMsgConversationsBluetooth(
+			String parOrdenFecha, Usuario parUser) {
 
 		ArrayList<MensajeBluetooth> MsgBT = new ArrayList<MensajeBluetooth>();
-		
+
 		MensajeBluetooth aux = null;
-		
+
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		String[] select = {parUser.get_nombre()};
-		
-		
-		Cursor cursor = db.rawQuery("SELECT *, max(fechaEnvio) FROM " + mensajesBluetoothTable  +
-				" GROUP BY " + colUsuarioBluetooth + " , " + colContactoBluetooth
-				+ " ORDER BY " + colFechaEnvioMsjBluetooth + " " + parOrdenFecha, null);
+
+		String[] select = { parUser.get_nombre() };
+
+		Cursor cursor = db.rawQuery("SELECT *, max(fechaEnvio) FROM "
+				+ mensajesBluetoothTable + " GROUP BY " + colUsuarioBluetooth
+				+ " , " + colContactoBluetooth + " ORDER BY "
+				+ colFechaEnvioMsjBluetooth + " " + parOrdenFecha, null);
 
 		while (cursor.moveToNext()) {
 			aux = new MensajeBluetooth();
-			
-			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeBluetooth)));
+
+			aux.set_id(cursor.getInt(cursor
+					.getColumnIndex(colIdMensajeBluetooth)));
 
 			aux.set_usuario(cursor.getString(cursor
 					.getColumnIndex(colUsuarioBluetooth)));
 
 			aux.set_contactoMAC(cursor.getString(cursor
 					.getColumnIndex(colContactoBluetooth)));
-		
-			aux.set_fechaEnvio(cursor.getString(cursor.getColumnIndex(colFechaEnvioMsjBluetooth)));
-			
-			aux.set_Mensaje(cursor.getString(cursor.getColumnIndex(colMensajeBluetooth)));
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsjBluetooth)));
+
+			aux.set_Mensaje(cursor.getString(cursor
+					.getColumnIndex(colMensajeBluetooth)));
 
 			aux.set_Type(cursor.getInt(cursor.getColumnIndex(colTipoBluetooth)));
-			
+
 			MsgBT.add(aux);
 		}
 
@@ -697,8 +852,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return MsgBT;
 
 	}
-	
-	public ArrayList<MensajeBluetooth> getContactMensajeBluetooth(Contacto cont, Usuario parUsuario) {
+
+	public ArrayList<MensajeBluetooth> getContactMensajeBluetooth(
+			Contacto cont, Usuario parUsuario) {
 
 		ArrayList<MensajeBluetooth> MsgBT = new ArrayList<MensajeBluetooth>();
 		MensajeBluetooth aux = null;
@@ -706,26 +862,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String values[] = { cont.getNomUserBluetooth(), parUsuario.get_nombre() };
 
 		Cursor cursor = db.rawQuery("SELECT * FROM " + mensajesBluetoothTable
-				+ " WHERE " + colContactoBluetooth + " = ?"
-				+ " AND " + colUsuarioBluetooth  + " = ?", values);
+				+ " WHERE " + colContactoBluetooth + " = ?" + " AND "
+				+ colUsuarioBluetooth + " = ?", values);
 
 		while (cursor.moveToNext()) {
 			aux = new MensajeBluetooth();
-			
-			aux.set_id(cursor.getInt(cursor.getColumnIndex(colIdMensajeBluetooth)));
+
+			aux.set_id(cursor.getInt(cursor
+					.getColumnIndex(colIdMensajeBluetooth)));
 
 			aux.set_usuario(cursor.getString(cursor
 					.getColumnIndex(colUsuarioBluetooth)));
 
 			aux.set_contactoMAC(cursor.getString(cursor
 					.getColumnIndex(colContactoBluetooth)));
-		
-			aux.set_fechaEnvio(cursor.getString(cursor.getColumnIndex(colFechaEnvioMsjBluetooth)));
-			
-			aux.set_Mensaje(cursor.getString(cursor.getColumnIndex(colMensajeBluetooth)));
+
+			aux.set_fechaEnvio(cursor.getString(cursor
+					.getColumnIndex(colFechaEnvioMsjBluetooth)));
+
+			aux.set_Mensaje(cursor.getString(cursor
+					.getColumnIndex(colMensajeBluetooth)));
 
 			aux.set_Type(cursor.getInt(cursor.getColumnIndex(colTipoBluetooth)));
-			
+
 			MsgBT.add(aux);
 		}
 
@@ -734,20 +893,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return MsgBT;
 
 	}
-	
-	public void deleteConversationBluetooth(Contacto cont, Usuario parUsuario){
-		
+
+	public void deleteConversationBluetooth(Contacto cont, Usuario parUsuario) {
 
 		SQLiteDatabase db = this.getWritableDatabase();
-		
-		String params1[] = {parUsuario.get_nombre(), cont.getNomUserBluetooth()};
-		
-		String where =  colUsuarioBluetooth + " = ? AND " + colContactoBluetooth + " = ?";
-		db.delete(mensajesBluetoothTable , where, params1);
+
+		String params1[] = { parUsuario.get_nombre(),
+				cont.getNomUserBluetooth() };
+
+		String where = colUsuarioBluetooth + " = ? AND " + colContactoBluetooth
+				+ " = ?";
+		db.delete(mensajesBluetoothTable, where, params1);
 		db.close();
 	}
 
-//Registro de acciones
+	// Registro de acciones
 	public void insertarRegistroAccion(RegistroAccion registro) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();

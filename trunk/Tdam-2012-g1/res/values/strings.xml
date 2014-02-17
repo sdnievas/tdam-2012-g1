@@ -6,7 +6,7 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_contacts">Contacts</string>
-    <string name="title_activity_settings_activity">Settings_activity</string>
+    <string name="title_activity_settings_activity">Configuración</string>
     <string name="dc_llamar">Llamar</string>
     <string name="dc_enviar_mensaje">Enviar Mensaje</string>
     <string name="dc_eleccion">Elegir</string>
@@ -30,13 +30,16 @@
     <string name="preference_Contactos_VerFotokey">Ver Fotografía</string>
     <string name="preference_Contactos_VerFotoTitle">Ver Fotografía</string>
     <string name="preference_Contactos_VerFotoSummary">Ver Fotografía</string>
-    <string name="title_activity_historial__llamadas">Historial_Llamadas</string>
-    <string name="title_activity_historial__sms">Historial_Sms</string>
-    <string name="title_activity_historial__web_msg">Historial_WebMsg</string>
-    <string name="title_activity_historial__mail">Historial_Mail</string>
+    <string name="title_activity_historial__llamadas">Historial de llamadas</string>
+    <string name="title_activity_historial__sms">Historial de SMS</string>
+    <string name="title_activity_historial__web_msg">Historial de Menajes Web</string>
+    <string name="title_activity_historial__mail">Historial de Email</string>
     <string name="preference_Historial_Filtrarkey">Filtrar Historial</string>
     <string name="preference_Historial_FiltrarTitle">Filtrar Historial</string>
     <string name="preference_Historial_FiltrarSummary">Filtrar Historial</string>
+    <string name="preference_Mensaje_Web_Filtrarkey">Mensajes a mostrar</string>
+    <string name="preference_Mensaje_Web_FiltrarTitle">Mensajes a mostrar</string>
+    <string name="preference_Mensaje_Web_FiltrarSummary">Mensajes a mostrar</string>
     <string name="preference_Historial_Ordenarkey">Ordenar Historial</string>
     <string name="preference_Historial_OrdenarTitle">Ordenar Historial</string>
     <string name="preference_Historial_OrdenarSummary">Ordenar Historial</string>
@@ -45,13 +48,16 @@
     <string name="preference_Historial_FiltrarSalientes">Solo acciones de Salida</string>
     <string name="preference_Historial_OrdenarFechaReciente">Nuevos primero</string>
     <string name="preference_Historial_OrdenarAsendente">Viejos primero</string>
-    <string name="preference_InicioSesion_Userkey">NombreUsuario</string>
-    <string name="preference_InicioSesion_UserTitle">NombreUsuario</string>
-    <string name="preference_InicioSesion_UserSummary">NombreUsuario</string>
-    <string name="preference_InicioSesion_UserPasskey">PasswordUsuario</string>
-    <string name="preference_InicioSesion_UserPassTitle">PasswordUsuario</string>
-    <string name="preference_InicioSesion_UserPassSummary">PasswordUsuario</string>
-    <string name="title_activity_detalle__msg_web">Detalle_Msg_web</string>
+    <string name="preference_Mensaje_Web_FiltrarNada">Sin límite</string>
+    <string name="preference_Mensaje_Web_Filtrar5">Máximo 5 mensajes</string>
+    <string name="preference_Mensaje_Web_Filtrar10">Máximo 10 mensajes</string>
+    <string name="preference_InicioSesion_Userkey">Nombre de Usuario</string>
+    <string name="preference_InicioSesion_UserTitle">Nombre de Usuario</string>
+    <string name="preference_InicioSesion_UserSummary">Nombre de Usuario</string>
+    <string name="preference_InicioSesion_UserPasskey">Contraseña</string>
+    <string name="preference_InicioSesion_UserPassTitle">Contraseña</string>
+    <string name="preference_InicioSesion_UserPassSummary">Contraseña</string>
+    <string name="title_activity_detalle__msg_web">Detalle Mensaje Web</string>
     <string name="detalle_mensajeWeb_Id">Detalle del mensaje:</string>
     <string name="detalle_mensajeWeb_remitente">Remitente:</string>
     <string name="detalle_mensajeWeb_destinatario">Destinatario:</string>
@@ -59,7 +65,7 @@
     <string name="detalle_mensajeWeb_detalle">Contenido:</string>
     <string name="notificacion_ServerError">A ocurrido un error en el servidor</string>
     <string name="notificacion_FatalError">A ocurrido un error fatal</string>
-    <string name="notificacion_SuccesUser">Usuario registrado con exitosamente</string>
+    <string name="notificacion_SuccesUser">Usuario registrado exitosamente</string>
     <string name="notificacion_SuccesMessage">Mensaje enviado exitosamente</string>
     <string name="notificacion_ErrorMessage">Mensaje no enviado, ha ocurrido un error</string>
     <string name="notificacion_DuplicateUser">Ya existe un Usuario registrado con ese Nombre</string>
@@ -110,13 +116,22 @@
     <string name="nuevo_usuario_web_title">Nuevo Usuario Web</string>
     <string name="title_preference_forma_ordenamiento">Forma de Ordenamiento</string>
     <string name="menu_nuevo_usuario">Registrar Nuevo Usuario</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuración</string>
     <string name="title_activity_historial__bluetooth">Historial_Bluetooth</string>
     <string name="title_activity_new_contact_bluetooth">Nuevo Contacto Bluetooth</string>
     <string name="direccion_ip_servidor">Dirección IP</string>
     <string name="puerto_servidor">Puerto</string>
     <string name="configuracion_servidor">Configuración del servidor</string>
     <string name="guardar">Guardar</string>
+    <string name="direcciones">Direcciones</string>
+    <string name="titulo_programa">TDAM 2012</string>
+    <string name="titulo_nuevo_usuario">Nuevo Usuario</string>
+    <string name="titulo_inicio">Inicio</string>
+    <string name="titulo_conectividad">Conectividad</string>
+    <string name="titulo_perfil_usuario">Perfil del Usuario</string>
+    <string name="titulo_servicio_web">Mensajes Web</string>
+    <string name="titulo_detalle_contacto">Detalle del Contacto</string>
+    <string name="titulo_historial">Historial</string>
 
     <!-- BluetoothChat -->
     <string name="send">Send</string>
@@ -140,5 +155,6 @@
     <string name="discoverable">Make discoverable</string>
     <string name="title_activity_direccion_servidor">Configuración del Servidor</string>
     <string name="title_activity_configuracion_servidor">Configuración del Servidor</string>
+    <string name="title_activity_preference_servicio_web">Preferencias Servicio Web</string>
 
 </resources>

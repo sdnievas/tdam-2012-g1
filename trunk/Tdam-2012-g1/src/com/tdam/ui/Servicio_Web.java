@@ -3,6 +3,7 @@ package com.tdam.ui;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.R.color;
 import android.app.AlertDialog;
@@ -12,9 +13,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.FeatureInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
@@ -28,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tdam.Class.Contacto;
 import com.tdam.Class.HistorialSms;
@@ -53,9 +59,10 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 	private EditText txtMensaje;
 	private Usuario usr;
 	private Boolean actualizar;
+	private int filtro;
 
 	private static final String DIALOG_ERROR = "Error";
-	private static final String DIALOG_MSJ = "No hay conexion a ocurrido un error";
+	private static final String DIALOG_MSJ = "Servidor de Mensajes Web Inaccesible";
 	private static final String DIALOG_BTN = "Aceptar";
 	private static final String LOGIN_SETTINGS = "LoginPreferences";
 	private static final String USER = "User";
@@ -81,12 +88,14 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 		// cargamos el usuario de las shared prefereces
 		cargarUsuario();
 
+		getPreferences();
 		if (contact != null) {
 			txtDestinatario.setText(contact.getuserWeb());
 			txtDestinatario.setEnabled(false);
 			txtDestinatario.setClickable(false);
 			AdapterAndList();
 		}
+
 	}
 
 	public void cargarUsuario() {
@@ -102,6 +111,7 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
+		getPreferences();
 	}
 
 	@Override
@@ -114,26 +124,47 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 		super.onStop();
 	}
 
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_servicio_web, menu);
+		return true;
+	}
+
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnEnviar:
-			nuevoMensaje();
-			ConexionInfo coninf = new ConexionInfo(this);
-			boolean hayconexionInternet = coninf
-					.isInternetConnectionAvailable();
+			if (validarVacio()) {
+				nuevoMensaje();
+				ConexionInfo coninf = new ConexionInfo(this);
+				boolean hayconexionInternet = coninf
+						.isInternetConnectionAvailable();
 
-			if (hayconexionInternet) {
-				NewMsgUserTask _initTask = new NewMsgUserTask(usr, msj, this);
-				_initTask.execute();
-				txtMensaje.setText("");
+				if (hayconexionInternet) {
+					NewMsgUserTask _initTask = new NewMsgUserTask(usr, msj,
+							this);
+					_initTask.execute();
+					txtMensaje.setText("");
+				} else {
+					Dialog dialogo = null;
+					dialogo = createAlertDialog();
+					dialogo.show();
+				}
 			} else {
-				Dialog dialogo = null;
-				dialogo = createAlertDialog();
-				dialogo.show();
+				Toast.makeText(getApplicationContext(), "Campos vacíos",
+						Toast.LENGTH_SHORT).show();
 			}
-
 			break;
 		}
+	}
+
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+
+		case R.id.servicio_web_settings:
+			intent = new Intent(this, Preference_servicio_web.class);
+			break;
+		}
+		startActivity(intent);
+		return true;
 	}
 
 	private Dialog createAlertDialog() {
@@ -142,6 +173,18 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 				.setPositiveButton(DIALOG_BTN, null).setMessage(DIALOG_MSJ)
 				.create();
 		return dialog;
+	}
+
+	private void getPreferences() {
+
+		SharedPreferences myPreference = PreferenceManager
+				.getDefaultSharedPreferences(this);
+
+		String filtroString = myPreference.getString(
+				getString(R.string.preference_Mensaje_Web_Filtrarkey), "0");
+
+		filtro = Integer.parseInt(filtroString);
+
 	}
 
 	private void nuevoMensaje() {
@@ -158,28 +201,54 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 		msj.set_fechaEnvio(fecha);
 	}
 
+	private boolean validarVacio() {
+		boolean campo1 = txtDestinatario.getText().toString().equals("");
+		boolean campo2 = txtMensaje.getText().toString().equals("");
+		return !(campo1 || campo2);
+	}
+
 	private void AdapterAndList() {
 		adapter = new MensajeWebAdapter();
 		getListView().setAdapter(adapter);
 		getListView().setOnItemClickListener(this);
 		getListView().setOnItemLongClickListener(this);
 		loadWebSmsData();
+
 	}
 
 	public void loadWebSmsData() {
 
 		ArrayList<MensajeWeb> mensajesWeb = null;
-		if (contact != null)
-			mensajesWeb = SingletonDB.getInstance(getApplicationContext())
-					.getDatabaseHelper().getContactoMensajeWeb(contact, usr);
-		else {
-			Contacto cont = new Contacto();
-			cont.setUserWeb(txtDestinatario.getText().toString());
-			mensajesWeb = SingletonDB.getInstance(getApplicationContext())
-					.getDatabaseHelper().getContactoMensajeWeb(cont, usr);
+		if (filtro == 0) {
+			if (contact != null)
+				mensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper()
+						.getContactoMensajeWeb(contact, usr, "asc");
+			else {
+				Contacto cont = new Contacto();
+				cont.setUserWeb(txtDestinatario.getText().toString());
+				mensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper()
+						.getContactoMensajeWeb(cont, usr, "asc");
 
+			}
+		} else {
+			if (contact != null)
+				mensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper()
+						.getContactoMensajeWeb(contact, usr, "desc", filtro);
+			else {
+				Contacto cont = new Contacto();
+				cont.setUserWeb(txtDestinatario.getText().toString());
+				mensajesWeb = SingletonDB.getInstance(getApplicationContext())
+						.getDatabaseHelper()
+						.getContactoMensajeWeb(cont, usr, "desc", filtro);
+
+			}
 		}
 		adapter.addListHistorial(mensajesWeb);
+		this.setSelection(adapter.getCount() - 1);
+		adapter.notifyDataSetChanged();
 	}
 
 	protected DatabaseHelper getDatabaseHelper() {
@@ -318,12 +387,25 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 						user.get_contraseña(), this.context);
 				result = webser.sendMessage(msj);
 			} catch (Exception e) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(context)
+						.setIcon(R.drawable.image_notification);
+				builder.setTitle(context.getString(R.string.dialog_info));
+				builder.setMessage(R.string.dialog_errormsg);
+				builder.setPositiveButton(R.string.dialog_btn, null);
+				builder.show();
 			}
 
 			if (result != null && WebServiceInfo.SUCCESS == result.getCode()) {
 				msj.setType(Type.salida.ordinal());
 				SingletonDB.getInstance(context).getDatabaseHelper()
 						.addMensaje(msj);
+			} else {
+				AlertDialog.Builder builder = new AlertDialog.Builder(context)
+						.setIcon(R.drawable.image_notification);
+				builder.setTitle(context.getString(R.string.dialog_info));
+				builder.setMessage(R.string.dialog_errormsg);
+				builder.setPositiveButton(R.string.dialog_btn, null);
+				builder.show();
 			}
 
 			return result;
