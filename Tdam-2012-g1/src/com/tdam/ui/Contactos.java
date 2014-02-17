@@ -6,17 +6,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.tdam.Suport.*;
-import com.tdam.Bluetooth.BluetoothChat;
-import com.tdam.Class.Contacto;
-import com.tdam.Class.ContactoBluetooth;
-import com.tdam.Class.ContactoWeb;
-import com.tdam.Database.SingletonDB;
-import com.tdam_2012_g1.R;
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ContentResolver;
@@ -29,21 +18,31 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.tdam.Class.Contacto;
+import com.tdam.Class.ContactoWeb;
+import com.tdam.Database.SingletonDB;
+import com.tdam.Suport.QuickActionWindow;
+import com.tdam_2012_g1.R;
 
 public class Contactos extends ListActivity implements OnItemClickListener,
 		TextWatcher {
@@ -370,16 +369,6 @@ public class Contactos extends ListActivity implements OnItemClickListener,
 			contact.addDireccion(address);
 		}
 		addresCur.close();
-
-	}
-
-	private void loadUserContactBluetooth(Contacto contact) {
-		ContactoBluetooth contblue = SingletonDB.getInstance(mContext)
-				.getDatabaseHelper().getNameContactBluetooth(contact.getId());
-		if (contblue != null) {
-			contact.setMACBluetooth(contblue.get_Mac());
-			contact.setNomUserBluetooth(contblue.get_nombreBluetooth());
-		}
 
 	}
 

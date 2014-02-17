@@ -98,6 +98,11 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 
 	}
 
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.activity_servicio_web, menu);
+		return true;
+	}
+
 	public void cargarUsuario() {
 
 		SharedPreferences preferences = getSharedPreferences(LOGIN_SETTINGS,
@@ -122,11 +127,6 @@ public class Servicio_Web extends ListActivity implements OnClickListener,
 	@Override
 	protected void onStop() {
 		super.onStop();
-	}
-
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_servicio_web, menu);
-		return true;
 	}
 
 	public void onClick(View v) {

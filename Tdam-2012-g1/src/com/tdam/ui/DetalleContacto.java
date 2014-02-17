@@ -4,25 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
-
-import com.tdam.Bluetooth.BluetoothChat;
-import com.tdam.Bluetooth.DeviceListActivity;
-import com.tdam.Class.Contacto;
-import com.tdam.Class.ContactoBluetooth;
-import com.tdam.Class.ContactoWeb;
-import com.tdam.Class.Mail;
-import com.tdam.Class.Usuario;
-import com.tdam.Database.DatabaseHelper;
-import com.tdam.Database.SingletonDB;
-import com.tdam_2012_g1.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.bluetooth.BluetoothDevice;
 import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,14 +26,22 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.tdam.Class.Contacto;
+import com.tdam.Class.ContactoWeb;
+import com.tdam.Class.Mail;
+import com.tdam.Class.Usuario;
+import com.tdam.Database.DatabaseHelper;
+import com.tdam.Database.SingletonDB;
+import com.tdam_2012_g1.R;
 
 public class DetalleContacto extends Activity implements OnClickListener {
 
@@ -139,16 +133,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 
 		});
 
-		lvBTUser.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				MsgBlueToothTo(position); // llama al metodo cuando se quiere
-											// enviar un mensaje por bluetooth
-
-			}
-
-		});
 
 		lvDirecciones.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -323,17 +307,6 @@ public class DetalleContacto extends Activity implements OnClickListener {
 				startActivityForResult(intent, REQUEST_WEBUSER);
 			}
 			break;
-
-		case R.id.userdetalle_newuserbluetooth:
-			if (contact.getNomUserBluetooth() != null) {
-				Toast toast = Toast.makeText(this,
-						"El contacto ya posee usuario bluetooth", 1000);
-				toast.show();
-			} else {
-				intent = new Intent(this, DeviceListActivity.class);
-				startActivityForResult(intent, REQUEST_CONNECT_DEVICE);
-			}
-			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -403,37 +376,11 @@ public class DetalleContacto extends Activity implements OnClickListener {
 
 	}
 
-	private void MsgBlueToothTo(int position) {
-		intent = new Intent(this, BluetoothChat.class);
-		intent.putExtra(CONTACT, contact.getMACBluetooth());
-		startActivity(intent);
-	}
-
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (D)
 			Log.d(TAG, "onActivityResult " + resultCode);
 		switch (requestCode) {
-		case REQUEST_CONNECT_DEVICE:
-			// When DeviceListActivity returns with a device to connect
-			if (resultCode == Activity.RESULT_OK) {
-				// Get the device MAC address
-				adress = data.getExtras().getString(
-						DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-				String Name = data.getExtras().getString(
-						DeviceListActivity.EXTRA_DEVICE_NAME);
-
-				String[] ad = { Name, adress };
-				lvBTUser.setAdapter(new ArrayAdapter<String>(this,
-						android.R.layout.simple_list_item_1, ad));
-				ContactoBluetooth contactb = new ContactoBluetooth();
-				contactb.set_Mac(adress);
-				contactb.set_nombreBluetooth(Name);
-				contactb.set_id(Integer.parseInt(contact.getId()));
-				SingletonDB.getInstance(getApplicationContext())
-						.getDatabaseHelper().addContactoBluetooth(contactb);
-				CargarListas();
-			}
-			break;
+		
 
 		case REQUEST_WEBUSER:
 			if (resultCode == Activity.RESULT_OK) {
